@@ -1,0 +1,114 @@
+[
+  {
+    "objectID": "research.html",
+    "href": "research.html",
+    "title": "Research",
+    "section": "",
+    "text": "This project studies decision-making in Werewolf games from a mathematical and computational perspective.\nThe research is organized around three main areas:\n\nMathematical modelling\nSimulation and experimentation\nAI-based decision-making"
+  },
+  {
+    "objectID": "research.html#overview",
+    "href": "research.html#overview",
+    "title": "Research",
+    "section": "",
+    "text": "This project studies decision-making in Werewolf games from a mathematical and computational perspective.\nThe research is organized around three main areas:\n\nMathematical modelling\nSimulation and experimentation\nAI-based decision-making"
+  },
+  {
+    "objectID": "research.html#mathematical-modelling",
+    "href": "research.html#mathematical-modelling",
+    "title": "Research",
+    "section": "Mathematical Modelling",
+    "text": "Mathematical Modelling\nThe first stage is to construct mathematical models that describe the progression of a Werewolf game.\nA simplified game can be represented using variables such as:\n\n(m): number of villagers\n(n): number of werewolves\nthe current game state\npossible actions\nthe probability of each outcome\n\nThese models provide a foundation for analysing more complex game situations."
+  },
+  {
+    "objectID": "research.html#decision-making",
+    "href": "research.html#decision-making",
+    "title": "Research",
+    "section": "Decision Making",
+    "text": "Decision Making\nThe long-term goal is to investigate how an AI can select actions under incomplete information.\nIn a Werewolf game, the AI does not know the roles of all players. Therefore, decisions must be made using incomplete and uncertain information.\nThe project will investigate how probabilities, role information, game history, and possible future states can be combined to evaluate different actions."
+  },
+  {
+    "objectID": "research.html#current-research",
+    "href": "research.html#current-research",
+    "title": "Research",
+    "section": "Current Research",
+    "text": "Current Research\nThe initial research focuses on the probability of winning under simplified Werewolf game rules.\nFuture work will extend these models toward more realistic game mechanics and AI decision-making."
+  },
+  {
+    "objectID": "experiments.html",
+    "href": "experiments.html",
+    "title": "Experiments",
+    "section": "",
+    "text": "This page documents computational experiments conducted as part of the Werewolf Decision AI project.\nExperiments will be used to compare mathematical predictions, simulation results, and AI decision-making."
+  },
+  {
+    "objectID": "experiments.html#overview",
+    "href": "experiments.html#overview",
+    "title": "Experiments",
+    "section": "",
+    "text": "This page documents computational experiments conducted as part of the Werewolf Decision AI project.\nExperiments will be used to compare mathematical predictions, simulation results, and AI decision-making."
+  },
+  {
+    "objectID": "experiments.html#experiment-1-werewolf-win-probability",
+    "href": "experiments.html#experiment-1-werewolf-win-probability",
+    "title": "Experiments",
+    "section": "Experiment 1 — Werewolf Win Probability",
+    "text": "Experiment 1 — Werewolf Win Probability\nThe first experiment investigates the probability of winning in a simplified Werewolf game.\n\nResearch Question\nHow does the number of villagers and werewolves affect the probability of a werewolf victory?\n\n\nMethod\nA simplified game model is defined in which:\n\nplayers are divided into villagers and werewolves;\none player is eliminated during the day;\na werewolf eliminates a villager during the night;\nthe game continues until one side reaches its victory condition.\n\nThe theoretical probability will be compared with results obtained through repeated simulations.\n\n\nResults\nResults will be added here after the simulation has been implemented."
+  },
+  {
+    "objectID": "experiments.html#future-experiments",
+    "href": "experiments.html#future-experiments",
+    "title": "Experiments",
+    "section": "Future Experiments",
+    "text": "Future Experiments\nPlanned experiments include:\n\nComparing different game configurations\nMeasuring the value of role information\nEvaluating different decision-making strategies\nDeveloping an AI for game progression\nComparing AI decisions with mathematically calculated probabilities"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Werewolf Decision AI",
+    "section": "",
+    "text": "This project investigates decision-making in Werewolf games using mathematical modelling, simulation, and artificial intelligence.\nThe aim is to develop a system that can reason about game states, evaluate possible actions, and make decisions under incomplete information."
+  },
+  {
+    "objectID": "index.html#about-this-project",
+    "href": "index.html#about-this-project",
+    "title": "Werewolf Decision AI",
+    "section": "",
+    "text": "This project investigates decision-making in Werewolf games using mathematical modelling, simulation, and artificial intelligence.\nThe aim is to develop a system that can reason about game states, evaluate possible actions, and make decisions under incomplete information."
+  },
+  {
+    "objectID": "index.html#research-questions",
+    "href": "index.html#research-questions",
+    "title": "Werewolf Decision AI",
+    "section": "Research Questions",
+    "text": "Research Questions\n\nHow can a Werewolf game be represented as a mathematical state?\nHow can the value of different roles and pieces of information be quantified?\nHow should an AI choose actions under incomplete information?\nHow do different strategies affect the probability of winning?"
+  },
+  {
+    "objectID": "index.html#research",
+    "href": "index.html#research",
+    "title": "Werewolf Decision AI",
+    "section": "Research",
+    "text": "Research\nThe project combines:\n\nMathematical modelling\nProbability theory\nGame theory\nSimulation\nArtificial intelligence\n\nThe initial research focuses on mathematical models of Werewolf win probability and gradually extends toward AI-based decision-making."
+  },
+  {
+    "objectID": "index.html#research-notes",
+    "href": "index.html#research-notes",
+    "title": "Werewolf Decision AI",
+    "section": "Research Notes",
+    "text": "Research Notes\nResearch notes, mathematical models, experiments, and results will be published as the project develops."
+  },
+  {
+    "objectID": "index.html#code",
+    "href": "index.html#code",
+    "title": "Werewolf Decision AI",
+    "section": "Code",
+    "text": "Code\nThe source code and computational experiments are available on GitHub."
+  }
+]
