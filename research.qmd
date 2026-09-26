@@ -1,0 +1,51 @@
+---
+title: "Research"
+---
+
+## Overview
+
+This project studies decision-making in Werewolf games from a
+mathematical and computational perspective.
+
+The research is organized around three main areas:
+
+1. Mathematical modelling
+2. Simulation and experimentation
+3. AI-based decision-making
+
+## Mathematical Modelling
+
+The first stage is to construct mathematical models that describe
+the progression of a Werewolf game.
+
+A simplified game can be represented using variables such as:
+
+- \(m\): number of villagers
+- \(n\): number of werewolves
+- the current game state
+- possible actions
+- the probability of each outcome
+
+These models provide a foundation for analysing more complex game
+situations.
+
+## Decision Making
+
+The long-term goal is to investigate how an AI can select actions
+under incomplete information.
+
+In a Werewolf game, the AI does not know the roles of all players.
+Therefore, decisions must be made using incomplete and uncertain
+information.
+
+The project will investigate how probabilities, role information,
+game history, and possible future states can be combined to evaluate
+different actions.
+
+## Current Research
+
+The initial research focuses on the probability of winning under
+simplified Werewolf game rules.
+
+Future work will extend these models toward more realistic game
+mechanics and AI decision-making.

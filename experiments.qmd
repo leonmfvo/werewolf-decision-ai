@@ -1,0 +1,47 @@
+---
+title: "Experiments"
+---
+
+## Overview
+
+This page documents computational experiments conducted as part of
+the Werewolf Decision AI project.
+
+Experiments will be used to compare mathematical predictions,
+simulation results, and AI decision-making.
+
+## Experiment 1 — Werewolf Win Probability
+
+The first experiment investigates the probability of winning in a
+simplified Werewolf game.
+
+### Research Question
+
+How does the number of villagers and werewolves affect the
+probability of a werewolf victory?
+
+### Method
+
+A simplified game model is defined in which:
+
+- players are divided into villagers and werewolves;
+- one player is eliminated during the day;
+- a werewolf eliminates a villager during the night;
+- the game continues until one side reaches its victory condition.
+
+The theoretical probability will be compared with results obtained
+through repeated simulations.
+
+### Results
+
+Results will be added here after the simulation has been implemented.
+
+## Future Experiments
+
+Planned experiments include:
+
+- Comparing different game configurations
+- Measuring the value of role information
+- Evaluating different decision-making strategies
+- Developing an AI for game progression
+- Comparing AI decisions with mathematically calculated probabilities

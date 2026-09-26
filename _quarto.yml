@@ -1,0 +1,29 @@
+project:
+  type: website
+
+website:
+  title: "Werewolf Decision AI"
+
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: research.qmd
+        text: Research
+      - href: experiments.qmd
+        text: Experiments
+      - href: about.qmd
+        text: About
+
+    right:
+      - icon: github
+        href: https://github.com/leonmfvo/werewolf-decision-ai
+        aria-label: GitHub
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
