@@ -1,0 +1,128 @@
+[
+  {
+    "objectID": "research.html",
+    "href": "research.html",
+    "title": "Research",
+    "section": "",
+    "text": "This project studies decision-making in Werewolf games from a mathematical and computational perspective.\nThe research is organized around three main areas:\n\nMathematical modelling\nSimulation and experimentation\nAI-based decision-making"
+  },
+  {
+    "objectID": "research.html#overview",
+    "href": "research.html#overview",
+    "title": "Research",
+    "section": "",
+    "text": "This project studies decision-making in Werewolf games from a mathematical and computational perspective.\nThe research is organized around three main areas:\n\nMathematical modelling\nSimulation and experimentation\nAI-based decision-making"
+  },
+  {
+    "objectID": "research.html#mathematical-modelling",
+    "href": "research.html#mathematical-modelling",
+    "title": "Research",
+    "section": "Mathematical Modelling",
+    "text": "Mathematical Modelling\nThe first stage is to construct mathematical models that describe the progression of a Werewolf game.\nA simplified game can be represented using variables such as:\n\n(m): number of villagers\n(n): number of werewolves\nthe current game state\npossible actions\nthe probability of each outcome\n\nThese models provide a foundation for analysing more complex game situations."
+  },
+  {
+    "objectID": "research.html#decision-making",
+    "href": "research.html#decision-making",
+    "title": "Research",
+    "section": "Decision Making",
+    "text": "Decision Making\nThe long-term goal is to investigate how an AI can select actions under incomplete information.\nIn a Werewolf game, the AI does not know the roles of all players. Therefore, decisions must be made using incomplete and uncertain information.\nThe project will investigate how probabilities, role information, game history, and possible future states can be combined to evaluate different actions."
+  },
+  {
+    "objectID": "research.html#current-research",
+    "href": "research.html#current-research",
+    "title": "Research",
+    "section": "Current Research",
+    "text": "Current Research\nThe initial research focuses on the probability of winning under simplified Werewolf game rules.\nFuture work will extend these models toward more realistic game mechanics and AI decision-making."
+  },
+  {
+    "objectID": "experiments.html",
+    "href": "experiments.html",
+    "title": "Experiments",
+    "section": "",
+    "text": "This page documents computational experiments conducted as part of the Werewolf Decision AI project.\nExperiments will be used to compare mathematical predictions, simulation results, and AI decision-making."
+  },
+  {
+    "objectID": "experiments.html#overview",
+    "href": "experiments.html#overview",
+    "title": "Experiments",
+    "section": "",
+    "text": "This page documents computational experiments conducted as part of the Werewolf Decision AI project.\nExperiments will be used to compare mathematical predictions, simulation results, and AI decision-making."
+  },
+  {
+    "objectID": "experiments.html#experiment-1-werewolf-win-probability",
+    "href": "experiments.html#experiment-1-werewolf-win-probability",
+    "title": "Experiments",
+    "section": "Experiment 1 — Werewolf Win Probability",
+    "text": "Experiment 1 — Werewolf Win Probability\nThe first experiment investigates the probability of winning in a simplified Werewolf game.\n\nResearch Question\nHow does the number of villagers and werewolves affect the probability of a werewolf victory?\n\n\nMethod\nA simplified game model is defined in which:\n\nplayers are divided into villagers and werewolves;\none player is eliminated during the day;\na werewolf eliminates a villager during the night;\nthe game continues until one side reaches its victory condition.\n\nThe theoretical probability will be compared with results obtained through repeated simulations.\n\n\nResults\nResults will be added here after the simulation has been implemented."
+  },
+  {
+    "objectID": "experiments.html#future-experiments",
+    "href": "experiments.html#future-experiments",
+    "title": "Experiments",
+    "section": "Future Experiments",
+    "text": "Future Experiments\nPlanned experiments include:\n\nComparing different game configurations\nMeasuring the value of role information\nEvaluating different decision-making strategies\nDeveloping an AI for game progression\nComparing AI decisions with mathematically calculated probabilities"
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Werewolf Decision AI",
+    "section": "",
+    "text": "This project investigates decision-making in Werewolf games using mathematical modelling, simulation, and artificial intelligence.\nThe aim is to develop a system that can reason about game states, evaluate possible actions, and make decisions under incomplete information."
+  },
+  {
+    "objectID": "index.html#about-this-project",
+    "href": "index.html#about-this-project",
+    "title": "Werewolf Decision AI",
+    "section": "",
+    "text": "This project investigates decision-making in Werewolf games using mathematical modelling, simulation, and artificial intelligence.\nThe aim is to develop a system that can reason about game states, evaluate possible actions, and make decisions under incomplete information."
+  },
+  {
+    "objectID": "index.html#research-questions",
+    "href": "index.html#research-questions",
+    "title": "Werewolf Decision AI",
+    "section": "Research Questions",
+    "text": "Research Questions\n\nHow can a Werewolf game be represented as a mathematical state?\nHow can the value of different roles and pieces of information be quantified?\nHow should an AI choose actions under incomplete information?\nHow do different strategies affect the probability of winning?"
+  },
+  {
+    "objectID": "index.html#research",
+    "href": "index.html#research",
+    "title": "Werewolf Decision AI",
+    "section": "Research",
+    "text": "Research\nThe project combines:\n\nMathematical modelling\nProbability theory\nGame theory\nSimulation\nArtificial intelligence\n\nThe initial research focuses on mathematical models of Werewolf win probability and gradually extends toward AI-based decision-making."
+  },
+  {
+    "objectID": "index.html#research-notes",
+    "href": "index.html#research-notes",
+    "title": "Werewolf Decision AI",
+    "section": "Research Notes",
+    "text": "Research Notes\nResearch notes, mathematical models, experiments, and results will be published as the project develops."
+  },
+  {
+    "objectID": "index.html#code",
+    "href": "index.html#code",
+    "title": "Werewolf Decision AI",
+    "section": "Code",
+    "text": "Code\nThe source code and computational experiments are available on GitHub."
+  },
+  {
+    "objectID": "research.html#research-notes",
+    "href": "research.html#research-notes",
+    "title": "Research",
+    "section": "Research Notes",
+    "text": "Research Notes\n\n人狼AIの制作とその限界\n特徴量に基づく意思決定と推論型AIについて考察した研究ノートです\nRead the research note →"
+  },
+  {
+    "objectID": "ai-limitations.html",
+    "href": "ai-limitations.html",
+    "title": "人狼AIの制作とその限界",
+    "section": "",
+    "text": "▍はじめに\n2026年8月頃から、人狼ゲームにおいて意思決定を行うAIの制作を進めています。\n人狼ゲームは、各プレイヤーの役職など、ゲームに関する情報の一部が公開されていない「不完全情報ゲーム」です。そのため、他のプレイヤーの行動や発言などから、そのプレイヤーが自分の陣営にとって「敵なのか、味方なのか」を判断する必要があります。\nしたがって、人狼ゲームにおける意思決定では、単に現在のゲーム状態を評価するだけではなく、他のプレイヤーの行動がどのような意味を持つのか、また、その行動が村人陣営・人狼陣営のどちらにとって合理的なのかを評価することが重要になります。\nこれが、後々AI制作の大きな鍵になっていきます。\n\n\n▍AIの作成\n最初の試みとして、ゲーム中の様々な情報を「特徴量」として与え、その特徴量から勝率の高い行動を選択するAIを制作しました。\nこの方法によって、実際に人狼ゲームを進行させるAIを作ることはできました。しかし、制作を進める中で、既存の方法に限界を感じ始めるようになりました。\nそれは、\n「正しい行動を選択できること」と「なぜその行動が合理的なのかを推論できること」は、大きく異なるのではないか。\nという疑問です。\n機械学習を利用したAIでは、ゲームの状態を様々な特徴量として表現し、それらを基に行動を選択するという方法が考えられます。\n例えば、\n\n誰に投票したか\n誰を占ったか\n現在の生存人数\n各役職のCO状況\n何日目にCOしたか\n\nなどです。\nこれらの情報とゲームの勝敗を大量に学習させることで、\n「このような特徴を持つ状況では、この行動をとると勝率が高い」\nという関係をAIに学習させることができます。\nこの方法には明確な利点があります。\n実際に、私が制作した初期の人狼AIにおいても、この方法によって一定のゲーム進行を実現することができました。\nしかし、同時に別の問題も生じました。\n「AIが正しい行動を選択できたとして、その行動を選択する根拠までAI自身が扱えているのだろうか。」\nここで、初期のAIを制作する過程で現れた「占い師のCO」を例に、この問題を考えてみます。\n\n\n▍初期のAI制作で生じた具体例\n今回想定している人狼ゲームでは、占い師はゲーム開始直後の初日にCOすることを基本的なルールとして設定しています。\n一方、人狼陣営がこのルールを利用し、初日はCOせず、二日目以降になってから占い師としてCOするケースを考えます。\nこのような状況では、プレイヤーは、\n「今回のルールでは、占い師は初日にCOすることが前提になっている。それにもかかわらず、このプレイヤーは2日目になってから占い師COをしている。したがって、このCOは偽である可能性が高い。」\nという判断をすることが考えられます。\nしかし、私が制作した初期のAIでは、この判断を直接的なルールとして与えるのではなく、「何日目にCOしたか」という情報を特徴量として与える方法を取りました。\nそして、大量のゲームをシミュレーションした結果、\n2日目以降にCOした占い師を処刑すると、村人陣営の勝率が高くなる\nという傾向をAIが獲得することができました。\nつまり、結果としては、人間のプレイヤーと同じような行動を選択することができました。\nしかし、ここには重要な違いがあります。\n\n\n▍「正しい行動」と「正しい理由」は同じなのか\n人間のプレイヤーがこの状況を判断する場合、その根拠の一つとして、ゲームのルールを利用することができます。\n例えば、次のような流れです。\n【ルール】\n占い師は初日にCOする\n        ↓\n【観察】\nプレイヤーAは2日目に占い師COした\n        ↓\n【推論】\nプレイヤーAの行動は通常のCOルールと矛盾する\n        ↓\n【仮説】\nプレイヤーAの占い師COは偽である可能性が高い\n        ↓\n【意思決定】\nプレイヤーAを処刑候補とする\n一方、今回の特徴量に基づくAIでは、少なくとも次のような関係から行動が選択されています。\n2日目以降に占いCOした\n        ↓\n過去の大量のゲーム結果\n        ↓\nこの特徴を持つプレイヤーを処刑した場合、\n村人陣営の勝率が高かった\n        ↓\nプレイヤーAを処刑する\n両者は、同じ行動を選択する可能性があります。\nしかし、意思決定に利用している情報の構造は異なります。\n人間は、今回のルール設定における「占い師は初日にCOする」という知識を利用して、観察された行動との矛盾を判断できます。\n一方、今回のAIは、「2日目以降にCOした」という特徴と、その後のゲーム結果との関係を学習しています。\nこの違いは、単なる説明可能性の問題にとどまらないのではないかと考えています。\n\n\n▍課題① 他の状況への応用が難しい\nここで生じる問題の一つが、学習した特徴と結果の関係を、別の状況に応用することの難しさです。\n例えば、今回のゲームでは、占い師だけでなく、霊能者についても初日にCOすることがルールとして定められているとします。\nこの場合、人間は、\n「占い師が初日にCOするのは、今回のゲームルールに基づいている」\nという一般的な知識を利用することで、\n「霊能者についても同じルールが設定されている」\nという情報から、類似した状況を判断できます。\nつまり、人間のプレイヤーは、個別の事例だけではなく、その背後にあるルールや関係を利用することができます。\n一方で、\n「2日目に占いCOしたプレイヤーは怪しい」\nという特徴と結果の関係を学習しただけのAIが、\n「では、2日目に霊能COしたプレイヤーについても同じ論理が成立する」\nと自動的に判断できるとは限りません。\nこの問題は、\n「学習した知識を、どのように別の状況へ一般化するのか」\nという問題につながっています。\n\n\n▍課題② 行動の意味を説明できない\nもう一つの問題は、AIが選択した行動について、その根拠をどのように扱うのかということです。\n人狼ゲームでは、単に正しい行動を取るだけでは十分ではありません。\n例えば、あるプレイヤーを処刑すると判断した場合、\n「この人を処刑すると勝率が高い」\nという情報だけでは、他のプレイヤーを納得させることは難しいでしょう。\n人狼では、\n\nなぜこのプレイヤーが人狼だと考えられるのか\nその行動は村人陣営にとって合理的なのか\nその行動は人狼陣営にとって合理的なのか\n他の可能性を考えた場合にも、この判断が成立するのか\n\nといった、行動の意味や根拠を考える必要があります。\nところが、意思決定が特徴量と勝率の関係だけによって決定されている場合、その判断をゲーム上の意味に基づいて説明することは難しくなります。\n\n\n▍「特徴量 → 行動 → 後付けの説明」というアプローチ\nここで、特徴量に基づく意思決定に、言語による説明を組み合わせる方法も考えられます。\n例えば、\n特徴量\n   ↓\nAIが行動を決定\n   ↓\n「なぜこの行動を選んだのか」を言語化\nという仕組みです。\nこの方法によって、AIが選択した行動に対して、人間が理解しやすい説明を生成することは可能になると考えられます。\nしかし、これだけでは根本的な問題を解決できていない可能性があります。\nなぜなら、この構成だけでは、生成された説明がAIの実際の意思決定過程をどの程度反映しているのかを保証することが難しいからです。\n例えば、\n「プレイヤーAは初日にCOしなかったため、偽占い師である可能性が高いと判断しました。」\nという説明が生成されたとしても、その説明がAIの行動決定に実際に利用された情報なのか、それとも行動決定後に生成された説明なのかを、この構成だけから区別することは困難です。\nしたがって、もしAIにゲーム上の意味を利用した推論をさせたいのであれば、\n行動した後に理由を説明させるのではなく、行動を決定する過程そのものに推論を組み込む必要があるのではないか。\nと考えています。\n\n\n▍推論型の人狼AI\nそこで現在考えているのが、「推論型の人狼AI」です。\nこれは、特徴量から直接行動を決定するのではなく、複数の事実やルールを組み合わせ、その結果として行動を導き出すAIです。\n例えば、単純化すると、\nAだからB\nBだからC\nしたがってAだからC\nというような論理的な関係を、AIの意思決定の中に持たせます。\n人狼ゲームに当てはめれば、例えば次のような構造になります。\n【ルール】\n今回のゲームでは、占い師は初日にCOする\n        ↓\n【観察】\nプレイヤーAは2日目に占い師COした\n        ↓\n【推論】\nプレイヤーAの行動は通常のCOルールと矛盾する\n        ↓\n【仮説】\nプレイヤーAの占い師COは偽である可能性が高い\n        ↓\n【意思決定】\nプレイヤーAを処刑候補とする\nこの場合、AIの行動は単なる「勝率の高い行動」として選択されるのではなく、明示された事実やルール、そこから導かれる推論の結果として決定されます。\nここに、現在の特徴量ベースのAIとは異なる可能性があると考えています。\n\n\n▍実装における新たな壁\nここまで考えると、次の問題が生じます。\nそもそも、推論を行うAIをどのようにプログラムすればよいのでしょうか。\n人間は自然に、\n「AだからB」\n「BだからC」\n「したがってAだからC」\nという推論を行っているように見えます。\nしかし、コンピュータ上でこのような推論をどのように表現し、実装するのかは簡単ではありません。\n例えば、ゲームのルールをすべて人間が記述し、\nRule 1\nRule 2\nRule 3\n...\nという形でAIに与える方法が考えられます。\nしかし、人狼ゲームでは、状況が複雑になるにつれて、考慮すべきルールや例外も増えていきます。\nまた、ルールだけではなく、\n\n他プレイヤーの行動\n過去の投票結果\nCO状況\n占い結果\n発言\n各プレイヤーが持っている可能性のある情報\n\nなど、多くの情報を組み合わせる必要があります。\nそのため、すべての推論規則を人間が事前に記述することにも限界があります。\n一方、現在の対話型AIは、推論を行っているように見える文章を生成することができます。\nしかし、出力された文章が論理的に見えることと、AI内部でどのような推論過程が行われているのかは同じ問題ではありません。\nそのため、\n\n「現在のAIはどの程度、明示的な論理構造に基づいて推論しているのか」\n\nという問題についても、今後検討する必要があります。\nさらに、\n\n「推論を成立させるために、大規模な学習はどの程度必要なのか」\n\nという問題もあります。\n\n\n▍今後の展望とリサーチクエスチョン\n現時点では、まだこの問題に対する明確な答えを持っているわけではありません。\nむしろ、初期の人狼AIを制作したことで、\n「勝率の高い行動を選択できるAI」と「その行動がなぜ合理的なのかを推論できるAI」は同じものなのか？\nという新しい疑問が生まれました。\n今後は、まず特徴量に基づく現在のAIをさらに発展させながら、その意思決定過程を分析したいと考えています。\nその上で、\n\n特徴量に基づく意思決定\n明示的なルールに基づく推論\n特徴量とルールを組み合わせたハイブリッド型\n\nなどを比較することが考えられます。\n例えば、それぞれの方法について、\n\n勝率\n未知の状況への一般化\n推論過程の追跡可能性\n判断根拠の説明可能性\n実装に必要な知識量\n\nなどを比較することで、それぞれの方法の特徴を明らかにできる可能性があります。\n最終的には、\n人狼ゲームにおいて、AIが「勝つための行動」を選択するだけではなく、「なぜその行動が合理的なのか」を推論し、その推論を別の状況にも適用できるようにするにはどうすればよいのか。\nという問題を研究したいと考えています。\nそして、現時点で最も大きな問いとして残っているのは、\n「推論するAI」を作るために、大規模な学習は本当に必要なのでしょうか。それとも、学習とは異なる形で推論能力を構築することができるのでしょうか。\nということです。\nこの問いに対する答えを探すことが、今後の人狼AI研究における一つの大きな方向性になると考えています。"
+  }
+]

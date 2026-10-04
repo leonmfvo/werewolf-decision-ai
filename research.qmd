@@ -49,3 +49,11 @@ simplified Werewolf game rules.
 
 Future work will extend these models toward more realistic game
 mechanics and AI decision-making.
+
+## Research Notes
+
+### 人狼AIの制作とその限界
+
+特徴量に基づく意思決定と推論型AIについて考察した研究ノートです
+
+[Read the research note →](ai-limitations.qmd)
