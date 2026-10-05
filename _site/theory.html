@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Werewolf Decision AI</title>
+<title>Theory – Werewolf Decision AI</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -96,11 +96,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./research/index.html"> 
+    <a class="nav-link" href="./research.html"> 
 <span class="menu-text">Research</span></a>
   </li>  
   <li class="nav-item">
@@ -108,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Mathematics</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./theory/index.html"> 
+    <a class="nav-link active" href="./theory.html" aria-current="page"> 
 <span class="menu-text">Theory</span></a>
   </li>  
   <li class="nav-item">
@@ -138,11 +138,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#本研究について" id="toc-本研究について" class="nav-link active" data-scroll-target="#本研究について">本研究について</a></li>
-  <li><a href="#研究課題" id="toc-研究課題" class="nav-link" data-scroll-target="#研究課題">研究課題</a></li>
-  <li><a href="#研究領域" id="toc-研究領域" class="nav-link" data-scroll-target="#研究領域">研究領域</a></li>
-  <li><a href="#研究ノート" id="toc-研究ノート" class="nav-link" data-scroll-target="#研究ノート">研究ノート</a></li>
-  <li><a href="#コードリポジトリ" id="toc-コードリポジトリ" class="nav-link" data-scroll-target="#コードリポジトリ">コード・リポジトリ</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
+  <li><a href="#theory-notes" id="toc-theory-notes" class="nav-link" data-scroll-target="#theory-notes">Theory Notes</a>
+  <ul class="collapse">
+  <li><a href="#人狼aiの制作とその限界" id="toc-人狼aiの制作とその限界" class="nav-link" data-scroll-target="#人狼aiの制作とその限界">人狼AIの制作とその限界</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -151,8 +151,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Werewolf Decision AI</h1>
-<p class="subtitle lead">A mathematical and computational study of decision-making in Werewolf games.</p>
+<h1 class="title">Theory</h1>
 </div>
 
 
@@ -169,40 +168,19 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="本研究について" class="level2">
-<h2 class="anchored" data-anchor-id="本研究について">本研究について</h2>
-<p>本サイトでは、数理モデリング・計算シミュレーション・人工知能（AI）のアプローチを統合し、不完全情報ゲームである「人狼ゲーム」における意思決定メカニズムを研究・解明する試みや、人狼ゲームを数理的に捉えてその構造を明らかにする研究を行っています</p>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<p>ここでは、人狼ゲームに関する独自の理論や仮説・予想について述べています。</p>
 </section>
-<section id="研究課題" class="level2">
-<h2 class="anchored" data-anchor-id="研究課題">研究課題</h2>
-<p>研究過程で解決を目標としている課題</p>
-<p><strong>1. 人狼ゲームの配役10A狩・12A猫の初日人狼陣営CO戦略のナッシュ均衡</strong><br>
-<strong>2. AIはいかにして「推論する」のか</strong><br>
-<strong>3. 盤面情報を入力として、最適なゲーム進行を出力するAIの開発</strong></p>
-</section>
-<section id="研究領域" class="level2">
-<h2 class="anchored" data-anchor-id="研究領域">研究領域</h2>
-<p>本研究は、以下の学術領域を横断・融合して進めています。</p>
-<ul>
-<li><strong>Mathematical Modelling</strong>（数理モデリング）</li>
-<li><strong>Probability Theory</strong>（確率過程・確率論）</li>
-<li><strong>Game Theory</strong>（ゲーム理論）</li>
-<li><strong>Simulation</strong>（計算機シミュレーション）</li>
-<li><strong>Artificial Intelligence</strong>（推論型AI・機械学習）</li>
-</ul>
-<p>初期フェーズでは人狼モデルにおける勝率分布の数理構造を解析し、得られた理論的基盤を軸に、推論型意思決定AIの実装・評価へと段階的に拡張していきます。</p>
-</section>
-<section id="研究ノート" class="level2">
-<h2 class="anchored" data-anchor-id="研究ノート">研究ノート</h2>
-<p>理論モデルの導出、シミュレーション実験の推移、および得られた研究成果は、研究ノートとして随時公開・更新していきます。<br>
-<a href="https://leonmfvo.github.io/werewolf-decision-ai/research.html#research-notes">Research Notes</a></p>
-</section>
-<section id="コードリポジトリ" class="level2">
-<h2 class="anchored" data-anchor-id="コードリポジトリ">コード・リポジトリ</h2>
-<p>ソースコードおよび計算実験のスクリプトは、GitHubにて公開しています。<br>
-<a href="https://github.com/leonmfvo/werewolf-decision-ai">GitHub Repository</a></p>
+<section id="theory-notes" class="level2">
+<h2 class="anchored" data-anchor-id="theory-notes">Theory Notes</h2>
+<section id="人狼aiの制作とその限界" class="level3">
+<h3 class="anchored" data-anchor-id="人狼aiの制作とその限界">人狼AIの制作とその限界</h3>
+<p>特徴量に基づく意思決定と推論型AIについて考察した研究ノートです</p>
+<p><a href="./ai-limitations.html">Read the research note →</a></p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

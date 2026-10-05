@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="dcterms.date" content="2026-10-05">
 
-<title>Werewolf Decision AI</title>
+<title>なぜ人狼ゲームの意思決定AIを作ろうと思ったか – Werewolf Decision AI</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -29,23 +30,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -75,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -85,7 +86,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Werewolf Decision AI</span>
     </a>
   </div>
@@ -96,23 +97,23 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./research/index.html"> 
+    <a class="nav-link" href="../research/index.html"> 
 <span class="menu-text">Research</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./mathematics.html"> 
+    <a class="nav-link" href="../mathematics.html"> 
 <span class="menu-text">Mathematics</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./theory/index.html"> 
+    <a class="nav-link" href="../theory/index.html"> 
 <span class="menu-text">Theory</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -137,12 +138,11 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
-  <ul>
-  <li><a href="#本研究について" id="toc-本研究について" class="nav-link active" data-scroll-target="#本研究について">本研究について</a></li>
-  <li><a href="#研究課題" id="toc-研究課題" class="nav-link" data-scroll-target="#研究課題">研究課題</a></li>
-  <li><a href="#研究領域" id="toc-研究領域" class="nav-link" data-scroll-target="#研究領域">研究領域</a></li>
-  <li><a href="#研究ノート" id="toc-研究ノート" class="nav-link" data-scroll-target="#研究ノート">研究ノート</a></li>
-  <li><a href="#コードリポジトリ" id="toc-コードリポジトリ" class="nav-link" data-scroll-target="#コードリポジトリ">コード・リポジトリ</a></li>
+  <ul class="collapse">
+  <li><a href="#会話と進行" id="toc-会話と進行" class="nav-link active" data-scroll-target="#会話と進行">会話と進行</a></li>
+  <li><a href="#私が進行に疑問を持った理由" id="toc-私が進行に疑問を持った理由" class="nav-link" data-scroll-target="#私が進行に疑問を持った理由">私が「進行」に疑問を持った理由</a></li>
+  <li><a href="#コンピュータによって進行を考える" id="toc-コンピュータによって進行を考える" class="nav-link" data-scroll-target="#コンピュータによって進行を考える">コンピュータによって進行を考える</a></li>
+  <li><a href="#この研究で目指すもの" id="toc-この研究で目指すもの" class="nav-link" data-scroll-target="#この研究で目指すもの">この研究で目指すもの</a></li>
   </ul>
 </nav>
     </div>
@@ -151,8 +151,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Werewolf Decision AI</h1>
-<p class="subtitle lead">A mathematical and computational study of decision-making in Werewolf games.</p>
+<h1 class="title">なぜ人狼ゲームの意思決定AIを作ろうと思ったか</h1>
+<p class="subtitle lead">進行の信仰を終わらせる運動</p>
 </div>
 
 
@@ -160,6 +160,12 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
 
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 5, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -169,38 +175,54 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="本研究について" class="level2">
-<h2 class="anchored" data-anchor-id="本研究について">本研究について</h2>
-<p>本サイトでは、数理モデリング・計算シミュレーション・人工知能（AI）のアプローチを統合し、不完全情報ゲームである「人狼ゲーム」における意思決定メカニズムを研究・解明する試みや、人狼ゲームを数理的に捉えてその構造を明らかにする研究を行っています</p>
+<p>今回は、私がなぜ人狼ゲームの意思決定AIを作ろうと考えたのか、その背景について述べたいと思います。</p>
+<section id="会話と進行" class="level2">
+<h2 class="anchored" data-anchor-id="会話と進行">会話と進行</h2>
+<p>人狼ゲームにおいて、勝敗を左右する要素には何があるのか。私は、大きく二つに分けることができると考えています。一つは<strong>「会話」</strong>、そしてもう一つは<strong>「進行」</strong>です。</p>
+<p>会話については、あえて説明する必要もないかもしれません。むしろ、多くの人が人狼ゲームと聞いて最初に思い浮かべるのはこちらではないでしょうか。プレイヤーの発言から「この人は怪しい」「この人は村人らしい」と判断し、他のプレイヤーの発言や行動と照らし合わせながら、自分の推理を組み立てていきます。私は、人狼ゲームにおける面白さの一つは、このような心理的な駆け引きやコミュニケーションにあると考えています。</p>
+<p>一方、もう一つの要素である「進行」は、やや異なる性質を持っています。</p>
+<p>ここでいう進行とは、例えば「どの役職から吊るべきか」「狩人は誰を護衛するのが合理的か」といった、その時点で得られている盤面情報から、ゲームをどのように進めるべきかを判断することを指します。</p>
+<p>これは本質的には、<strong>確率やゲーム理論、将来の状態の予測などが関係する意思決定問題</strong>です。</p>
 </section>
-<section id="研究課題" class="level2">
-<h2 class="anchored" data-anchor-id="研究課題">研究課題</h2>
-<p>研究過程で解決を目標としている課題</p>
-<p><strong>1. 人狼ゲームの配役10A狩・12A猫の初日人狼陣営CO戦略のナッシュ均衡</strong><br>
-<strong>2. AIはいかにして「推論する」のか</strong><br>
-<strong>3. 盤面情報を入力として、最適なゲーム進行を出力するAIの開発</strong></p>
+<section id="私が進行に疑問を持った理由" class="level2">
+<h2 class="anchored" data-anchor-id="私が進行に疑問を持った理由">私が「進行」に疑問を持った理由</h2>
+<p>私が以前所属していた人狼コミュニティでは、こうした「進行」を重視する風潮が比較的強くありました。そのため、進行に関する知識や経験は、人狼ゲームにおけるプレイヤーの強さを評価するうえで重要な要素となっていました。</p>
+<p>しかし、そこで一つの疑問が生じました。</p>
+<p><strong>果たして、私たちは本当に「最適な進行」を知っているのだろうか。</strong></p>
+<p>実際の人狼ゲームでは、初日の時点ですでに多くの選択肢が存在します。例えば、複数の役職がCOした場合、「どの役職から吊るのが合理的なのか」という判断一つを取っても、その後の吊り先、占い結果、護衛先、襲撃先、そして各プレイヤーの行動によって、ゲームは無数の分岐へと展開していきます。</p>
+<p>しかし、人間がこれらすべての分岐を考慮し、その先に生じる結果まで比較したうえで最適な進行を判断することは、現実的には困難です。</p>
+<p>だからこそ、人狼ゲームでは、これまでに蓄積された対戦経験や議論、個々の検討などから、「この盤面ではこの役職から吊るのが合理的である」といった進行が、経験則として形成されてきました。</p>
+<p>これは、決して不合理なことではありません。</p>
+<p>人間がすべての可能性を計算することができないのであれば、過去の経験から一定のパターンを見つけ出し、「この状況ではこうするのがよい」と判断することは、むしろ自然なことです。実際、そうして蓄積された進行に関する知識は、人狼ゲームを考えるうえで非常に有用なものとなっています。</p>
+<p>しかし、私はそこで、もう一つの疑問を持つようになりました。</p>
+<p><strong>「その進行は、本当に最適なのだろうか。」</strong></p>
+<p>現在広く用いられている進行は、人間が考えられるすべてのゲーム展開を比較したうえで導き出されたものではありません。人間が実際の対戦や議論を通じて得た経験や知識をもとに、「おそらくこれが最も合理的だろう」と判断し、少しずつ積み上げてきたものです。</p>
+<p>人間がすべての分岐を考えきれない以上、現在の進行が、本当にゲーム全体を考慮したうえでの最適解であるとは限りません。</p>
+<p>もしかすると、私たちは「最適な進行」を知っているのではなく、<strong>人間が計算できる範囲の中で、最も合理的だと思われる進行を使っているだけなのではないか</strong>。私は、そう考えるようになりました。</p>
 </section>
-<section id="研究領域" class="level2">
-<h2 class="anchored" data-anchor-id="研究領域">研究領域</h2>
-<p>本研究は、以下の学術領域を横断・融合して進めています。</p>
+<section id="コンピュータによって進行を考える" class="level2">
+<h2 class="anchored" data-anchor-id="コンピュータによって進行を考える">コンピュータによって進行を考える</h2>
+<p>そこで私は、人間には処理しきれないほど膨大なゲームの分岐をコンピュータ上で探索し、各進行がその後のゲーム展開にどのような影響を与えるのかをシミュレーションすることで、人間の経験則に依存せず、ゲーム全体を考慮したときにどの進行が最も合理的なのかを明らかにできないかと考えました。</p>
+<p>これが、私が人狼ゲームの意思決定AIを作ろうと思ったきっかけです。</p>
+<p>しかし、私がこの研究を始めようと思った理由は、それだけではありません。</p>
+<p>実際、進行の是非を人間の手で考えることは、パズルを解くような面白さがあります。私自身も、これまでそのパズルに加担する一人の人間でした。盤面を眺め、様々な可能性を考え、「この進行が最も合理的なのではないか」と議論する。その過程そのものにも、人狼ゲームの一つの面白さがあると思っています。</p>
+<p>一方で、AIが急速に発展し、これまで人間にしかできないと思われていた問題を、コンピュータが解き始めている現在、このパズルもまた、いつか人間以外の知能によって解かれる日が来るのではないかと考えるようになりました。</p>
+<p>そして、もしその日が来るのであれば、</p>
+<p><strong>これまで人間が経験と議論によって積み上げてきた「進行」の時代を終わらせる存在は、自分でありたい。</strong></p>
+<p>そう思うようになりました。これもまた、私が人狼ゲームの意思決定AIを作ろうと考えた理由の一つです。</p>
+</section>
+<section id="この研究で目指すもの" class="level2">
+<h2 class="anchored" data-anchor-id="この研究で目指すもの">この研究で目指すもの</h2>
+<p>もちろん、私が目指しているのは、単に「人間より強い人狼プレイヤー」を作ることではありません。</p>
 <ul>
-<li><strong>Mathematical Modelling</strong>（数理モデリング）</li>
-<li><strong>Probability Theory</strong>（確率過程・確率論）</li>
-<li><strong>Game Theory</strong>（ゲーム理論）</li>
-<li><strong>Simulation</strong>（計算機シミュレーション）</li>
-<li><strong>Artificial Intelligence</strong>（推論型AI・機械学習）</li>
+<li>「この盤面では何をするのが最も合理的なのか」という問いに対して、経験則ではなく、明示的なモデルと計算に基づいて答えられるAIを作ること。</li>
+<li>そのAIによって、これまで人間が経験や議論によって蓄積してきた「進行」というものを、より客観的に捉え直すこと。</li>
 </ul>
-<p>初期フェーズでは人狼モデルにおける勝率分布の数理構造を解析し、得られた理論的基盤を軸に、推論型意思決定AIの実装・評価へと段階的に拡張していきます。</p>
-</section>
-<section id="研究ノート" class="level2">
-<h2 class="anchored" data-anchor-id="研究ノート">研究ノート</h2>
-<p>理論モデルの導出、シミュレーション実験の推移、および得られた研究成果は、研究ノートとして随時公開・更新していきます。<br>
-<a href="https://leonmfvo.github.io/werewolf-decision-ai/research.html#research-notes">Research Notes</a></p>
-</section>
-<section id="コードリポジトリ" class="level2">
-<h2 class="anchored" data-anchor-id="コードリポジトリ">コード・リポジトリ</h2>
-<p>ソースコードおよび計算実験のスクリプトは、GitHubにて公開しています。<br>
-<a href="https://github.com/leonmfvo/werewolf-decision-ai">GitHub Repository</a></p>
+<p>さらに究極的には、進行に関する知識の有無によって生じるプレイヤー間の差をできるだけ小さくし、「進行を知っているから有利」という状態から離れ、<strong>プレイヤー同士が純粋に発言や推理によって競い合える人狼ゲームを実現できないか</strong>と考えています。</p>
+<p>これは、単に「進行をなくしたい」という話ではありません。</p>
+<p>むしろ、これまで人間が経験と議論によって築き上げてきた「進行」というものを、一度コンピュータによって計算可能な形に落とし込み、本当にそれが合理的なのか、他により良い選択肢が存在するのかを検証してみたいのです。</p>
+<p><strong>「進行の信仰を終わらせ、会話が醍醐味となる人狼ゲームの時代を作る。」</strong></p>
+<p>これが、私がこの研究を通して目指している一つの到達点です。</p>
 
 
 </section>

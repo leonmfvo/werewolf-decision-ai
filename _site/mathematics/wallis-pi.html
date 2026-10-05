@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="dcterms.date" content="2026-10-04">
+
+<title>Wallis積と π/4 の出現 – Werewolf Decision AI</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-172ba59bd5e0b52282274ba0c0cc16fc.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Werewolf Decision AI</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../research/index.html"> 
+<span class="menu-text">Research</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../mathematics.html"> 
+<span class="menu-text">Mathematics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../theory/index.html"> 
+<span class="menu-text">Theory</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/leonmfvo/werewolf-decision-ai"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#概要" id="toc-概要" class="nav-link active" data-scroll-target="#概要">概要</a></li>
+  <li><a href="#人狼ゲームの概要" id="toc-人狼ゲームの概要" class="nav-link" data-scroll-target="#人狼ゲームの概要">1 人狼ゲームの概要</a>
+  <ul class="collapse">
+  <li><a href="#人狼ゲームとは" id="toc-人狼ゲームとは" class="nav-link" data-scroll-target="#人狼ゲームとは">1.1 人狼ゲームとは</a></li>
+  <li><a href="#本研究におけるルールの位置づけ" id="toc-本研究におけるルールの位置づけ" class="nav-link" data-scroll-target="#本研究におけるルールの位置づけ">1.2 本研究におけるルールの位置づけ</a></li>
+  </ul></li>
+  <li><a href="#基本設定" id="toc-基本設定" class="nav-link" data-scroll-target="#基本設定">2 基本設定</a>
+  <ul class="collapse">
+  <li><a href="#ka-配役の定義" id="toc-ka-配役の定義" class="nav-link" data-scroll-target="#ka-配役の定義">2.1 <span class="math inline">\(kA\)</span> 配役の定義</a></li>
+  <li><a href="#勝利条件" id="toc-勝利条件" class="nav-link" data-scroll-target="#勝利条件">2.2 勝利条件</a></li>
+  <li><a href="#random-voting-assumption" id="toc-random-voting-assumption" class="nav-link" data-scroll-target="#random-voting-assumption">2.3 Random Voting Assumption</a></li>
+  </ul></li>
+  <li><a href="#初日の村人処刑確率" id="toc-初日の村人処刑確率" class="nav-link" data-scroll-target="#初日の村人処刑確率">3 初日の村人処刑確率</a>
+  <ul class="collapse">
+  <li><a href="#初日の村人処刑確率-1" id="toc-初日の村人処刑確率-1" class="nav-link" data-scroll-target="#初日の村人処刑確率-1">3.1 初日の村人処刑確率</a></li>
+  <li><a href="#偶奇配役間の比較" id="toc-偶奇配役間の比較" class="nav-link" data-scroll-target="#偶奇配役間の比較">3.2 偶奇配役間の比較</a></li>
+  <li><a href="#閉形式への変形" id="toc-閉形式への変形" class="nav-link" data-scroll-target="#閉形式への変形">3.3 閉形式への変形</a></li>
+  <li><a href="#pi4-への収束" id="toc-pi4-への収束" class="nav-link" data-scroll-target="#pi4-への収束">3.4 <span class="math inline">\(\pi/4\)</span> への収束</a></li>
+  </ul></li>
+  <li><a href="#人狼勝率の解析" id="toc-人狼勝率の解析" class="nav-link" data-scroll-target="#人狼勝率の解析">4 人狼勝率の解析</a>
+  <ul class="collapse">
+  <li><a href="#人狼勝率の定義" id="toc-人狼勝率の定義" class="nav-link" data-scroll-target="#人狼勝率の定義">4.1 人狼勝率の定義</a></li>
+  <li><a href="#漸化式" id="toc-漸化式" class="nav-link" data-scroll-target="#漸化式">4.2 漸化式</a></li>
+  <li><a href="#境界条件" id="toc-境界条件" class="nav-link" data-scroll-target="#境界条件">4.3 境界条件</a></li>
+  <li><a href="#閉形式" id="toc-閉形式" class="nav-link" data-scroll-target="#閉形式">4.4 閉形式</a></li>
+  <li><a href="#ka-配役における人狼勝率" id="toc-ka-配役における人狼勝率" class="nav-link" data-scroll-target="#ka-配役における人狼勝率">4.5 <span class="math inline">\(kA\)</span> 配役における人狼勝率</a></li>
+  </ul></li>
+  <li><a href="#二つの確率量の完全な一致" id="toc-二つの確率量の完全な一致" class="nav-link" data-scroll-target="#二つの確率量の完全な一致">5 二つの確率量の完全な一致</a></li>
+  <li><a href="#考察" id="toc-考察" class="nav-link" data-scroll-target="#考察">6 考察</a></li>
+  <li><a href="#本研究の基本モデルにおける制約" id="toc-本研究の基本モデルにおける制約" class="nav-link" data-scroll-target="#本研究の基本モデルにおける制約">7 本研究の基本モデルにおける制約</a></li>
+  <li><a href="#今後の研究" id="toc-今後の研究" class="nav-link" data-scroll-target="#今後の研究">8 今後の研究</a></li>
+  <li><a href="#参考文献" id="toc-参考文献" class="nav-link" data-scroll-target="#参考文献">参考文献</a>
+  <ul class="collapse">
+  <li><a href="#原論文" id="toc-原論文" class="nav-link" data-scroll-target="#原論文">原論文</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Wallis積と π/4 の出現</h1>
+<p class="subtitle lead">人狼ゲームに着想を得たランダム排除過程</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 4, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><a href="../mathematics.html">← Mathematics に戻る</a></p>
+<section id="概要" class="level2">
+<h2 class="anchored" data-anchor-id="概要">概要</h2>
+<p>本研究では、1人の人狼と複数の村人から構成される単純化された人狼ゲームを、確率的なランダム排除過程として定式化する。<span class="math inline">\(kA\)</span> 配役を1人の人狼と <span class="math inline">\(k-2\)</span> 人の村人からなる配役として定義し、プレイヤー間に有用な情報が存在しない場合には、処刑対象が生存者から一様に選択されるという仮定を置く。</p>
+<p>まず、<span class="math inline">\(kA\)</span> 配役における初日の村人処刑確率を導出し、その偶奇配役間の累積比が Wallis 積と同型の構造を持つことを示す。次に、昼の処刑と夜の襲撃を繰り返すランダム排除過程を定式化し、人狼の勝率に関する漸化式を導出する。</p>
+<p>特に、初日の村人処刑確率から得られる偶奇累積比と、ゲーム全体における人狼勝率の偶奇比が、有限の <span class="math inline">\(n\)</span> において既に同一の数列</p>
+<p><span class="math display">\[
+\frac{4^{2n-1}}
+{n\binom{2n}{n}^{2}}
+\]</span></p>
+<p>に一致することを示す。さらに中心二項係数の漸近公式を用いることにより、この数列が <span class="math inline">\(\pi/4\)</span> に収束することを証明する。</p>
+</section>
+<section id="人狼ゲームの概要" class="level1">
+<h1>1 人狼ゲームの概要</h1>
+<section id="人狼ゲームとは" class="level2">
+<h2 class="anchored" data-anchor-id="人狼ゲームとは">1.1 人狼ゲームとは</h2>
+<p>人狼ゲームは、複数のプレイヤーが異なる役職を持ち、それぞれの役職および所属する陣営に応じた目的の達成を目指す不完全情報ゲームである。一般的な人狼ゲームでは、複数の陣営が存在し得るため、配役によって勝利条件やゲーム進行が異なる。</p>
+<p>ゲームは基本的に昼と夜のフェーズを繰り返して進行する。昼のフェーズでは、生存プレイヤーによる議論および投票が行われ、原則として1名が処刑される。夜のフェーズでは、人狼などの夜間能力を持つ役職が能力を行使し、その結果として生存者数が減少する場合がある。</p>
+<p>本研究では、一般的な人狼ゲームそのものを完全に再現することを目的とせず、その基本的な排除構造を数学的に抽象化する。具体的には、1人の人狼と複数の村人から構成される2陣営の基本モデルに対象を限定し、プレイヤーの発言、推理および戦略的意思決定を排除した確率モデルを構築する。</p>
+</section>
+<section id="本研究におけるルールの位置づけ" class="level2">
+<h2 class="anchored" data-anchor-id="本研究におけるルールの位置づけ">1.2 本研究におけるルールの位置づけ</h2>
+<p>本研究における基本的な勝利条件およびゲーム進行の定義は、一般的な人狼ゲームのルールを参考として定める。特に、勝利条件の定式化に際しては、人狼 Online の通常人狼における勝利条件を参照する。ただし、本研究では数学的解析を目的として、実際のゲームに存在する発言、推理、役職能力および戦略的投票等を大幅に単純化している。</p>
+<p>したがって、本研究で扱うモデルは特定のオンライン人狼ゲームを完全に再現するものではなく、実際の人狼ゲームから抽出した理想化された確率モデルである。</p>
+</section>
+</section>
+<section id="基本設定" class="level1">
+<h1>2 基本設定</h1>
+<section id="ka-配役の定義" class="level2">
+<h2 class="anchored" data-anchor-id="ka-配役の定義">2.1 <span class="math inline">\(kA\)</span> 配役の定義</h2>
+<p>本研究では、1人の人狼と複数の村人から構成される配役を考える。<span class="math inline">\(kA\)</span> 配役を、1人の人狼と <span class="math inline">\(k-2\)</span> 人の村人からなる配役として定義する。したがって、総プレイヤー数は <span class="math inline">\(k-1\)</span> 人である。</p>
+<p><strong>定義 2.1 (<span class="math inline">\(kA\)</span> 配役).</strong></p>
+<p><span class="math display">\[
+kA = 1\text{ 狼} + (k-2)\text{ 村人}
+\]</span></p>
+<p>例えば、</p>
+<p><span class="math display">\[
+4A=1\text{ 狼}+2\text{ 村人},
+\quad
+5A=1\text{ 狼}+3\text{ 村人},
+\quad
+6A=1\text{ 狼}+4\text{ 村人},
+\quad\cdots
+\]</span></p>
+<p>である。</p>
+</section>
+<section id="勝利条件" class="level2">
+<h2 class="anchored" data-anchor-id="勝利条件">2.2 勝利条件</h2>
+<p>生存している人狼の人数を <span class="math inline">\(W\)</span>、生存している村側プレイヤーの人数を <span class="math inline">\(V\)</span> とする。</p>
+<p><strong>定義 2.2 (人狼陣営の勝利条件).</strong></p>
+<p>人狼陣営は、</p>
+<p><span class="math display">\[
+W\geq V
+\]</span></p>
+<p>が成立した時点で勝利するものと定義する。</p>
+<p>本研究の基本モデルでは人狼は1人のみであるため、</p>
+<p><span class="math display">\[
+W=1
+\]</span></p>
+<p>であり、人狼陣営の勝利条件は</p>
+<p><span class="math display">\[
+1\geq V,
+\qquad\text{すなわち}\qquad V\leq1
+\]</span></p>
+<p>となる。</p>
+<p><strong>定義 2.3 (村人陣営の勝利条件).</strong></p>
+<p>村人陣営は、すべての人狼が排除された時点、すなわち</p>
+<p><span class="math display">\[
+W=0
+\]</span></p>
+<p>が成立した時点で勝利するものと定義する。</p>
+</section>
+<section id="random-voting-assumption" class="level2">
+<h2 class="anchored" data-anchor-id="random-voting-assumption">2.3 Random Voting Assumption</h2>
+<p>初日の時点では、プレイヤー間に役職に関する有用な情報が存在せず、各プレイヤーは確率的に対称な立場にあるものと仮定する。</p>
+<p><strong>仮定 2.4 (Random Voting Assumption).</strong></p>
+<p>情報が存在しない場合、処刑対象は生存しているプレイヤーの中から一様ランダムに1人選択されるものとする。</p>
+</section>
+</section>
+<section id="初日の村人処刑確率" class="level1">
+<h1>3 初日の村人処刑確率</h1>
+<section id="初日の村人処刑確率-1" class="level2">
+<h2 class="anchored" data-anchor-id="初日の村人処刑確率-1">3.1 初日の村人処刑確率</h2>
+<p><span class="math inline">\(kA\)</span> 配役における総プレイヤー数は</p>
+<p><span class="math display">\[
+M=k-1
+\]</span></p>
+<p>であり、そのうち村人の人数は</p>
+<p><span class="math display">\[
+M-1=k-2
+\]</span></p>
+<p>である。</p>
+<p>したがって、Random Voting Assumption より、初日に村人が処刑される確率 <span class="math inline">\(p_k\)</span> は次のように表される。</p>
+<p><strong>補題 3.1.</strong> <span class="math inline">\(kA\)</span> 配役における初日の村人処刑確率を</p>
+<p><span class="math display">\[
+p_k
+\equiv
+P(\text{初日に村人が処刑される}\mid kA)
+\]</span></p>
+<p>と定義すると、</p>
+<p><span class="math display">\[
+\boxed{
+p_k=\frac{k-2}{k-1}
+}
+\]</span></p>
+<p>が成立する。</p>
+<p><strong>Proof.</strong></p>
+<p><span class="math inline">\(kA\)</span> 配役には <span class="math inline">\(M=k-1\)</span> 人のプレイヤーが存在し、そのうち <span class="math inline">\(M-1=k-2\)</span> 人が村人である。処刑対象は <span class="math inline">\(M\)</span> 人の中から一様ランダムに選択されるため、</p>
+<p><span class="math display">\[
+p_k
+=
+\frac{M-1}{M}
+=
+\frac{k-2}{k-1}.
+\]</span></p>
+</section>
+<section id="偶奇配役間の比較" class="level2">
+<h2 class="anchored" data-anchor-id="偶奇配役間の比較">3.2 偶奇配役間の比較</h2>
+<p>単一の偶奇比</p>
+<p><span class="math display">\[
+\frac{p_{2j}}{p_{2j+1}}
+\]</span></p>
+<p>は <span class="math inline">\(j\to\infty\)</span> において1に収束する。そこで、偶数配役と奇数配役の比を累積した積を考える。</p>
+<p><strong>定義 3.2 (初日村人処刑確率の偶奇累積比).</strong></p>
+<p><span class="math display">\[
+R_n
+\equiv
+\prod_{j=2}^{n}
+\frac{p_{2j}}{p_{2j+1}}
+\]</span></p>
+<p>と定義する。</p>
+<p>補題より、</p>
+<p><span class="math display">\[
+p_{2j}
+=
+\frac{2j-2}{2j-1},
+\qquad
+p_{2j+1}
+=
+\frac{2j-1}{2j}
+\]</span></p>
+<p>であるから、</p>
+<p><span class="math display">\[
+\frac{p_{2j}}{p_{2j+1}}
+=
+\frac{2j(2j-2)}{(2j-1)^2}.
+\]</span></p>
+<p>したがって、</p>
+<p><span class="math display">\[
+R_n
+=
+\prod_{j=2}^{n}
+\frac{2j(2j-2)}{(2j-1)^2}.
+\]</span></p>
+</section>
+<section id="閉形式への変形" class="level2">
+<h2 class="anchored" data-anchor-id="閉形式への変形">3.3 閉形式への変形</h2>
+<p>分子について、</p>
+<p><span class="math display">\[
+\prod_{j=2}^{n}2j(2j-2)
+=
+\left(\prod_{j=2}^{n}2j\right)
+\left(\prod_{j=2}^{n}(2j-2)\right)
+\]</span></p>
+<p>であり、</p>
+<p><span class="math display">\[
+\prod_{j=2}^{n}2j
+=
+2^{n-1}n!,
+\]</span></p>
+<p><span class="math display">\[
+\prod_{j=2}^{n}(2j-2)
+=
+2^{n-1}(n-1)!.
+\]</span></p>
+<p>したがって、</p>
+<p><span class="math display">\[
+\prod_{j=2}^{n}2j(2j-2)
+=
+\frac{4^n n!(n-1)!}{4}.
+\]</span></p>
+<p>一方、</p>
+<p><span class="math display">\[
+\prod_{j=2}^{n}(2j-1)^2
+=
+((2n-1)!!)^2.
+\]</span></p>
+<p>ここで二重階乗と階乗の関係式</p>
+<p><span class="math display">\[
+(2n-1)!!
+=
+\frac{(2n)!}{2^n n!}
+\]</span></p>
+<p>を用いて整理すると、次を得る。</p>
+<p><strong>命題 3.3.</strong></p>
+<p><span class="math display">\[
+\boxed{
+R_n
+=
+\frac{4^{2n-1}}
+{n\binom{2n}{n}^{2}}
+}
+\]</span></p>
+<p>である。</p>
+</section>
+<section id="pi4-への収束" class="level2">
+<h2 class="anchored" data-anchor-id="pi4-への収束">3.4 <span class="math inline">\(\pi/4\)</span> への収束</h2>
+<p>Stirling の公式から中心二項係数について</p>
+<p><span class="math display">\[
+\binom{2n}{n}
+\sim
+\frac{4^n}{\sqrt{\pi n}}
+\qquad(n\to\infty)
+\]</span></p>
+<p>が得られる。</p>
+<p>したがって、</p>
+<p><span class="math display">\[
+\binom{2n}{n}^{2}
+\sim
+\frac{16^n}{\pi n}.
+\]</span></p>
+<p>よって、</p>
+<p><span class="math display">\[
+R_n
+=
+\frac{4^{2n-1}}
+{n\binom{2n}{n}^{2}}
+\sim
+\frac{16^n/4}
+{n\cdot16^n/(\pi n)}
+=
+\frac{\pi}{4}.
+\]</span></p>
+<p><strong>定理 3.4.</strong></p>
+<p><span class="math display">\[
+\boxed{
+\lim_{n\to\infty}R_n=\frac{\pi}{4}
+}
+\]</span></p>
+<p>を満たす。</p>
+<p><strong>注意 3.5.</strong></p>
+<p>この極限は、Wallis 積の部分積</p>
+<p><span class="math display">\[
+\prod_{j=1}^{n}
+\frac{2j}{2j-1}
+\frac{2j}{2j+1}
+\longrightarrow
+\frac{\pi}{2}
+\]</span></p>
+<p>と本質的に同型の構造を持つ。<span class="math inline">\(R_n\)</span> の分子・分母に現れる</p>
+<p><span class="math display">\[
+\frac{2j(2j-2)}{(2j-1)^2}
+\]</span></p>
+<p>という形は、Wallis 積の各項の添字を1つずらしたものと本質的に同一であり、両者が同じ極限値の定数倍、ここでは</p>
+<p><span class="math display">\[
+\frac{\pi}{4}
+=
+\frac12\cdot\frac{\pi}{2}
+\]</span></p>
+<p>に収束することは構造的な帰結である。</p>
+</section>
+</section>
+<section id="人狼勝率の解析" class="level1">
+<h1>4 人狼勝率の解析</h1>
+<section id="人狼勝率の定義" class="level2">
+<h2 class="anchored" data-anchor-id="人狼勝率の定義">4.1 人狼勝率の定義</h2>
+<p>総生存者数を <span class="math inline">\(m\)</span> とし、その状態における人狼の最終的な勝率を</p>
+<p><span class="math display">\[
+W_m
+\equiv
+P(\text{人狼が最終的に勝利}\mid m\text{ 人が生存})
+\]</span></p>
+<p>と定義する。</p>
+<p>これは生存者数 <span class="math inline">\(m\)</span> を添字とする確率であり、後述する「配役番号 <span class="math inline">\(k\)</span> を添字とする」勝率 <span class="math inline">\(\Omega_k\)</span>（定義4.3）とは異なる添字体系を持つ点に注意されたい。</p>
+</section>
+<section id="漸化式" class="level2">
+<h2 class="anchored" data-anchor-id="漸化式">4.2 漸化式</h2>
+<p><span class="math inline">\(m\geq3\)</span> とする。昼の処刑において人狼が処刑される確率は</p>
+<p><span class="math display">\[
+\frac1m
+\]</span></p>
+<p>であり、この場合は村人陣営の勝利となる。</p>
+<p>一方、村人が処刑される確率は</p>
+<p><span class="math display">\[
+\frac{m-1}{m}.
+\]</span></p>
+<p>その後、夜に人狼が村人を1人襲撃すると、生存者数は2人減少する。したがって、</p>
+<p><span class="math display">\[
+m\longrightarrow m-1\longrightarrow m-2
+\]</span></p>
+<p>という遷移が生じる。</p>
+<p><strong>補題 4.1.</strong></p>
+<p><span class="math inline">\(m\geq3\)</span> に対して、人狼勝率 <span class="math inline">\(W_m\)</span> は</p>
+<p><span class="math display">\[
+\boxed{
+W_m=\frac{m-1}{m}W_{m-2}
+}
+\]</span></p>
+<p>を満たす。</p>
+<p><strong>Proof.</strong></p>
+<p>昼の処刑で人狼が選択される場合、人狼は敗北する。村人が選択される確率は <span class="math inline">\((m-1)/m\)</span> であり、その後の夜の襲撃によって生存者数は <span class="math inline">\(m-2\)</span> となる。したがって、</p>
+<p><span class="math display">\[
+W_m
+=
+\frac{m-1}{m}W_{m-2}.
+\]</span></p>
+</section>
+<section id="境界条件" class="level2">
+<h2 class="anchored" data-anchor-id="境界条件">4.3 境界条件</h2>
+<p>勝利条件より、人狼1人と村人1人が残った場合には</p>
+<p><span class="math display">\[
+W=1,\qquad V=1
+\]</span></p>
+<p>であり、</p>
+<p><span class="math display">\[
+W\geq V
+\]</span></p>
+<p>が成立する。したがって、</p>
+<p><span class="math display">\[
+W_2=1.
+\]</span></p>
+<p>また、人狼のみが生存している状態について</p>
+<p><span class="math display">\[
+W_1=1
+\]</span></p>
+<p>とする。</p>
+<p><strong>注意 4.2.</strong></p>
+<p><span class="math inline">\(m=3\)</span> から漸化式を1回適用すると、昼の処刑直後の状態（生存者2人：人狼1・村人1）は <span class="math inline">\(W_2=1\)</span> の時点で既に勝利条件 <span class="math inline">\(W\geq V\)</span> を満たしている。したがって形式的にはこの時点でゲームは終了しており、夜フェーズを経て生存者数を1へ減らす操作は勝敗そのものには影響しない。</p>
+<p>したがって <span class="math inline">\(W_1=1\)</span> は、この「既に決着した状態」をさらに1手形式的に進めた場合の整合的な値として導入しており、<span class="math inline">\(W_1\)</span> を独立に観測される確率とみなす必要はない。</p>
+</section>
+<section id="閉形式" class="level2">
+<h2 class="anchored" data-anchor-id="閉形式">4.4 閉形式</h2>
+<p>漸化式を展開すると、</p>
+<p><span class="math display">\[
+\boxed{
+W_{2n}
+=
+2\frac{(2n-1)!!}{(2n)!!}
+}
+\]</span></p>
+<p>および</p>
+<p><span class="math display">\[
+\boxed{
+W_{2n+1}
+=
+\frac{(2n)!!}{(2n+1)!!}
+}
+\]</span></p>
+<p>を得る。</p>
+</section>
+<section id="ka-配役における人狼勝率" class="level2">
+<h2 class="anchored" data-anchor-id="ka-配役における人狼勝率">4.5 <span class="math inline">\(kA\)</span> 配役における人狼勝率</h2>
+<p><span class="math inline">\(kA\)</span> 配役の総プレイヤー数は <span class="math inline">\(k-1\)</span> である。そこで、<span class="math inline">\(kA\)</span> 配役における人狼勝率を、生存者数添字の <span class="math inline">\(W_m\)</span> と明確に区別するため <span class="math inline">\(\Omega_k\)</span> と表記する。</p>
+<p><strong>定義 4.3.</strong></p>
+<p><span class="math display">\[
+\Omega_k:=W_{k-1}
+\]</span></p>
+<p>と定義する。</p>
+<p>偶数配役と奇数配役の人狼勝率比を</p>
+<p><span class="math display">\[
+S_n
+\equiv
+\frac{\Omega_{2n}}{\Omega_{2n+1}}
+\]</span></p>
+<p>と定義する。</p>
+<p>定義より</p>
+<p><span class="math display">\[
+\Omega_{2n}=W_{2n-1},
+\qquad
+\Omega_{2n+1}=W_{2n}
+\]</span></p>
+<p>であるから、</p>
+<p><span class="math display">\[
+S_n
+=
+\frac{W_{2n-1}}{W_{2n}}.
+\]</span></p>
+<p>4.4節の閉形式を代入すると、</p>
+<p><span class="math display">\[
+S_n
+=
+\frac{(2n-2)!!/(2n-1)!!}
+{2(2n-1)!!/(2n)!!}
+\]</span></p>
+<p>であり、</p>
+<p><span class="math display">\[
+S_n
+=
+\frac{(2n-2)!!(2n)!!}
+{2((2n-1)!!)^2}.
+\]</span></p>
+<p><strong>命題 4.4.</strong></p>
+<p><span class="math display">\[
+\boxed{
+S_n
+=
+\frac{4^{2n-1}}
+{n\binom{2n}{n}^{2}}
+}
+\]</span></p>
+<p>と表される。</p>
+</section>
+</section>
+<section id="二つの確率量の完全な一致" class="level1">
+<h1>5 二つの確率量の完全な一致</h1>
+<p>前節までの結果から、</p>
+<p><span class="math display">\[
+R_n
+=
+\frac{4^{2n-1}}
+{n\binom{2n}{n}^{2}}
+\]</span></p>
+<p>および</p>
+<p><span class="math display">\[
+S_n
+=
+\frac{4^{2n-1}}
+{n\binom{2n}{n}^{2}}
+\]</span></p>
+<p>である。</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>定理 5.1 (Exact Wallis Correspondence)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>任意の <span class="math inline">\(n\geq2\)</span> に対して、初日村人処刑確率から定義される偶奇累積比 <span class="math inline">\(R_n\)</span> と、<span class="math inline">\(kA\)</span> 配役における人狼勝率から定義される偶奇比 <span class="math inline">\(S_n\)</span> は一致し、</p>
+<p><span class="math display">\[
+\boxed{
+R_n=S_n
+=
+\frac{4^{2n-1}}
+{n\binom{2n}{n}^{2}}
+}
+\]</span></p>
+<p>が成立する。</p>
+<p><strong>Proof.</strong></p>
+<p>両量がそれぞれ同一の閉形式を持つことから直ちに従う。</p>
+</div>
+</div>
+<p><strong>系 5.2.</strong></p>
+<p><span class="math display">\[
+\boxed{
+\lim_{n\to\infty}R_n
+=
+\lim_{n\to\infty}S_n
+=
+\frac{\pi}{4}
+}
+\]</span></p>
+<p>が成立する。</p>
+</section>
+<section id="考察" class="level1">
+<h1>6 考察</h1>
+<p>本研究で得られた結果は、初日の村人処刑確率とゲーム全体の人狼勝率という、一見すると異なる確率量が、有限サイズにおいて同一の数学的表現に帰着することを示している。</p>
+<p>初日の村人処刑確率は</p>
+<p><span class="math display">\[
+p_k=\frac{k-2}{k-1}
+\]</span></p>
+<p>という1段階の確率から出発するのに対し、人狼勝率は</p>
+<p><span class="math display">\[
+W_m=\frac{m-1}{m}W_{m-2}
+\]</span></p>
+<p>という昼の処刑と夜の襲撃を組み合わせた2段階の漸化式から導かれる。</p>
+<p>しかし、前者では偶奇比を累積することで、後者では漸化式を解くことで、いずれも二重階乗を経由して中心二項係数に帰着する。この共通構造によって、両者が同一の数列を与える。</p>
+<p>したがって、本モデルにおける <span class="math inline">\(\pi/4\)</span> の出現は、人狼ゲームのルールそのものに円周率が直接含まれていることを意味するのではなく、ランダム排除過程における偶奇構造、二重階乗、および中心二項係数の漸近挙動に由来するものと解釈できる。</p>
+</section>
+<section id="本研究の基本モデルにおける制約" class="level1">
+<h1>7 本研究の基本モデルにおける制約</h1>
+<p>本研究で扱ったモデルは、実際の人狼ゲームを大幅に単純化したものである。特に、以下の要素を考慮していない。</p>
+<ol type="1">
+<li>複数の人狼の存在</li>
+<li>占い師、霊媒師、狩人等の特殊役職</li>
+<li>妖狐などの第三陣営</li>
+<li>プレイヤー間の会話および推理</li>
+<li>戦略的な投票</li>
+<li>戦略的な襲撃対象の選択</li>
+<li>同票処理など、個別のゲームルールによる差異</li>
+</ol>
+<p>したがって、本研究で得られた <span class="math inline">\(\pi/4\)</span> は、現実の人狼ゲーム全般に普遍的に成立する定数としてではなく、まず1狼ランダム排除モデルにおける数学的性質として解釈する必要がある。</p>
+</section>
+<section id="今後の研究" class="level1">
+<h1>8 今後の研究</h1>
+<p>今後は、本研究の基本モデルを拡張し、実際に行われている人狼ゲームの配役への適用可能性を検証する。</p>
+<p>特に、</p>
+<ul>
+<li>占い師の導入</li>
+<li>複数の人狼への拡張</li>
+<li>11A</li>
+<li>12A猫</li>
+</ul>
+<p>などの実在する配役への適用を検討する。</p>
+</section>
+<section id="参考文献" class="level1">
+<h1>参考文献</h1>
+<ol type="1">
+<li>人狼 Online, 「人狼ゲームのルール」, https://zinro.net/s/rule.php.</li>
+<li>J. Wallis, <em>Arithmetica Infinitorum</em>, Oxford, 1656. （Wallis積の原典）</li>
+<li>W. Feller, <em>An Introduction to Probability Theory and Its Applications</em>, Vol. 1, 3rd ed., Wiley, 1968. （Stirlingの公式および中心二項係数の漸近評価について）</li>
+</ol>
+<section id="原論文" class="level2">
+<h2 class="anchored" data-anchor-id="原論文">原論文</h2>
+<p><a href="../papers/wallis-pi4.pdf">原論文PDFを開く</a></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

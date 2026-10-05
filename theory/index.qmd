@@ -1,0 +1,21 @@
+---
+title: "Theory"
+---
+
+## Overview
+
+ここでは、人狼ゲームに関する独自の理論や仮説・予想について述べています。
+
+## Theory Notes
+
+### 人狼AIの制作とその限界
+
+特徴量に基づく意思決定と推論型AIについて考察した研究ノートです。
+
+[Read the research note →](ai-limitations.qmd)
+
+### なぜ人狼ゲームの意思決定AIを作ろうと思ったか
+
+開発の動機について書かれています。
+
+[Read the research note →](motivation.qmd)

@@ -3,40 +3,39 @@ title: "Werewolf Decision AI"
 subtitle: "A mathematical and computational study of decision-making in Werewolf games."
 ---
 
-## About this project
+## 本研究について
 
-This project investigates decision-making in Werewolf games using
-mathematical modelling, simulation, and artificial intelligence.
+本サイトでは、数理モデリング・計算シミュレーション・人工知能（AI）のアプローチを統合し、不完全情報ゲームである「人狼ゲーム」における意思決定メカニズムを研究・解明する試みや、人狼ゲームを数理的に捉えてその構造を明らかにする研究を行っています
 
-The aim is to develop a system that can reason about game states,
-evaluate possible actions, and make decisions under incomplete information.
 
-## Research Questions
+## 研究課題
 
-- How can a Werewolf game be represented as a mathematical state?
-- How can the value of different roles and pieces of information be quantified?
-- How should an AI choose actions under incomplete information?
-- How do different strategies affect the probability of winning?
+研究過程で解決を目標としている課題
 
-## Research
+**1. 人狼ゲームの配役10A狩・12A猫の初日人狼陣営CO戦略のナッシュ均衡**   
+**2. AIはいかにして「推論する」のか**   
+**3. 盤面情報を入力として、最適なゲーム進行を出力するAIの開発**   
 
-The project combines:
 
-- **Mathematical modelling**
-- **Probability theory**
-- **Game theory**
-- **Simulation**
-- **Artificial intelligence**
+## 研究領域
 
-The initial research focuses on mathematical models of Werewolf win probability
-and gradually extends toward AI-based decision-making.
+本研究は、以下の学術領域を横断・融合して進めています。
 
-## Research Notes
+- **Mathematical Modelling**（数理モデリング）
+- **Probability Theory**（確率過程・確率論）
+- **Game Theory**（ゲーム理論）
+- **Simulation**（計算機シミュレーション）
+- **Artificial Intelligence**（推論型AI・機械学習）
 
-Research notes, mathematical models, experiments, and results will be published
-as the project develops.
+初期フェーズでは人狼モデルにおける勝率分布の数理構造を解析し、得られた理論的基盤を軸に、推論型意思決定AIの実装・評価へと段階的に拡張していきます。
 
-## Code
 
-The source code and computational experiments are available on
-[GitHub](https://github.com/leonmfvo/werewolf-decision-ai).
+## 研究ノート
+
+理論モデルの導出、シミュレーション実験の推移、および得られた研究成果は、研究ノートとして随時公開・更新していきます。   
+ [Research Notes](https://leonmfvo.github.io/werewolf-decision-ai/research.html#research-notes)
+
+## コード・リポジトリ
+
+ソースコードおよび計算実験のスクリプトは、GitHubにて公開しています。  
+ [GitHub Repository](https://github.com/leonmfvo/werewolf-decision-ai)

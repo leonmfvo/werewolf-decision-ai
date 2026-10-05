@@ -4,7 +4,7 @@
     "href": "research.html",
     "title": "Research",
     "section": "",
-    "text": "This project studies decision-making in Werewolf games from a mathematical and computational perspective.\nThe research is organized around three main areas:\n\nMathematical modelling\nSimulation and experimentation\nAI-based decision-making"
+    "text": "本ページでは、AIを用いた人狼ゲームにおける最適な意思決定の導出や、データ分析による人狼ゲームの構造解析など、現在進めている研究について記載しています。"
   },
   {
     "objectID": "research.html#overview",
@@ -74,21 +74,21 @@
     "href": "index.html",
     "title": "Werewolf Decision AI",
     "section": "",
-    "text": "This project investigates decision-making in Werewolf games using mathematical modelling, simulation, and artificial intelligence.\nThe aim is to develop a system that can reason about game states, evaluate possible actions, and make decisions under incomplete information."
+    "text": "本サイトでは、数理モデリング・計算シミュレーション・人工知能（AI）のアプローチを統合し、不完全情報ゲームである「人狼ゲーム」における意思決定メカニズムを研究・解明する試みや、人狼ゲームを数理的に捉えてその構造を明らかにする研究を行っています"
   },
   {
     "objectID": "index.html#about-this-project",
     "href": "index.html#about-this-project",
     "title": "Werewolf Decision AI",
     "section": "",
-    "text": "This project investigates decision-making in Werewolf games using mathematical modelling, simulation, and artificial intelligence.\nThe aim is to develop a system that can reason about game states, evaluate possible actions, and make decisions under incomplete information."
+    "text": "本サイトでは、数理モデリング・計算シミュレーション・人工知能（AI）のアプローチを統合し、不完全情報ゲームである「人狼ゲーム」における意思決定メカニズムを研究・解明する試みや、人狼ゲームを数理的に捉えてその構造を明らかにする研究を行っています"
   },
   {
     "objectID": "index.html#research-questions",
     "href": "index.html#research-questions",
     "title": "Werewolf Decision AI",
     "section": "Research Questions",
-    "text": "Research Questions\n\nHow can a Werewolf game be represented as a mathematical state?\nHow can the value of different roles and pieces of information be quantified?\nHow should an AI choose actions under incomplete information?\nHow do different strategies affect the probability of winning?"
+    "text": "Research Questions\n研究過程で解決を目標としている課題\n1. 人狼ゲームの配役10A狩・12A猫の初日人狼陣営CO戦略のナッシュ均衡\n2. AIはいかにして「推論する」のか\n3. 盤面情報を入力として、最適なゲーム進行を出力するAIの開発"
   },
   {
     "objectID": "index.html#research",
@@ -102,7 +102,7 @@
     "href": "index.html#research-notes",
     "title": "Werewolf Decision AI",
     "section": "Research Notes",
-    "text": "Research Notes\nResearch notes, mathematical models, experiments, and results will be published as the project develops."
+    "text": "Research Notes\n理論モデルの導出、シミュレーション実験の推移、および得られた研究成果は、研究ノートとして随時公開・更新していきます。\nResearch Notes"
   },
   {
     "objectID": "index.html#code",
@@ -116,7 +116,7 @@
     "href": "research.html#research-notes",
     "title": "Research",
     "section": "Research Notes",
-    "text": "Research Notes\n\n人狼AIの制作とその限界\n特徴量に基づく意思決定と推論型AIについて考察した研究ノートです\nRead the research note →"
+    "text": "Research Notes"
   },
   {
     "objectID": "ai-limitations.html",
@@ -124,5 +124,600 @@
     "title": "人狼AIの制作とその限界",
     "section": "",
     "text": "▍はじめに\n2026年8月頃から、人狼ゲームにおいて意思決定を行うAIの制作を進めています。\n人狼ゲームは、各プレイヤーの役職など、ゲームに関する情報の一部が公開されていない「不完全情報ゲーム」です。そのため、他のプレイヤーの行動や発言などから、そのプレイヤーが自分の陣営にとって「敵なのか、味方なのか」を判断する必要があります。\nしたがって、人狼ゲームにおける意思決定では、単に現在のゲーム状態を評価するだけではなく、他のプレイヤーの行動がどのような意味を持つのか、また、その行動が村人陣営・人狼陣営のどちらにとって合理的なのかを評価することが重要になります。\nこれが、後々AI制作の大きな鍵になっていきます。\n\n\n▍AIの作成\n最初の試みとして、ゲーム中の様々な情報を「特徴量」として与え、その特徴量から勝率の高い行動を選択するAIを制作しました。\nこの方法によって、実際に人狼ゲームを進行させるAIを作ることはできました。しかし、制作を進める中で、既存の方法に限界を感じ始めるようになりました。\nそれは、\n「正しい行動を選択できること」と「なぜその行動が合理的なのかを推論できること」は、大きく異なるのではないか。\nという疑問です。\n機械学習を利用したAIでは、ゲームの状態を様々な特徴量として表現し、それらを基に行動を選択するという方法が考えられます。\n例えば、\n\n誰に投票したか\n誰を占ったか\n現在の生存人数\n各役職のCO状況\n何日目にCOしたか\n\nなどです。\nこれらの情報とゲームの勝敗を大量に学習させることで、\n「このような特徴を持つ状況では、この行動をとると勝率が高い」\nという関係をAIに学習させることができます。\nこの方法には明確な利点があります。\n実際に、私が制作した初期の人狼AIにおいても、この方法によって一定のゲーム進行を実現することができました。\nしかし、同時に別の問題も生じました。\n「AIが正しい行動を選択できたとして、その行動を選択する根拠までAI自身が扱えているのだろうか。」\nここで、初期のAIを制作する過程で現れた「占い師のCO」を例に、この問題を考えてみます。\n\n\n▍初期のAI制作で生じた具体例\n今回想定している人狼ゲームでは、占い師はゲーム開始直後の初日にCOすることを基本的なルールとして設定しています。\n一方、人狼陣営がこのルールを利用し、初日はCOせず、二日目以降になってから占い師としてCOするケースを考えます。\nこのような状況では、プレイヤーは、\n「今回のルールでは、占い師は初日にCOすることが前提になっている。それにもかかわらず、このプレイヤーは2日目になってから占い師COをしている。したがって、このCOは偽である可能性が高い。」\nという判断をすることが考えられます。\nしかし、私が制作した初期のAIでは、この判断を直接的なルールとして与えるのではなく、「何日目にCOしたか」という情報を特徴量として与える方法を取りました。\nそして、大量のゲームをシミュレーションした結果、\n2日目以降にCOした占い師を処刑すると、村人陣営の勝率が高くなる\nという傾向をAIが獲得することができました。\nつまり、結果としては、人間のプレイヤーと同じような行動を選択することができました。\nしかし、ここには重要な違いがあります。\n\n\n▍「正しい行動」と「正しい理由」は同じなのか\n人間のプレイヤーがこの状況を判断する場合、その根拠の一つとして、ゲームのルールを利用することができます。\n例えば、次のような流れです。\n【ルール】\n占い師は初日にCOする\n        ↓\n【観察】\nプレイヤーAは2日目に占い師COした\n        ↓\n【推論】\nプレイヤーAの行動は通常のCOルールと矛盾する\n        ↓\n【仮説】\nプレイヤーAの占い師COは偽である可能性が高い\n        ↓\n【意思決定】\nプレイヤーAを処刑候補とする\n一方、今回の特徴量に基づくAIでは、少なくとも次のような関係から行動が選択されています。\n2日目以降に占いCOした\n        ↓\n過去の大量のゲーム結果\n        ↓\nこの特徴を持つプレイヤーを処刑した場合、\n村人陣営の勝率が高かった\n        ↓\nプレイヤーAを処刑する\n両者は、同じ行動を選択する可能性があります。\nしかし、意思決定に利用している情報の構造は異なります。\n人間は、今回のルール設定における「占い師は初日にCOする」という知識を利用して、観察された行動との矛盾を判断できます。\n一方、今回のAIは、「2日目以降にCOした」という特徴と、その後のゲーム結果との関係を学習しています。\nこの違いは、単なる説明可能性の問題にとどまらないのではないかと考えています。\n\n\n▍課題① 他の状況への応用が難しい\nここで生じる問題の一つが、学習した特徴と結果の関係を、別の状況に応用することの難しさです。\n例えば、今回のゲームでは、占い師だけでなく、霊能者についても初日にCOすることがルールとして定められているとします。\nこの場合、人間は、\n「占い師が初日にCOするのは、今回のゲームルールに基づいている」\nという一般的な知識を利用することで、\n「霊能者についても同じルールが設定されている」\nという情報から、類似した状況を判断できます。\nつまり、人間のプレイヤーは、個別の事例だけではなく、その背後にあるルールや関係を利用することができます。\n一方で、\n「2日目に占いCOしたプレイヤーは怪しい」\nという特徴と結果の関係を学習しただけのAIが、\n「では、2日目に霊能COしたプレイヤーについても同じ論理が成立する」\nと自動的に判断できるとは限りません。\nこの問題は、\n「学習した知識を、どのように別の状況へ一般化するのか」\nという問題につながっています。\n\n\n▍課題② 行動の意味を説明できない\nもう一つの問題は、AIが選択した行動について、その根拠をどのように扱うのかということです。\n人狼ゲームでは、単に正しい行動を取るだけでは十分ではありません。\n例えば、あるプレイヤーを処刑すると判断した場合、\n「この人を処刑すると勝率が高い」\nという情報だけでは、他のプレイヤーを納得させることは難しいでしょう。\n人狼では、\n\nなぜこのプレイヤーが人狼だと考えられるのか\nその行動は村人陣営にとって合理的なのか\nその行動は人狼陣営にとって合理的なのか\n他の可能性を考えた場合にも、この判断が成立するのか\n\nといった、行動の意味や根拠を考える必要があります。\nところが、意思決定が特徴量と勝率の関係だけによって決定されている場合、その判断をゲーム上の意味に基づいて説明することは難しくなります。\n\n\n▍「特徴量 → 行動 → 後付けの説明」というアプローチ\nここで、特徴量に基づく意思決定に、言語による説明を組み合わせる方法も考えられます。\n例えば、\n特徴量\n   ↓\nAIが行動を決定\n   ↓\n「なぜこの行動を選んだのか」を言語化\nという仕組みです。\nこの方法によって、AIが選択した行動に対して、人間が理解しやすい説明を生成することは可能になると考えられます。\nしかし、これだけでは根本的な問題を解決できていない可能性があります。\nなぜなら、この構成だけでは、生成された説明がAIの実際の意思決定過程をどの程度反映しているのかを保証することが難しいからです。\n例えば、\n「プレイヤーAは初日にCOしなかったため、偽占い師である可能性が高いと判断しました。」\nという説明が生成されたとしても、その説明がAIの行動決定に実際に利用された情報なのか、それとも行動決定後に生成された説明なのかを、この構成だけから区別することは困難です。\nしたがって、もしAIにゲーム上の意味を利用した推論をさせたいのであれば、\n行動した後に理由を説明させるのではなく、行動を決定する過程そのものに推論を組み込む必要があるのではないか。\nと考えています。\n\n\n▍推論型の人狼AI\nそこで現在考えているのが、「推論型の人狼AI」です。\nこれは、特徴量から直接行動を決定するのではなく、複数の事実やルールを組み合わせ、その結果として行動を導き出すAIです。\n例えば、単純化すると、\nAだからB\nBだからC\nしたがってAだからC\nというような論理的な関係を、AIの意思決定の中に持たせます。\n人狼ゲームに当てはめれば、例えば次のような構造になります。\n【ルール】\n今回のゲームでは、占い師は初日にCOする\n        ↓\n【観察】\nプレイヤーAは2日目に占い師COした\n        ↓\n【推論】\nプレイヤーAの行動は通常のCOルールと矛盾する\n        ↓\n【仮説】\nプレイヤーAの占い師COは偽である可能性が高い\n        ↓\n【意思決定】\nプレイヤーAを処刑候補とする\nこの場合、AIの行動は単なる「勝率の高い行動」として選択されるのではなく、明示された事実やルール、そこから導かれる推論の結果として決定されます。\nここに、現在の特徴量ベースのAIとは異なる可能性があると考えています。\n\n\n▍実装における新たな壁\nここまで考えると、次の問題が生じます。\nそもそも、推論を行うAIをどのようにプログラムすればよいのでしょうか。\n人間は自然に、\n「AだからB」\n「BだからC」\n「したがってAだからC」\nという推論を行っているように見えます。\nしかし、コンピュータ上でこのような推論をどのように表現し、実装するのかは簡単ではありません。\n例えば、ゲームのルールをすべて人間が記述し、\nRule 1\nRule 2\nRule 3\n...\nという形でAIに与える方法が考えられます。\nしかし、人狼ゲームでは、状況が複雑になるにつれて、考慮すべきルールや例外も増えていきます。\nまた、ルールだけではなく、\n\n他プレイヤーの行動\n過去の投票結果\nCO状況\n占い結果\n発言\n各プレイヤーが持っている可能性のある情報\n\nなど、多くの情報を組み合わせる必要があります。\nそのため、すべての推論規則を人間が事前に記述することにも限界があります。\n一方、現在の対話型AIは、推論を行っているように見える文章を生成することができます。\nしかし、出力された文章が論理的に見えることと、AI内部でどのような推論過程が行われているのかは同じ問題ではありません。\nそのため、\n\n「現在のAIはどの程度、明示的な論理構造に基づいて推論しているのか」\n\nという問題についても、今後検討する必要があります。\nさらに、\n\n「推論を成立させるために、大規模な学習はどの程度必要なのか」\n\nという問題もあります。\n\n\n▍今後の展望とリサーチクエスチョン\n現時点では、まだこの問題に対する明確な答えを持っているわけではありません。\nむしろ、初期の人狼AIを制作したことで、\n「勝率の高い行動を選択できるAI」と「その行動がなぜ合理的なのかを推論できるAI」は同じものなのか？\nという新しい疑問が生まれました。\n今後は、まず特徴量に基づく現在のAIをさらに発展させながら、その意思決定過程を分析したいと考えています。\nその上で、\n\n特徴量に基づく意思決定\n明示的なルールに基づく推論\n特徴量とルールを組み合わせたハイブリッド型\n\nなどを比較することが考えられます。\n例えば、それぞれの方法について、\n\n勝率\n未知の状況への一般化\n推論過程の追跡可能性\n判断根拠の説明可能性\n実装に必要な知識量\n\nなどを比較することで、それぞれの方法の特徴を明らかにできる可能性があります。\n最終的には、\n人狼ゲームにおいて、AIが「勝つための行動」を選択するだけではなく、「なぜその行動が合理的なのか」を推論し、その推論を別の状況にも適用できるようにするにはどうすればよいのか。\nという問題を研究したいと考えています。\nそして、現時点で最も大きな問いとして残っているのは、\n「推論するAI」を作るために、大規模な学習は本当に必要なのでしょうか。それとも、学習とは異なる形で推論能力を構築することができるのでしょうか。\nということです。\nこの問いに対する答えを探すことが、今後の人狼AI研究における一つの大きな方向性になると考えています。"
+  },
+  {
+    "objectID": "mathematics.html",
+    "href": "mathematics.html",
+    "title": "Mathematics",
+    "section": "",
+    "text": "人狼ゲームの構造から現れる数学的性質や、確率過程についての研究をまとめています。"
+  },
+  {
+    "objectID": "mathematics.html#人狼ゲームとは",
+    "href": "mathematics.html#人狼ゲームとは",
+    "title": "Wallis積と π/4 の出現",
+    "section": "1.1 人狼ゲームとは",
+    "text": "1.1 人狼ゲームとは\n人狼ゲームは、複数のプレイヤーが異なる役職を持ち、それぞれの役職および所属する陣営に応じた目的の達成を目指す不完全情報ゲームである。\nゲームは基本的に昼と夜のフェーズを繰り返して進行する。昼のフェーズでは生存プレイヤーによる議論および投票が行われ、原則として1名が処刑される。夜のフェーズでは人狼などの夜間能力を持つ役職が能力を行使し、その結果として生存者数が減少する場合がある。\n本研究では、一般的な人狼ゲームそのものを完全に再現することを目的とせず、その基本的な排除構造を数学的に抽象化する。具体的には、1人の人狼と複数の村人から構成される2陣営の基本モデルに対象を限定し、プレイヤーの発言、推理および戦略的意思決定を排除した確率モデルを構築する。"
+  },
+  {
+    "objectID": "mathematics.html#本研究におけるルールの位置づけ",
+    "href": "mathematics.html#本研究におけるルールの位置づけ",
+    "title": "Wallis積と π/4 の出現",
+    "section": "1.2 本研究におけるルールの位置づけ",
+    "text": "1.2 本研究におけるルールの位置づけ\n本研究における基本的な勝利条件およびゲーム進行の定義は、一般的な人狼ゲームのルールを参考として定める。ただし、本研究では数学的解析を目的として、実際のゲームに存在する発言、推理、役職能力および戦略的投票等を大幅に単純化している。\nしたがって、本研究で扱うモデルは特定のオンライン人狼ゲームを完全に再現するものではなく、実際の人狼ゲームから抽出した理想化された確率モデルである。"
+  },
+  {
+    "objectID": "mathematics.html#ka-配役の定義",
+    "href": "mathematics.html#ka-配役の定義",
+    "title": "Wallis積と π/4 の出現",
+    "section": "2.1 \\(kA\\) 配役の定義",
+    "text": "2.1 \\(kA\\) 配役の定義\n\\(kA\\) 配役を、1人の人狼と \\(k-2\\) 人の村人からなる配役として定義する。したがって、総プレイヤー数は \\(k-1\\) 人である。\n\\[\nkA = 1\\text{ 狼} + (k-2)\\text{ 村人}.\n\\]\n例えば、\n\\[\n4A=1\\text{ 狼}+2\\text{ 村人},\n\\qquad\n5A=1\\text{ 狼}+3\\text{ 村人},\n\\qquad\n6A=1\\text{ 狼}+4\\text{ 村人},\n\\ldots\n\\]"
+  },
+  {
+    "objectID": "mathematics.html#勝利条件",
+    "href": "mathematics.html#勝利条件",
+    "title": "Wallis積と π/4 の出現",
+    "section": "2.2 勝利条件",
+    "text": "2.2 勝利条件\n生存している人狼の人数を \\(W\\)、生存している村側プレイヤーの人数を \\(V\\) とする。\n人狼陣営は\n\\[\nW\\ge V\n\\]\nが成立した時点で勝利するものとする。\n本研究の基本モデルでは人狼は1人のみであるため、\n\\[\nW=1\n\\]\nであり、人狼陣営の勝利条件は\n\\[\nV\\le1\n\\]\nとなる。\n村人陣営は、すべての人狼が排除された時点、すなわち\n\\[\nW=0\n\\]\nが成立した時点で勝利する。"
+  },
+  {
+    "objectID": "mathematics.html#random-voting-assumption",
+    "href": "mathematics.html#random-voting-assumption",
+    "title": "Wallis積と π/4 の出現",
+    "section": "2.3 Random Voting Assumption",
+    "text": "2.3 Random Voting Assumption\n初日の時点では、プレイヤー間に役職に関する有用な情報が存在せず、各プレイヤーは確率的に対称な立場にあるものと仮定する。\n\nRandom Voting Assumption\n情報が存在しない場合、処刑対象は生存しているプレイヤーの中から一様ランダムに1人選択される。"
+  },
+  {
+    "objectID": "mathematics.html#初日の村人処刑確率-1",
+    "href": "mathematics.html#初日の村人処刑確率-1",
+    "title": "Wallis積と π/4 の出現",
+    "section": "3.1 初日の村人処刑確率",
+    "text": "3.1 初日の村人処刑確率\n\\(kA\\) 配役における総プレイヤー数は\n\\[\nM=k-1\n\\]\nであり、そのうち村人の人数は\n\\[\nM-1=k-2\n\\]\nである。\nしたがって、初日に村人が処刑される確率を\n\\[\np_k\n\\equiv\nP(\\text{初日に村人が処刑される}\\mid kA)\n\\]\nと定義すると、\n\\[\n\\boxed{\np_k=\\frac{k-2}{k-1}\n}\n\\]\nが成立する。"
+  },
+  {
+    "objectID": "mathematics.html#偶奇配役間の比較",
+    "href": "mathematics.html#偶奇配役間の比較",
+    "title": "Wallis積と π/4 の出現",
+    "section": "3.2 偶奇配役間の比較",
+    "text": "3.2 偶奇配役間の比較\n偶数配役と奇数配役の比を累積した積を\n\\[\nR_n\n\\equiv\n\\prod_{j=2}^{n}\n\\frac{p_{2j}}{p_{2j+1}}\n\\]\nと定義する。\nここで\n\\[\np_{2j}=\\frac{2j-2}{2j-1},\n\\qquad\np_{2j+1}=\\frac{2j-1}{2j}\n\\]\nなので、\n\\[\n\\frac{p_{2j}}{p_{2j+1}}\n=\n\\frac{2j(2j-2)}{(2j-1)^2}.\n\\]\nしたがって、\n\\[\nR_n\n=\n\\prod_{j=2}^{n}\n\\frac{2j(2j-2)}{(2j-1)^2}.\n\\]"
+  },
+  {
+    "objectID": "mathematics.html#閉形式への変形",
+    "href": "mathematics.html#閉形式への変形",
+    "title": "Wallis積と π/4 の出現",
+    "section": "3.3 閉形式への変形",
+    "text": "3.3 閉形式への変形\n二重階乗\n\\[\n(2n-1)!!\n=\n\\frac{(2n)!}{2^n n!}\n\\]\nを用いると、\\(R_n\\) は中心二項係数によって\n\\[\n\\boxed{\nR_n=\n\\frac{4^{2n-1}}\n{n\\binom{2n}{n}^{2}}\n}\n\\]\nと表される。"
+  },
+  {
+    "objectID": "mathematics.html#pi4-への収束",
+    "href": "mathematics.html#pi4-への収束",
+    "title": "Wallis積と π/4 の出現",
+    "section": "3.4 \\(\\pi/4\\) への収束",
+    "text": "3.4 \\(\\pi/4\\) への収束\nStirling の公式から中心二項係数について\n\\[\n\\binom{2n}{n}\n\\sim\n\\frac{4^n}{\\sqrt{\\pi n}}\n\\qquad(n\\to\\infty)\n\\]\nが得られる。\nしたがって、\n\\[\n\\binom{2n}{n}^{2}\n\\sim\n\\frac{16^n}{\\pi n}.\n\\]\nこれを \\(R_n\\) に代入すると、\n\\[\nR_n\n\\sim\n\\frac{4^{2n-1}}\n{n\\cdot 16^n/(\\pi n)}\n=\n\\frac{\\pi}{4}.\n\\]\nよって、\n\\[\n\\boxed{\n\\lim_{n\\to\\infty}R_n=\\frac{\\pi}{4}\n}\n\\]\nである。\n\nWallis積との対応\nWallis 積の部分積\n\\[\n\\prod_{j=1}^{n}\n\\frac{2j}{2j-1}\n\\frac{2j}{2j+1}\n\\longrightarrow\n\\frac{\\pi}{2}\n\\]\nと比較すると、\\(R_n\\) に現れる\n\\[\n\\frac{2j(2j-2)}{(2j-1)^2}\n\\]\nは、Wallis 積の各因子を添字方向にずらした構造とみなすことができる。\nその結果、両者はそれぞれ\n\\[\n\\frac{\\pi}{2},\n\\qquad\n\\frac{\\pi}{4}\n=\n\\frac12\\cdot\\frac{\\pi}{2}\n\\]\nという関係にある。"
+  },
+  {
+    "objectID": "mathematics.html#人狼勝率の定義",
+    "href": "mathematics.html#人狼勝率の定義",
+    "title": "Wallis積と π/4 の出現",
+    "section": "4.1 人狼勝率の定義",
+    "text": "4.1 人狼勝率の定義\n総生存者数を \\(m\\) とし、その状態における人狼の最終的な勝率を\n\\[\nW_m\n\\equiv\nP(\\text{人狼が最終的に勝利}\\mid m\\text{ 人が生存})\n\\]\nと定義する。"
+  },
+  {
+    "objectID": "mathematics.html#漸化式",
+    "href": "mathematics.html#漸化式",
+    "title": "Wallis積と π/4 の出現",
+    "section": "4.2 漸化式",
+    "text": "4.2 漸化式\n\\(m\\ge3\\) とする。\n昼の処刑において人狼が処刑される確率は\n\\[\n\\frac1m\n\\]\nであり、この場合は村人陣営の勝利となる。\n一方、村人が処刑される確率は\n\\[\n\\frac{m-1}{m}.\n\\]\nその後、夜に人狼が村人を1人襲撃すると、生存者数は2人減少する。\nしたがって、\n\\[\nm\\longrightarrow m-1\\longrightarrow m-2\n\\]\nという遷移が生じる。\nよって、\n\\[\n\\boxed{\nW_m=\\frac{m-1}{m}W_{m-2}\n}\n\\]\nを得る。"
+  },
+  {
+    "objectID": "mathematics.html#境界条件",
+    "href": "mathematics.html#境界条件",
+    "title": "Wallis積と π/4 の出現",
+    "section": "4.3 境界条件",
+    "text": "4.3 境界条件\n人狼1人と村人1人が残った場合には\n\\[\nW=1,\\qquad V=1\n\\]\nであり、人狼の勝利条件 \\(W\\ge V\\) が成立する。\nしたがって、\n\\[\nW_2=1.\n\\]\nまた、人狼のみが生存している状態について形式的に\n\\[\nW_1=1\n\\]\nとする。"
+  },
+  {
+    "objectID": "mathematics.html#閉形式",
+    "href": "mathematics.html#閉形式",
+    "title": "Wallis積と π/4 の出現",
+    "section": "4.4 閉形式",
+    "text": "4.4 閉形式\n漸化式を展開すると、\n\\[\n\\boxed{\nW_{2n}\n=\n\\frac{2(2n-1)!!}{(2n)!!}\n}\n\\]\nおよび\n\\[\n\\boxed{\nW_{2n+1}\n=\n\\frac{(2n)!!}{(2n+1)!!}\n}\n\\]\nを得る。"
+  },
+  {
+    "objectID": "mathematics.html#ka-配役における人狼勝率",
+    "href": "mathematics.html#ka-配役における人狼勝率",
+    "title": "Wallis積と π/4 の出現",
+    "section": "4.5 \\(kA\\) 配役における人狼勝率",
+    "text": "4.5 \\(kA\\) 配役における人狼勝率\n\\(kA\\) 配役の総プレイヤー数は \\(k-1\\) である。\nそこで、\\(kA\\) 配役における人狼勝率を\n\\[\n\\Omega_k:=W_{k-1}\n\\]\nと定義する。\n偶数配役と奇数配役の人狼勝率比を\n\\[\nS_n\n\\equiv\n\\frac{\\Omega_{2n}}{\\Omega_{2n+1}}\n\\]\nとすると、\n\\[\n\\boxed{\nS_n=\n\\frac{4^{2n-1}}\n{n\\binom{2n}{n}^{2}}\n}\n\\]\nが成立する。"
+  },
+  {
+    "objectID": "mathematics.html#参考文献",
+    "href": "mathematics.html#参考文献",
+    "title": "Wallis積と π/4 の出現",
+    "section": "参考文献",
+    "text": "参考文献\n\n人狼 Online, 「人狼ゲームのルール」.\nJ. Wallis, Arithmetica Infinitorum, Oxford, 1656.\nW. Feller, An Introduction to Probability Theory and Its Applications, Vol. 1, 3rd ed., Wiley, 1968."
+  },
+  {
+    "objectID": "wallis-pi.html",
+    "href": "wallis-pi.html",
+    "title": "Wallis積と π/4 の出現",
+    "section": "",
+    "text": "← Mathematics に戻る"
+  },
+  {
+    "objectID": "wallis-pi.html#概要",
+    "href": "wallis-pi.html#概要",
+    "title": "Wallis積と π/4 の出現",
+    "section": "概要",
+    "text": "概要\n本研究では、1人の人狼と複数の村人から構成される単純化された人狼ゲームを、確率的なランダム排除過程として定式化する。\\(kA\\) 配役を1人の人狼と \\(k-2\\) 人の村人からなる配役として定義し、プレイヤー間に有用な情報が存在しない場合には、処刑対象が生存者から一様に選択されるという仮定を置く。\nまず、\\(kA\\) 配役における初日の村人処刑確率を導出し、その偶奇配役間の累積比が Wallis 積と同型の構造を持つことを示す。次に、昼の処刑と夜の襲撃を繰り返すランダム排除過程を定式化し、人狼の勝率に関する漸化式を導出する。\n特に、初日の村人処刑確率から得られる偶奇累積比と、ゲーム全体における人狼勝率の偶奇比が、有限の \\(n\\) において既に同一の数列\n\\[\n\\frac{4^{2n-1}}\n{n\\binom{2n}{n}^{2}}\n\\]\nに一致することを示す。さらに中心二項係数の漸近公式を用いることにより、この数列が \\(\\pi/4\\) に収束することを証明する。"
+  },
+  {
+    "objectID": "wallis-pi.html#人狼ゲームとは",
+    "href": "wallis-pi.html#人狼ゲームとは",
+    "title": "Wallis積と π/4 の出現",
+    "section": "1.1 人狼ゲームとは",
+    "text": "1.1 人狼ゲームとは\n人狼ゲームは、複数のプレイヤーが異なる役職を持ち、それぞれの役職および所属する陣営に応じた目的の達成を目指す不完全情報ゲームである。一般的な人狼ゲームでは、複数の陣営が存在し得るため、配役によって勝利条件やゲーム進行が異なる。\nゲームは基本的に昼と夜のフェーズを繰り返して進行する。昼のフェーズでは、生存プレイヤーによる議論および投票が行われ、原則として1名が処刑される。夜のフェーズでは、人狼などの夜間能力を持つ役職が能力を行使し、その結果として生存者数が減少する場合がある。\n本研究では、一般的な人狼ゲームそのものを完全に再現することを目的とせず、その基本的な排除構造を数学的に抽象化する。具体的には、1人の人狼と複数の村人から構成される2陣営の基本モデルに対象を限定し、プレイヤーの発言、推理および戦略的意思決定を排除した確率モデルを構築する。"
+  },
+  {
+    "objectID": "wallis-pi.html#本研究におけるルールの位置づけ",
+    "href": "wallis-pi.html#本研究におけるルールの位置づけ",
+    "title": "Wallis積と π/4 の出現",
+    "section": "1.2 本研究におけるルールの位置づけ",
+    "text": "1.2 本研究におけるルールの位置づけ\n本研究における基本的な勝利条件およびゲーム進行の定義は、一般的な人狼ゲームのルールを参考として定める。特に、勝利条件の定式化に際しては、人狼 Online の通常人狼における勝利条件を参照する。ただし、本研究では数学的解析を目的として、実際のゲームに存在する発言、推理、役職能力および戦略的投票等を大幅に単純化している。\nしたがって、本研究で扱うモデルは特定のオンライン人狼ゲームを完全に再現するものではなく、実際の人狼ゲームから抽出した理想化された確率モデルである。"
+  },
+  {
+    "objectID": "wallis-pi.html#ka-配役の定義",
+    "href": "wallis-pi.html#ka-配役の定義",
+    "title": "Wallis積と π/4 の出現",
+    "section": "2.1 \\(kA\\) 配役の定義",
+    "text": "2.1 \\(kA\\) 配役の定義\n本研究では、1人の人狼と複数の村人から構成される配役を考える。\\(kA\\) 配役を、1人の人狼と \\(k-2\\) 人の村人からなる配役として定義する。したがって、総プレイヤー数は \\(k-1\\) 人である。\n定義 2.1 (\\(kA\\) 配役).\n\\[\nkA = 1\\text{ 狼} + (k-2)\\text{ 村人}\n\\]\n例えば、\n\\[\n4A=1\\text{ 狼}+2\\text{ 村人},\n\\quad\n5A=1\\text{ 狼}+3\\text{ 村人},\n\\quad\n6A=1\\text{ 狼}+4\\text{ 村人},\n\\quad\\cdots\n\\]\nである。"
+  },
+  {
+    "objectID": "wallis-pi.html#勝利条件",
+    "href": "wallis-pi.html#勝利条件",
+    "title": "Wallis積と π/4 の出現",
+    "section": "2.2 勝利条件",
+    "text": "2.2 勝利条件\n生存している人狼の人数を \\(W\\)、生存している村側プレイヤーの人数を \\(V\\) とする。\n定義 2.2 (人狼陣営の勝利条件).\n人狼陣営は、\n\\[\nW\\geq V\n\\]\nが成立した時点で勝利するものと定義する。\n本研究の基本モデルでは人狼は1人のみであるため、\n\\[\nW=1\n\\]\nであり、人狼陣営の勝利条件は\n\\[\n1\\geq V,\n\\qquad\\text{すなわち}\\qquad V\\leq1\n\\]\nとなる。\n定義 2.3 (村人陣営の勝利条件).\n村人陣営は、すべての人狼が排除された時点、すなわち\n\\[\nW=0\n\\]\nが成立した時点で勝利するものと定義する。"
+  },
+  {
+    "objectID": "wallis-pi.html#random-voting-assumption",
+    "href": "wallis-pi.html#random-voting-assumption",
+    "title": "Wallis積と π/4 の出現",
+    "section": "2.3 Random Voting Assumption",
+    "text": "2.3 Random Voting Assumption\n初日の時点では、プレイヤー間に役職に関する有用な情報が存在せず、各プレイヤーは確率的に対称な立場にあるものと仮定する。\n仮定 2.4 (Random Voting Assumption).\n情報が存在しない場合、処刑対象は生存しているプレイヤーの中から一様ランダムに1人選択されるものとする。"
+  },
+  {
+    "objectID": "wallis-pi.html#初日の村人処刑確率-1",
+    "href": "wallis-pi.html#初日の村人処刑確率-1",
+    "title": "Wallis積と π/4 の出現",
+    "section": "3.1 初日の村人処刑確率",
+    "text": "3.1 初日の村人処刑確率\n\\(kA\\) 配役における総プレイヤー数は\n\\[\nM=k-1\n\\]\nであり、そのうち村人の人数は\n\\[\nM-1=k-2\n\\]\nである。\nしたがって、Random Voting Assumption より、初日に村人が処刑される確率 \\(p_k\\) は次のように表される。\n補題 3.1. \\(kA\\) 配役における初日の村人処刑確率を\n\\[\np_k\n\\equiv\nP(\\text{初日に村人が処刑される}\\mid kA)\n\\]\nと定義すると、\n\\[\n\\boxed{\np_k=\\frac{k-2}{k-1}\n}\n\\]\nが成立する。\nProof.\n\\(kA\\) 配役には \\(M=k-1\\) 人のプレイヤーが存在し、そのうち \\(M-1=k-2\\) 人が村人である。処刑対象は \\(M\\) 人の中から一様ランダムに選択されるため、\n\\[\np_k\n=\n\\frac{M-1}{M}\n=\n\\frac{k-2}{k-1}.\n\\]"
+  },
+  {
+    "objectID": "wallis-pi.html#偶奇配役間の比較",
+    "href": "wallis-pi.html#偶奇配役間の比較",
+    "title": "Wallis積と π/4 の出現",
+    "section": "3.2 偶奇配役間の比較",
+    "text": "3.2 偶奇配役間の比較\n単一の偶奇比\n\\[\n\\frac{p_{2j}}{p_{2j+1}}\n\\]\nは \\(j\\to\\infty\\) において1に収束する。そこで、偶数配役と奇数配役の比を累積した積を考える。\n定義 3.2 (初日村人処刑確率の偶奇累積比).\n\\[\nR_n\n\\equiv\n\\prod_{j=2}^{n}\n\\frac{p_{2j}}{p_{2j+1}}\n\\]\nと定義する。\n補題より、\n\\[\np_{2j}\n=\n\\frac{2j-2}{2j-1},\n\\qquad\np_{2j+1}\n=\n\\frac{2j-1}{2j}\n\\]\nであるから、\n\\[\n\\frac{p_{2j}}{p_{2j+1}}\n=\n\\frac{2j(2j-2)}{(2j-1)^2}.\n\\]\nしたがって、\n\\[\nR_n\n=\n\\prod_{j=2}^{n}\n\\frac{2j(2j-2)}{(2j-1)^2}.\n\\]"
+  },
+  {
+    "objectID": "wallis-pi.html#閉形式への変形",
+    "href": "wallis-pi.html#閉形式への変形",
+    "title": "Wallis積と π/4 の出現",
+    "section": "3.3 閉形式への変形",
+    "text": "3.3 閉形式への変形\n分子について、\n\\[\n\\prod_{j=2}^{n}2j(2j-2)\n=\n\\left(\\prod_{j=2}^{n}2j\\right)\n\\left(\\prod_{j=2}^{n}(2j-2)\\right)\n\\]\nであり、\n\\[\n\\prod_{j=2}^{n}2j\n=\n2^{n-1}n!,\n\\]\n\\[\n\\prod_{j=2}^{n}(2j-2)\n=\n2^{n-1}(n-1)!.\n\\]\nしたがって、\n\\[\n\\prod_{j=2}^{n}2j(2j-2)\n=\n\\frac{4^n n!(n-1)!}{4}.\n\\]\n一方、\n\\[\n\\prod_{j=2}^{n}(2j-1)^2\n=\n((2n-1)!!)^2.\n\\]\nここで二重階乗と階乗の関係式\n\\[\n(2n-1)!!\n=\n\\frac{(2n)!}{2^n n!}\n\\]\nを用いて整理すると、次を得る。\n命題 3.3.\n\\[\n\\boxed{\nR_n\n=\n\\frac{4^{2n-1}}\n{n\\binom{2n}{n}^{2}}\n}\n\\]\nである。"
+  },
+  {
+    "objectID": "wallis-pi.html#pi4-への収束",
+    "href": "wallis-pi.html#pi4-への収束",
+    "title": "Wallis積と π/4 の出現",
+    "section": "3.4 \\(\\pi/4\\) への収束",
+    "text": "3.4 \\(\\pi/4\\) への収束\nStirling の公式から中心二項係数について\n\\[\n\\binom{2n}{n}\n\\sim\n\\frac{4^n}{\\sqrt{\\pi n}}\n\\qquad(n\\to\\infty)\n\\]\nが得られる。\nしたがって、\n\\[\n\\binom{2n}{n}^{2}\n\\sim\n\\frac{16^n}{\\pi n}.\n\\]\nよって、\n\\[\nR_n\n=\n\\frac{4^{2n-1}}\n{n\\binom{2n}{n}^{2}}\n\\sim\n\\frac{16^n/4}\n{n\\cdot16^n/(\\pi n)}\n=\n\\frac{\\pi}{4}.\n\\]\n定理 3.4.\n\\[\n\\boxed{\n\\lim_{n\\to\\infty}R_n=\\frac{\\pi}{4}\n}\n\\]\nを満たす。\n注意 3.5.\nこの極限は、Wallis 積の部分積\n\\[\n\\prod_{j=1}^{n}\n\\frac{2j}{2j-1}\n\\frac{2j}{2j+1}\n\\longrightarrow\n\\frac{\\pi}{2}\n\\]\nと本質的に同型の構造を持つ。\\(R_n\\) の分子・分母に現れる\n\\[\n\\frac{2j(2j-2)}{(2j-1)^2}\n\\]\nという形は、Wallis 積の各項の添字を1つずらしたものと本質的に同一であり、両者が同じ極限値の定数倍、ここでは\n\\[\n\\frac{\\pi}{4}\n=\n\\frac12\\cdot\\frac{\\pi}{2}\n\\]\nに収束することは構造的な帰結である。"
+  },
+  {
+    "objectID": "wallis-pi.html#人狼勝率の定義",
+    "href": "wallis-pi.html#人狼勝率の定義",
+    "title": "Wallis積と π/4 の出現",
+    "section": "4.1 人狼勝率の定義",
+    "text": "4.1 人狼勝率の定義\n総生存者数を \\(m\\) とし、その状態における人狼の最終的な勝率を\n\\[\nW_m\n\\equiv\nP(\\text{人狼が最終的に勝利}\\mid m\\text{ 人が生存})\n\\]\nと定義する。\nこれは生存者数 \\(m\\) を添字とする確率であり、後述する「配役番号 \\(k\\) を添字とする」勝率 \\(\\Omega_k\\)（定義4.3）とは異なる添字体系を持つ点に注意されたい。"
+  },
+  {
+    "objectID": "wallis-pi.html#漸化式",
+    "href": "wallis-pi.html#漸化式",
+    "title": "Wallis積と π/4 の出現",
+    "section": "4.2 漸化式",
+    "text": "4.2 漸化式\n\\(m\\geq3\\) とする。昼の処刑において人狼が処刑される確率は\n\\[\n\\frac1m\n\\]\nであり、この場合は村人陣営の勝利となる。\n一方、村人が処刑される確率は\n\\[\n\\frac{m-1}{m}.\n\\]\nその後、夜に人狼が村人を1人襲撃すると、生存者数は2人減少する。したがって、\n\\[\nm\\longrightarrow m-1\\longrightarrow m-2\n\\]\nという遷移が生じる。\n補題 4.1.\n\\(m\\geq3\\) に対して、人狼勝率 \\(W_m\\) は\n\\[\n\\boxed{\nW_m=\\frac{m-1}{m}W_{m-2}\n}\n\\]\nを満たす。\nProof.\n昼の処刑で人狼が選択される場合、人狼は敗北する。村人が選択される確率は \\((m-1)/m\\) であり、その後の夜の襲撃によって生存者数は \\(m-2\\) となる。したがって、\n\\[\nW_m\n=\n\\frac{m-1}{m}W_{m-2}.\n\\]"
+  },
+  {
+    "objectID": "wallis-pi.html#境界条件",
+    "href": "wallis-pi.html#境界条件",
+    "title": "Wallis積と π/4 の出現",
+    "section": "4.3 境界条件",
+    "text": "4.3 境界条件\n勝利条件より、人狼1人と村人1人が残った場合には\n\\[\nW=1,\\qquad V=1\n\\]\nであり、\n\\[\nW\\geq V\n\\]\nが成立する。したがって、\n\\[\nW_2=1.\n\\]\nまた、人狼のみが生存している状態について\n\\[\nW_1=1\n\\]\nとする。\n注意 4.2.\n\\(m=3\\) から漸化式を1回適用すると、昼の処刑直後の状態（生存者2人：人狼1・村人1）は \\(W_2=1\\) の時点で既に勝利条件 \\(W\\geq V\\) を満たしている。したがって形式的にはこの時点でゲームは終了しており、夜フェーズを経て生存者数を1へ減らす操作は勝敗そのものには影響しない。\nしたがって \\(W_1=1\\) は、この「既に決着した状態」をさらに1手形式的に進めた場合の整合的な値として導入しており、\\(W_1\\) を独立に観測される確率とみなす必要はない。"
+  },
+  {
+    "objectID": "wallis-pi.html#閉形式",
+    "href": "wallis-pi.html#閉形式",
+    "title": "Wallis積と π/4 の出現",
+    "section": "4.4 閉形式",
+    "text": "4.4 閉形式\n漸化式を展開すると、\n\\[\n\\boxed{\nW_{2n}\n=\n2\\frac{(2n-1)!!}{(2n)!!}\n}\n\\]\nおよび\n\\[\n\\boxed{\nW_{2n+1}\n=\n\\frac{(2n)!!}{(2n+1)!!}\n}\n\\]\nを得る。"
+  },
+  {
+    "objectID": "wallis-pi.html#ka-配役における人狼勝率",
+    "href": "wallis-pi.html#ka-配役における人狼勝率",
+    "title": "Wallis積と π/4 の出現",
+    "section": "4.5 \\(kA\\) 配役における人狼勝率",
+    "text": "4.5 \\(kA\\) 配役における人狼勝率\n\\(kA\\) 配役の総プレイヤー数は \\(k-1\\) である。そこで、\\(kA\\) 配役における人狼勝率を、生存者数添字の \\(W_m\\) と明確に区別するため \\(\\Omega_k\\) と表記する。\n定義 4.3.\n\\[\n\\Omega_k:=W_{k-1}\n\\]\nと定義する。\n偶数配役と奇数配役の人狼勝率比を\n\\[\nS_n\n\\equiv\n\\frac{\\Omega_{2n}}{\\Omega_{2n+1}}\n\\]\nと定義する。\n定義より\n\\[\n\\Omega_{2n}=W_{2n-1},\n\\qquad\n\\Omega_{2n+1}=W_{2n}\n\\]\nであるから、\n\\[\nS_n\n=\n\\frac{W_{2n-1}}{W_{2n}}.\n\\]\n4.4節の閉形式を代入すると、\n\\[\nS_n\n=\n\\frac{(2n-2)!!/(2n-1)!!}\n{2(2n-1)!!/(2n)!!}\n\\]\nであり、\n\\[\nS_n\n=\n\\frac{(2n-2)!!(2n)!!}\n{2((2n-1)!!)^2}.\n\\]\n命題 4.4.\n\\[\n\\boxed{\nS_n\n=\n\\frac{4^{2n-1}}\n{n\\binom{2n}{n}^{2}}\n}\n\\]\nと表される。"
+  },
+  {
+    "objectID": "wallis-pi.html#原論文",
+    "href": "wallis-pi.html#原論文",
+    "title": "Wallis積と π/4 の出現",
+    "section": "原論文",
+    "text": "原論文\n原論文PDFを開く"
+  },
+  {
+    "objectID": "mathematics.html#research-papers",
+    "href": "mathematics.html#research-papers",
+    "title": "Mathematics",
+    "section": "Research Papers",
+    "text": "Research Papers\n\n\n\n\nWallis積と π/4 の出現\n人狼ゲームに着想を得たランダム排除過程\n人狼ゲームを単純化したランダム排除過程を考察し、偶奇構造・二重階乗・中心二項係数を通じて、Wallis積と π/4 の出現を示します。\n論文を読む →\n\n\n\n\n\n\nComing Soon\n今後の数学的研究を掲載予定です。\n複数狼モデル、特殊役職、より一般的な確率過程などへの拡張を検討しています。"
+  },
+  {
+    "objectID": "mathematics.html#research-direction",
+    "href": "mathematics.html#research-direction",
+    "title": "Mathematics",
+    "section": "Research Direction",
+    "text": "Research Direction\n現在は、単純化された人狼モデルにおける確率構造を出発点として、\n\nランダム排除過程\n偶奇構造\n二重階乗と中心二項係数\nWallis積と極限値\nより複雑な役職構成への一般化\n\nといったテーマを中心に研究しています。"
+  },
+  {
+    "objectID": "mathematics/wallis-pi.html",
+    "href": "mathematics/wallis-pi.html",
+    "title": "Wallis積と π/4 の出現",
+    "section": "",
+    "text": "← Mathematics に戻る"
+  },
+  {
+    "objectID": "mathematics/wallis-pi.html#概要",
+    "href": "mathematics/wallis-pi.html#概要",
+    "title": "Wallis積と π/4 の出現",
+    "section": "概要",
+    "text": "概要\n本研究では、1人の人狼と複数の村人から構成される単純化された人狼ゲームを、確率的なランダム排除過程として定式化する。\\(kA\\) 配役を1人の人狼と \\(k-2\\) 人の村人からなる配役として定義し、プレイヤー間に有用な情報が存在しない場合には、処刑対象が生存者から一様に選択されるという仮定を置く。\nまず、\\(kA\\) 配役における初日の村人処刑確率を導出し、その偶奇配役間の累積比が Wallis 積と同型の構造を持つことを示す。次に、昼の処刑と夜の襲撃を繰り返すランダム排除過程を定式化し、人狼の勝率に関する漸化式を導出する。\n特に、初日の村人処刑確率から得られる偶奇累積比と、ゲーム全体における人狼勝率の偶奇比が、有限の \\(n\\) において既に同一の数列\n\\[\n\\frac{4^{2n-1}}\n{n\\binom{2n}{n}^{2}}\n\\]\nに一致することを示す。さらに中心二項係数の漸近公式を用いることにより、この数列が \\(\\pi/4\\) に収束することを証明する。"
+  },
+  {
+    "objectID": "mathematics/wallis-pi.html#人狼ゲームとは",
+    "href": "mathematics/wallis-pi.html#人狼ゲームとは",
+    "title": "Wallis積と π/4 の出現",
+    "section": "1.1 人狼ゲームとは",
+    "text": "1.1 人狼ゲームとは\n人狼ゲームは、複数のプレイヤーが異なる役職を持ち、それぞれの役職および所属する陣営に応じた目的の達成を目指す不完全情報ゲームである。一般的な人狼ゲームでは、複数の陣営が存在し得るため、配役によって勝利条件やゲーム進行が異なる。\nゲームは基本的に昼と夜のフェーズを繰り返して進行する。昼のフェーズでは、生存プレイヤーによる議論および投票が行われ、原則として1名が処刑される。夜のフェーズでは、人狼などの夜間能力を持つ役職が能力を行使し、その結果として生存者数が減少する場合がある。\n本研究では、一般的な人狼ゲームそのものを完全に再現することを目的とせず、その基本的な排除構造を数学的に抽象化する。具体的には、1人の人狼と複数の村人から構成される2陣営の基本モデルに対象を限定し、プレイヤーの発言、推理および戦略的意思決定を排除した確率モデルを構築する。"
+  },
+  {
+    "objectID": "mathematics/wallis-pi.html#本研究におけるルールの位置づけ",
+    "href": "mathematics/wallis-pi.html#本研究におけるルールの位置づけ",
+    "title": "Wallis積と π/4 の出現",
+    "section": "1.2 本研究におけるルールの位置づけ",
+    "text": "1.2 本研究におけるルールの位置づけ\n本研究における基本的な勝利条件およびゲーム進行の定義は、一般的な人狼ゲームのルールを参考として定める。特に、勝利条件の定式化に際しては、人狼 Online の通常人狼における勝利条件を参照する。ただし、本研究では数学的解析を目的として、実際のゲームに存在する発言、推理、役職能力および戦略的投票等を大幅に単純化している。\nしたがって、本研究で扱うモデルは特定のオンライン人狼ゲームを完全に再現するものではなく、実際の人狼ゲームから抽出した理想化された確率モデルである。"
+  },
+  {
+    "objectID": "mathematics/wallis-pi.html#ka-配役の定義",
+    "href": "mathematics/wallis-pi.html#ka-配役の定義",
+    "title": "Wallis積と π/4 の出現",
+    "section": "2.1 \\(kA\\) 配役の定義",
+    "text": "2.1 \\(kA\\) 配役の定義\n本研究では、1人の人狼と複数の村人から構成される配役を考える。\\(kA\\) 配役を、1人の人狼と \\(k-2\\) 人の村人からなる配役として定義する。したがって、総プレイヤー数は \\(k-1\\) 人である。\n定義 2.1 (\\(kA\\) 配役).\n\\[\nkA = 1\\text{ 狼} + (k-2)\\text{ 村人}\n\\]\n例えば、\n\\[\n4A=1\\text{ 狼}+2\\text{ 村人},\n\\quad\n5A=1\\text{ 狼}+3\\text{ 村人},\n\\quad\n6A=1\\text{ 狼}+4\\text{ 村人},\n\\quad\\cdots\n\\]\nである。"
+  },
+  {
+    "objectID": "mathematics/wallis-pi.html#勝利条件",
+    "href": "mathematics/wallis-pi.html#勝利条件",
+    "title": "Wallis積と π/4 の出現",
+    "section": "2.2 勝利条件",
+    "text": "2.2 勝利条件\n生存している人狼の人数を \\(W\\)、生存している村側プレイヤーの人数を \\(V\\) とする。\n定義 2.2 (人狼陣営の勝利条件).\n人狼陣営は、\n\\[\nW\\geq V\n\\]\nが成立した時点で勝利するものと定義する。\n本研究の基本モデルでは人狼は1人のみであるため、\n\\[\nW=1\n\\]\nであり、人狼陣営の勝利条件は\n\\[\n1\\geq V,\n\\qquad\\text{すなわち}\\qquad V\\leq1\n\\]\nとなる。\n定義 2.3 (村人陣営の勝利条件).\n村人陣営は、すべての人狼が排除された時点、すなわち\n\\[\nW=0\n\\]\nが成立した時点で勝利するものと定義する。"
+  },
+  {
+    "objectID": "mathematics/wallis-pi.html#random-voting-assumption",
+    "href": "mathematics/wallis-pi.html#random-voting-assumption",
+    "title": "Wallis積と π/4 の出現",
+    "section": "2.3 Random Voting Assumption",
+    "text": "2.3 Random Voting Assumption\n初日の時点では、プレイヤー間に役職に関する有用な情報が存在せず、各プレイヤーは確率的に対称な立場にあるものと仮定する。\n仮定 2.4 (Random Voting Assumption).\n情報が存在しない場合、処刑対象は生存しているプレイヤーの中から一様ランダムに1人選択されるものとする。"
+  },
+  {
+    "objectID": "mathematics/wallis-pi.html#初日の村人処刑確率-1",
+    "href": "mathematics/wallis-pi.html#初日の村人処刑確率-1",
+    "title": "Wallis積と π/4 の出現",
+    "section": "3.1 初日の村人処刑確率",
+    "text": "3.1 初日の村人処刑確率\n\\(kA\\) 配役における総プレイヤー数は\n\\[\nM=k-1\n\\]\nであり、そのうち村人の人数は\n\\[\nM-1=k-2\n\\]\nである。\nしたがって、Random Voting Assumption より、初日に村人が処刑される確率 \\(p_k\\) は次のように表される。\n補題 3.1. \\(kA\\) 配役における初日の村人処刑確率を\n\\[\np_k\n\\equiv\nP(\\text{初日に村人が処刑される}\\mid kA)\n\\]\nと定義すると、\n\\[\n\\boxed{\np_k=\\frac{k-2}{k-1}\n}\n\\]\nが成立する。\nProof.\n\\(kA\\) 配役には \\(M=k-1\\) 人のプレイヤーが存在し、そのうち \\(M-1=k-2\\) 人が村人である。処刑対象は \\(M\\) 人の中から一様ランダムに選択されるため、\n\\[\np_k\n=\n\\frac{M-1}{M}\n=\n\\frac{k-2}{k-1}.\n\\]"
+  },
+  {
+    "objectID": "mathematics/wallis-pi.html#偶奇配役間の比較",
+    "href": "mathematics/wallis-pi.html#偶奇配役間の比較",
+    "title": "Wallis積と π/4 の出現",
+    "section": "3.2 偶奇配役間の比較",
+    "text": "3.2 偶奇配役間の比較\n単一の偶奇比\n\\[\n\\frac{p_{2j}}{p_{2j+1}}\n\\]\nは \\(j\\to\\infty\\) において1に収束する。そこで、偶数配役と奇数配役の比を累積した積を考える。\n定義 3.2 (初日村人処刑確率の偶奇累積比).\n\\[\nR_n\n\\equiv\n\\prod_{j=2}^{n}\n\\frac{p_{2j}}{p_{2j+1}}\n\\]\nと定義する。\n補題より、\n\\[\np_{2j}\n=\n\\frac{2j-2}{2j-1},\n\\qquad\np_{2j+1}\n=\n\\frac{2j-1}{2j}\n\\]\nであるから、\n\\[\n\\frac{p_{2j}}{p_{2j+1}}\n=\n\\frac{2j(2j-2)}{(2j-1)^2}.\n\\]\nしたがって、\n\\[\nR_n\n=\n\\prod_{j=2}^{n}\n\\frac{2j(2j-2)}{(2j-1)^2}.\n\\]"
+  },
+  {
+    "objectID": "mathematics/wallis-pi.html#閉形式への変形",
+    "href": "mathematics/wallis-pi.html#閉形式への変形",
+    "title": "Wallis積と π/4 の出現",
+    "section": "3.3 閉形式への変形",
+    "text": "3.3 閉形式への変形\n分子について、\n\\[\n\\prod_{j=2}^{n}2j(2j-2)\n=\n\\left(\\prod_{j=2}^{n}2j\\right)\n\\left(\\prod_{j=2}^{n}(2j-2)\\right)\n\\]\nであり、\n\\[\n\\prod_{j=2}^{n}2j\n=\n2^{n-1}n!,\n\\]\n\\[\n\\prod_{j=2}^{n}(2j-2)\n=\n2^{n-1}(n-1)!.\n\\]\nしたがって、\n\\[\n\\prod_{j=2}^{n}2j(2j-2)\n=\n\\frac{4^n n!(n-1)!}{4}.\n\\]\n一方、\n\\[\n\\prod_{j=2}^{n}(2j-1)^2\n=\n((2n-1)!!)^2.\n\\]\nここで二重階乗と階乗の関係式\n\\[\n(2n-1)!!\n=\n\\frac{(2n)!}{2^n n!}\n\\]\nを用いて整理すると、次を得る。\n命題 3.3.\n\\[\n\\boxed{\nR_n\n=\n\\frac{4^{2n-1}}\n{n\\binom{2n}{n}^{2}}\n}\n\\]\nである。"
+  },
+  {
+    "objectID": "mathematics/wallis-pi.html#pi4-への収束",
+    "href": "mathematics/wallis-pi.html#pi4-への収束",
+    "title": "Wallis積と π/4 の出現",
+    "section": "3.4 \\(\\pi/4\\) への収束",
+    "text": "3.4 \\(\\pi/4\\) への収束\nStirling の公式から中心二項係数について\n\\[\n\\binom{2n}{n}\n\\sim\n\\frac{4^n}{\\sqrt{\\pi n}}\n\\qquad(n\\to\\infty)\n\\]\nが得られる。\nしたがって、\n\\[\n\\binom{2n}{n}^{2}\n\\sim\n\\frac{16^n}{\\pi n}.\n\\]\nよって、\n\\[\nR_n\n=\n\\frac{4^{2n-1}}\n{n\\binom{2n}{n}^{2}}\n\\sim\n\\frac{16^n/4}\n{n\\cdot16^n/(\\pi n)}\n=\n\\frac{\\pi}{4}.\n\\]\n定理 3.4.\n\\[\n\\boxed{\n\\lim_{n\\to\\infty}R_n=\\frac{\\pi}{4}\n}\n\\]\nを満たす。\n注意 3.5.\nこの極限は、Wallis 積の部分積\n\\[\n\\prod_{j=1}^{n}\n\\frac{2j}{2j-1}\n\\frac{2j}{2j+1}\n\\longrightarrow\n\\frac{\\pi}{2}\n\\]\nと本質的に同型の構造を持つ。\\(R_n\\) の分子・分母に現れる\n\\[\n\\frac{2j(2j-2)}{(2j-1)^2}\n\\]\nという形は、Wallis 積の各項の添字を1つずらしたものと本質的に同一であり、両者が同じ極限値の定数倍、ここでは\n\\[\n\\frac{\\pi}{4}\n=\n\\frac12\\cdot\\frac{\\pi}{2}\n\\]\nに収束することは構造的な帰結である。"
+  },
+  {
+    "objectID": "mathematics/wallis-pi.html#人狼勝率の定義",
+    "href": "mathematics/wallis-pi.html#人狼勝率の定義",
+    "title": "Wallis積と π/4 の出現",
+    "section": "4.1 人狼勝率の定義",
+    "text": "4.1 人狼勝率の定義\n総生存者数を \\(m\\) とし、その状態における人狼の最終的な勝率を\n\\[\nW_m\n\\equiv\nP(\\text{人狼が最終的に勝利}\\mid m\\text{ 人が生存})\n\\]\nと定義する。\nこれは生存者数 \\(m\\) を添字とする確率であり、後述する「配役番号 \\(k\\) を添字とする」勝率 \\(\\Omega_k\\)（定義4.3）とは異なる添字体系を持つ点に注意されたい。"
+  },
+  {
+    "objectID": "mathematics/wallis-pi.html#漸化式",
+    "href": "mathematics/wallis-pi.html#漸化式",
+    "title": "Wallis積と π/4 の出現",
+    "section": "4.2 漸化式",
+    "text": "4.2 漸化式\n\\(m\\geq3\\) とする。昼の処刑において人狼が処刑される確率は\n\\[\n\\frac1m\n\\]\nであり、この場合は村人陣営の勝利となる。\n一方、村人が処刑される確率は\n\\[\n\\frac{m-1}{m}.\n\\]\nその後、夜に人狼が村人を1人襲撃すると、生存者数は2人減少する。したがって、\n\\[\nm\\longrightarrow m-1\\longrightarrow m-2\n\\]\nという遷移が生じる。\n補題 4.1.\n\\(m\\geq3\\) に対して、人狼勝率 \\(W_m\\) は\n\\[\n\\boxed{\nW_m=\\frac{m-1}{m}W_{m-2}\n}\n\\]\nを満たす。\nProof.\n昼の処刑で人狼が選択される場合、人狼は敗北する。村人が選択される確率は \\((m-1)/m\\) であり、その後の夜の襲撃によって生存者数は \\(m-2\\) となる。したがって、\n\\[\nW_m\n=\n\\frac{m-1}{m}W_{m-2}.\n\\]"
+  },
+  {
+    "objectID": "mathematics/wallis-pi.html#境界条件",
+    "href": "mathematics/wallis-pi.html#境界条件",
+    "title": "Wallis積と π/4 の出現",
+    "section": "4.3 境界条件",
+    "text": "4.3 境界条件\n勝利条件より、人狼1人と村人1人が残った場合には\n\\[\nW=1,\\qquad V=1\n\\]\nであり、\n\\[\nW\\geq V\n\\]\nが成立する。したがって、\n\\[\nW_2=1.\n\\]\nまた、人狼のみが生存している状態について\n\\[\nW_1=1\n\\]\nとする。\n注意 4.2.\n\\(m=3\\) から漸化式を1回適用すると、昼の処刑直後の状態（生存者2人：人狼1・村人1）は \\(W_2=1\\) の時点で既に勝利条件 \\(W\\geq V\\) を満たしている。したがって形式的にはこの時点でゲームは終了しており、夜フェーズを経て生存者数を1へ減らす操作は勝敗そのものには影響しない。\nしたがって \\(W_1=1\\) は、この「既に決着した状態」をさらに1手形式的に進めた場合の整合的な値として導入しており、\\(W_1\\) を独立に観測される確率とみなす必要はない。"
+  },
+  {
+    "objectID": "mathematics/wallis-pi.html#閉形式",
+    "href": "mathematics/wallis-pi.html#閉形式",
+    "title": "Wallis積と π/4 の出現",
+    "section": "4.4 閉形式",
+    "text": "4.4 閉形式\n漸化式を展開すると、\n\\[\n\\boxed{\nW_{2n}\n=\n2\\frac{(2n-1)!!}{(2n)!!}\n}\n\\]\nおよび\n\\[\n\\boxed{\nW_{2n+1}\n=\n\\frac{(2n)!!}{(2n+1)!!}\n}\n\\]\nを得る。"
+  },
+  {
+    "objectID": "mathematics/wallis-pi.html#ka-配役における人狼勝率",
+    "href": "mathematics/wallis-pi.html#ka-配役における人狼勝率",
+    "title": "Wallis積と π/4 の出現",
+    "section": "4.5 \\(kA\\) 配役における人狼勝率",
+    "text": "4.5 \\(kA\\) 配役における人狼勝率\n\\(kA\\) 配役の総プレイヤー数は \\(k-1\\) である。そこで、\\(kA\\) 配役における人狼勝率を、生存者数添字の \\(W_m\\) と明確に区別するため \\(\\Omega_k\\) と表記する。\n定義 4.3.\n\\[\n\\Omega_k:=W_{k-1}\n\\]\nと定義する。\n偶数配役と奇数配役の人狼勝率比を\n\\[\nS_n\n\\equiv\n\\frac{\\Omega_{2n}}{\\Omega_{2n+1}}\n\\]\nと定義する。\n定義より\n\\[\n\\Omega_{2n}=W_{2n-1},\n\\qquad\n\\Omega_{2n+1}=W_{2n}\n\\]\nであるから、\n\\[\nS_n\n=\n\\frac{W_{2n-1}}{W_{2n}}.\n\\]\n4.4節の閉形式を代入すると、\n\\[\nS_n\n=\n\\frac{(2n-2)!!/(2n-1)!!}\n{2(2n-1)!!/(2n)!!}\n\\]\nであり、\n\\[\nS_n\n=\n\\frac{(2n-2)!!(2n)!!}\n{2((2n-1)!!)^2}.\n\\]\n命題 4.4.\n\\[\n\\boxed{\nS_n\n=\n\\frac{4^{2n-1}}\n{n\\binom{2n}{n}^{2}}\n}\n\\]\nと表される。"
+  },
+  {
+    "objectID": "mathematics/wallis-pi.html#原論文",
+    "href": "mathematics/wallis-pi.html#原論文",
+    "title": "Wallis積と π/4 の出現",
+    "section": "原論文",
+    "text": "原論文\n原論文PDFを開く"
+  },
+  {
+    "objectID": "theory.html",
+    "href": "theory.html",
+    "title": "Theory",
+    "section": "",
+    "text": "ここでは、人狼ゲームに関する独自の理論や仮説・予想について述べています。"
+  },
+  {
+    "objectID": "theory.html#overview",
+    "href": "theory.html#overview",
+    "title": "Theory",
+    "section": "",
+    "text": "ここでは、人狼ゲームに関する独自の理論や仮説・予想について述べています。"
+  },
+  {
+    "objectID": "theory.html#experiment-1-werewolf-win-probability",
+    "href": "theory.html#experiment-1-werewolf-win-probability",
+    "title": "Theory",
+    "section": "Experiment 1 — Werewolf Win Probability",
+    "text": "Experiment 1 — Werewolf Win Probability\nThe first experiment investigates the probability of winning in a simplified Werewolf game.\n\nResearch Question\nHow does the number of villagers and werewolves affect the probability of a werewolf victory?\n\n\nMethod\nA simplified game model is defined in which:\n\nplayers are divided into villagers and werewolves;\none player is eliminated during the day;\na werewolf eliminates a villager during the night;\nthe game continues until one side reaches its victory condition.\n\nThe theoretical probability will be compared with results obtained through repeated simulations."
+  },
+  {
+    "objectID": "theory.html#future-experiments",
+    "href": "theory.html#future-experiments",
+    "title": "Theory",
+    "section": "Future Experiments",
+    "text": "Future Experiments\nPlanned experiments include:\n\nComparing different game configurations\nMeasuring the value of role information\nEvaluating different decision-making strategies\nDeveloping an AI for game progression\nComparing AI decisions with mathematically calculated probabilities"
+  },
+  {
+    "objectID": "index.html#research-fields",
+    "href": "index.html#research-fields",
+    "title": "Werewolf Decision AI",
+    "section": "Research Fields",
+    "text": "Research Fields\n本研究は、以下の学術領域を横断・融合して進めています。\n\nMathematical Modelling（数理モデリング）\nProbability Theory（確率過程・確率論）\nGame Theory（ゲーム理論）\nSimulation（計算機シミュレーション）\nArtificial Intelligence（推論型AI・機械学習）\n\n初期フェーズでは人狼モデルにおける勝率分布の数理構造を解析し、得られた理論的基盤を軸に、推論型意思決定AIの実装・評価へと段階的に拡張していきます。"
+  },
+  {
+    "objectID": "index.html#code-repository",
+    "href": "index.html#code-repository",
+    "title": "Werewolf Decision AI",
+    "section": "Code & Repository",
+    "text": "Code & Repository\nソースコードおよび計算実験のスクリプトは、GitHubにて公開しています。\nGitHub Repository"
+  },
+  {
+    "objectID": "theory.html#theory-notes",
+    "href": "theory.html#theory-notes",
+    "title": "Theory",
+    "section": "Theory Notes",
+    "text": "Theory Notes\n\n人狼AIの制作とその限界\n特徴量に基づく意思決定と推論型AIについて考察した研究ノートです\nRead the research note →"
+  },
+  {
+    "objectID": "index.html#本研究について",
+    "href": "index.html#本研究について",
+    "title": "Werewolf Decision AI",
+    "section": "",
+    "text": "本サイトでは、数理モデリング・計算シミュレーション・人工知能（AI）のアプローチを統合し、不完全情報ゲームである「人狼ゲーム」における意思決定メカニズムを研究・解明する試みや、人狼ゲームを数理的に捉えてその構造を明らかにする研究を行っています"
+  },
+  {
+    "objectID": "index.html#研究課題",
+    "href": "index.html#研究課題",
+    "title": "Werewolf Decision AI",
+    "section": "研究課題",
+    "text": "研究課題\n研究過程で解決を目標としている課題\n1. 人狼ゲームの配役10A狩・12A猫の初日人狼陣営CO戦略のナッシュ均衡\n2. AIはいかにして「推論する」のか\n3. 盤面情報を入力として、最適なゲーム進行を出力するAIの開発"
+  },
+  {
+    "objectID": "index.html#研究領域",
+    "href": "index.html#研究領域",
+    "title": "Werewolf Decision AI",
+    "section": "研究領域",
+    "text": "研究領域\n本研究は、以下の学術領域を横断・融合して進めています。\n\nMathematical Modelling（数理モデリング）\nProbability Theory（確率過程・確率論）\nGame Theory（ゲーム理論）\nSimulation（計算機シミュレーション）\nArtificial Intelligence（推論型AI・機械学習）\n\n初期フェーズでは人狼モデルにおける勝率分布の数理構造を解析し、得られた理論的基盤を軸に、推論型意思決定AIの実装・評価へと段階的に拡張していきます。"
+  },
+  {
+    "objectID": "index.html#研究ノート",
+    "href": "index.html#研究ノート",
+    "title": "Werewolf Decision AI",
+    "section": "研究ノート",
+    "text": "研究ノート\n理論モデルの導出、シミュレーション実験の推移、および得られた研究成果は、研究ノートとして随時公開・更新していきます。\nResearch Notes"
+  },
+  {
+    "objectID": "index.html#コードリポジトリ",
+    "href": "index.html#コードリポジトリ",
+    "title": "Werewolf Decision AI",
+    "section": "コード・リポジトリ",
+    "text": "コード・リポジトリ\nソースコードおよび計算実験のスクリプトは、GitHubにて公開しています。\nGitHub Repository"
+  },
+  {
+    "objectID": "research.html#概要",
+    "href": "research.html#概要",
+    "title": "Research",
+    "section": "",
+    "text": "本ページでは、AIを用いた人狼ゲームにおける最適な意思決定の導出や、データ分析による人狼ゲームの構造解析など、現在進めている研究について記載しています。"
+  },
+  {
+    "objectID": "research/research.html",
+    "href": "research/research.html",
+    "title": "Research",
+    "section": "",
+    "text": "本ページでは、AIを用いた人狼ゲームにおける最適な意思決定の導出や、データ分析による人狼ゲームの構造解析など、現在進めている研究について記載しています。"
+  },
+  {
+    "objectID": "research/research.html#概要",
+    "href": "research/research.html#概要",
+    "title": "Research",
+    "section": "",
+    "text": "本ページでは、AIを用いた人狼ゲームにおける最適な意思決定の導出や、データ分析による人狼ゲームの構造解析など、現在進めている研究について記載しています。"
+  },
+  {
+    "objectID": "research/research.html#research-notes",
+    "href": "research/research.html#research-notes",
+    "title": "Research",
+    "section": "Research Notes",
+    "text": "Research Notes"
+  },
+  {
+    "objectID": "research/index.html",
+    "href": "research/index.html",
+    "title": "Research",
+    "section": "",
+    "text": "本ページでは、AIを用いた人狼ゲームにおける最適な意思決定の導出や、データ分析による人狼ゲームの構造解析など、現在進めている研究について記載しています。"
+  },
+  {
+    "objectID": "research/index.html#概要",
+    "href": "research/index.html#概要",
+    "title": "Research",
+    "section": "",
+    "text": "本ページでは、AIを用いた人狼ゲームにおける最適な意思決定の導出や、データ分析による人狼ゲームの構造解析など、現在進めている研究について記載しています。"
+  },
+  {
+    "objectID": "research/index.html#research-notes",
+    "href": "research/index.html#research-notes",
+    "title": "Research",
+    "section": "Research Notes",
+    "text": "Research Notes"
+  },
+  {
+    "objectID": "research/index.html#研究ノート",
+    "href": "research/index.html#研究ノート",
+    "title": "Research",
+    "section": "研究ノート",
+    "text": "研究ノート"
+  },
+  {
+    "objectID": "Theory/ai-limitations.html",
+    "href": "Theory/ai-limitations.html",
+    "title": "人狼AIの制作とその限界",
+    "section": "",
+    "text": "▍はじめに\n2026年8月頃から、人狼ゲームにおいて意思決定を行うAIの制作を進めています。\n人狼ゲームは、各プレイヤーの役職など、ゲームに関する情報の一部が公開されていない「不完全情報ゲーム」です。そのため、他のプレイヤーの行動や発言などから、そのプレイヤーが自分の陣営にとって「敵なのか、味方なのか」を判断する必要があります。\nしたがって、人狼ゲームにおける意思決定では、単に現在のゲーム状態を評価するだけではなく、他のプレイヤーの行動がどのような意味を持つのか、また、その行動が村人陣営・人狼陣営のどちらにとって合理的なのかを評価することが重要になります。\nこれが、後々AI制作の大きな鍵になっていきます。\n\n\n▍AIの作成\n最初の試みとして、ゲーム中の様々な情報を「特徴量」として与え、その特徴量から勝率の高い行動を選択するAIを制作しました。\nこの方法によって、実際に人狼ゲームを進行させるAIを作ることはできました。しかし、制作を進める中で、既存の方法に限界を感じ始めるようになりました。\nそれは、\n「正しい行動を選択できること」と「なぜその行動が合理的なのかを推論できること」は、大きく異なるのではないか。\nという疑問です。\n機械学習を利用したAIでは、ゲームの状態を様々な特徴量として表現し、それらを基に行動を選択するという方法が考えられます。\n例えば、\n\n誰に投票したか\n誰を占ったか\n現在の生存人数\n各役職のCO状況\n何日目にCOしたか\n\nなどです。\nこれらの情報とゲームの勝敗を大量に学習させることで、\n「このような特徴を持つ状況では、この行動をとると勝率が高い」\nという関係をAIに学習させることができます。\nこの方法には明確な利点があります。\n実際に、私が制作した初期の人狼AIにおいても、この方法によって一定のゲーム進行を実現することができました。\nしかし、同時に別の問題も生じました。\n「AIが正しい行動を選択できたとして、その行動を選択する根拠までAI自身が扱えているのだろうか。」\nここで、初期のAIを制作する過程で現れた「占い師のCO」を例に、この問題を考えてみます。\n\n\n▍初期のAI制作で生じた具体例\n今回想定している人狼ゲームでは、占い師はゲーム開始直後の初日にCOすることを基本的なルールとして設定しています。\n一方、人狼陣営がこのルールを利用し、初日はCOせず、二日目以降になってから占い師としてCOするケースを考えます。\nこのような状況では、プレイヤーは、\n「今回のルールでは、占い師は初日にCOすることが前提になっている。それにもかかわらず、このプレイヤーは2日目になってから占い師COをしている。したがって、このCOは偽である可能性が高い。」\nという判断をすることが考えられます。\nしかし、私が制作した初期のAIでは、この判断を直接的なルールとして与えるのではなく、「何日目にCOしたか」という情報を特徴量として与える方法を取りました。\nそして、大量のゲームをシミュレーションした結果、\n2日目以降にCOした占い師を処刑すると、村人陣営の勝率が高くなる\nという傾向をAIが獲得することができました。\nつまり、結果としては、人間のプレイヤーと同じような行動を選択することができました。\nしかし、ここには重要な違いがあります。\n\n\n▍「正しい行動」と「正しい理由」は同じなのか\n人間のプレイヤーがこの状況を判断する場合、その根拠の一つとして、ゲームのルールを利用することができます。\n例えば、次のような流れです。\n【ルール】\n占い師は初日にCOする\n        ↓\n【観察】\nプレイヤーAは２日目に占い師COした\n        ↓\n【推論】\nプレイヤーAの行動は通常のCOルールと矛盾する\n        ↓\n【仮説】\nプレイヤーAの占い師COは偽である可能性が高い\n        ↓\n【意思決定】\nプレイヤーAを処刑候補とする\n一方、今回の特徴量に基づくAIでは、少なくとも次のような関係から行動が選択されています。\n２日目以降に占いCOした\n        ↓\n過去の大量のゲーム結果\n        ↓\nこの特徴を持つプレイヤーを処刑した場合、\n村人陣営の勝率が高かった\n        ↓\nプレイヤーAを処刑する\n両者は、同じ行動を選択する可能性があります。\nしかし、意思決定に利用している情報の構造は異なります。\n人間は、今回のルール設定における「占い師は初日にCOする」という知識を利用して、観察された行動との矛盾を判断できます。\n一方、今回のAIは、「2日目以降にCOした」という特徴と、その後のゲーム結果との関係を学習しています。\nこの違いは、単なる説明可能性の問題にとどまらないのではないかと考えています。\n\n\n▍課題① 他の状況への応用が難しい\nここで生じる問題の一つが、学習した特徴と結果の関係を、別の状況に応用することの難しさです。\n例えば、今回のゲームでは、占い師だけでなく、霊能者についても初日にCOすることがルールとして定められているとします。\nこの場合、人間は、\n「占い師が初日にCOするのは、今回のゲームルールに基づいている」\nという一般的な知識を利用することで、\n「霊能者についても同じルールが設定されている」\nという情報から、類似した状況を判断できます。\nつまり、人間のプレイヤーは、個別の事例だけではなく、その背後にあるルールや関係を利用することができます。\n一方で、\n「2日目に占いCOしたプレイヤーは怪しい」\nという特徴と結果の関係を学習しただけのAIが、\n「では、2日目に霊能COしたプレイヤーについても同じ論理が成立する」\nと自動的に判断できるとは限りません。\nこの問題は、\n「学習した知識を、どのように別の状況へ一般化するのか」\nという問題につながっています。\n\n\n▍課題② 行動の意味を説明できない\nもう一つの問題は、AIが選択した行動について、その根拠をどのように扱うのかということです。\n人狼ゲームでは、単に正しい行動を取るだけでは十分ではありません。\n例えば、あるプレイヤーを処刑すると判断した場合、\n「この人を処刑すると勝率が高い」\nという情報だけでは、他のプレイヤーを納得させることは難しいでしょう。\n人狼では、\n\nなぜこのプレイヤーが人狼だと考えられるのか\nその行動は村人陣営にとって合理的なのか\nその行動は人狼陣営にとって合理的なのか\n他の可能性を考えた場合にも、この判断が成立するのか\n\nといった、行動の意味や根拠を考える必要があります。\nところが、意思決定が特徴量と勝率の関係だけによって決定されている場合、その判断をゲーム上の意味に基づいて説明することは難しくなります。\n\n\n▍「特徴量 → 行動 → 後付けの説明」というアプローチ\nここで、特徴量に基づく意思決定に、言語による説明を組み合わせる方法も考えられます。\n例えば、\n特徴量\n   ↓\nAIが行動を決定\n   ↓\n「なぜこの行動を選んだのか」を言語化\nという仕組みです。\nこの方法によって、AIが選択した行動に対して、人間が理解しやすい説明を生成することは可能になると考えられます。\nしかし、これだけでは根本的な問題を解決できていない可能性があります。\nなぜなら、この構成だけでは、生成された説明がAIの実際の意思決定過程をどの程度反映しているのかを保証することが難しいからです。\n例えば、\n「プレイヤーAは初日にCOしなかったため、偽占い師である可能性が高いと判断しました。」\nという説明が生成されたとしても、その説明がAIの行動決定に実際に利用された情報なのか、それとも行動決定後に生成された説明なのかを、この構成だけから区別することは困難です。\nしたがって、もしAIにゲーム上の意味を利用した推論をさせたいのであれば、\n行動した後に理由を説明させるのではなく、行動を決定する過程そのものに推論を組み込む必要があるのではないか。\nと考えています。\n\n\n▍推論型の人狼AI\nそこで現在考えているのが、「推論型の人狼AI」です。\nこれは、特徴量から直接行動を決定するのではなく、複数の事実やルールを組み合わせ、その結果として行動を導き出すAIです。\n例えば、単純化すると、\nAだからB\nBだからC\nしたがってAだからC\nというような論理的な関係を、AIの意思決定の中に持たせます。\n人狼ゲームに当てはめれば、例えば次のような構造になります。\n【ルール】\n今回のゲームでは、占い師は初日にCOする\n        ↓\n【観察】\nプレイヤーAは2日目に占い師COした\n        ↓\n【推論】\nプレイヤーAの行動は通常のCOルールと矛盾する\n        ↓\n【仮説】\nプレイヤーAの占い師COは偽である可能性が高い\n        ↓\n【意思決定】\nプレイヤーAを処刑候補とする\nこの場合、AIの行動は単なる「勝率の高い行動」として選択されるのではなく、明示された事実やルール、そこから導かれる推論の結果として決定されます。\nここに、現在の特徴量ベースのAIとは異なる可能性があると考えています。\n\n\n▍実装における新たな壁\nここまで考えると、次の問題が生じます。\nそもそも、推論を行うAIをどのようにプログラムすればよいのでしょうか。\n人間は自然に、\n「AだからB」\n「BだからC」\n「したがってAだからC」\nという推論を行っているように見えます。\nしかし、コンピュータ上でこのような推論をどのように表現し、実装するのかは簡単ではありません。\n例えば、ゲームのルールをすべて人間が記述し、\nRule 1\nRule 2\nRule 3\n...\nという形でAIに与える方法が考えられます。\nしかし、人狼ゲームでは、状況が複雑になるにつれて、考慮すべきルールや例外も増えていきます。\nまた、ルールだけではなく、\n\n他プレイヤーの行動\n過去の投票結果\nCO状況\n占い結果\n発言\n各プレイヤーが持っている可能性のある情報\n\nなど、多くの情報を組み合わせる必要があります。\nそのため、すべての推論規則を人間が事前に記述することにも限界があります。\n一方、現在の対話型AIは、推論を行っているように見える文章を生成することができます。\nしかし、出力された文章が論理的に見えることと、AI内部でどのような推論過程が行われているのかは同じ問題ではありません。\nそのため、\n\n「現在のAIはどの程度、明示的な論理構造に基づいて推論しているのか」\n\nという問題についても、今後検討する必要があります。\nさらに、\n\n「推論を成立させるために、大規模な学習はどの程度必要なのか」\n\nという問題もあります。\n\n\n▍今後の展望とリサーチクエスチョン\n現時点では、まだこの問題に対する明確な答えを持っているわけではありません。\nむしろ、初期の人狼AIを制作したことで、\n「勝率の高い行動を選択できるAI」と「その行動がなぜ合理的なのかを推論できるAI」は同じものなのか？\nという新しい疑問が生まれました。\n今後は、まず特徴量に基づく現在のAIをさらに発展させながら、その意思決定過程を分析したいと考えています。\nその上で、\n\n特徴量に基づく意思決定\n明示的なルールに基づく推論\n特徴量とルールを組み合わせたハイブリッド型\n\nなどを比較することが考えられます。\n例えば、それぞれの方法について、\n\n勝率\n未知の状況への一般化\n推論過程の追跡可能性\n判断根拠の説明可能性\n実装に必要な知識量\n\nなどを比較することで、それぞれの方法の特徴を明らかにできる可能性があります。\n最終的には、\n人狼ゲームにおいて、AIが「勝つための行動」を選択するだけではなく、「なぜその行動が合理的なのか」を推論し、その推論を別の状況にも適用できるようにするにはどうすればよいのか。\nという問題を研究したいと考えています。\nそして、現時点で最も大きな問いとして残っているのは、\n「推論するAI」を作るために、大規模な学習は本当に必要なのでしょうか。それとも、学習とは異なる形で推論能力を構築することができるのでしょうか。\nということです。\nこの問いに対する答えを探すことが、今後の人狼AI研究における一つの大きな方向性になると考えています。"
+  },
+  {
+    "objectID": "Theory/index.html",
+    "href": "Theory/index.html",
+    "title": "Theory",
+    "section": "",
+    "text": "ここでは、人狼ゲームに関する独自の理論や仮説・予想について述べています。"
+  },
+  {
+    "objectID": "Theory/index.html#overview",
+    "href": "Theory/index.html#overview",
+    "title": "Theory",
+    "section": "",
+    "text": "ここでは、人狼ゲームに関する独自の理論や仮説・予想について述べています。"
+  },
+  {
+    "objectID": "Theory/index.html#theory-notes",
+    "href": "Theory/index.html#theory-notes",
+    "title": "Theory",
+    "section": "Theory Notes",
+    "text": "Theory Notes\n\n人狼AIの制作とその限界\n特徴量に基づく意思決定と推論型AIについて考察した研究ノートです。\nRead the research note →"
+  },
+  {
+    "objectID": "theory/index.html",
+    "href": "theory/index.html",
+    "title": "Theory",
+    "section": "",
+    "text": "ここでは、人狼ゲームに関する独自の理論や仮説・予想について述べています。"
+  },
+  {
+    "objectID": "theory/index.html#overview",
+    "href": "theory/index.html#overview",
+    "title": "Theory",
+    "section": "",
+    "text": "ここでは、人狼ゲームに関する独自の理論や仮説・予想について述べています。"
+  },
+  {
+    "objectID": "theory/index.html#theory-notes",
+    "href": "theory/index.html#theory-notes",
+    "title": "Theory",
+    "section": "Theory Notes",
+    "text": "Theory Notes\n\n人狼AIの制作とその限界\n特徴量に基づく意思決定と推論型AIについて考察した研究ノートです。\nRead the research note →\n\n\nなぜ人狼ゲームの意思決定AIを作ろうと思ったか\n開発の動機について書かれています。\nRead the research note →"
+  },
+  {
+    "objectID": "theory/ai-limitations.html",
+    "href": "theory/ai-limitations.html",
+    "title": "人狼AIの制作とその限界",
+    "section": "",
+    "text": "▍はじめに\n2026年8月頃から、人狼ゲームにおいて意思決定を行うAIの制作を進めています。\n人狼ゲームは、各プレイヤーの役職など、ゲームに関する情報の一部が公開されていない「不完全情報ゲーム」です。そのため、他のプレイヤーの行動や発言などから、そのプレイヤーが自分の陣営にとって「敵なのか、味方なのか」を判断する必要があります。\nしたがって、人狼ゲームにおける意思決定では、単に現在のゲーム状態を評価するだけではなく、他のプレイヤーの行動がどのような意味を持つのか、また、その行動が村人陣営・人狼陣営のどちらにとって合理的なのかを評価することが重要になります。\nこれが、後々AI制作の大きな鍵になっていきます。\n\n\n▍AIの作成\n最初の試みとして、ゲーム中の様々な情報を「特徴量」として与え、その特徴量から勝率の高い行動を選択するAIを制作しました。\nこの方法によって、実際に人狼ゲームを進行させるAIを作ることはできました。しかし、制作を進める中で、既存の方法に限界を感じ始めるようになりました。\nそれは、\n「正しい行動を選択できること」と「なぜその行動が合理的なのかを推論できること」は、大きく異なるのではないか。\nという疑問です。\n機械学習を利用したAIでは、ゲームの状態を様々な特徴量として表現し、それらを基に行動を選択するという方法が考えられます。\n例えば、\n\n誰に投票したか\n誰を占ったか\n現在の生存人数\n各役職のCO状況\n何日目にCOしたか\n\nなどです。\nこれらの情報とゲームの勝敗を大量に学習させることで、\n「このような特徴を持つ状況では、この行動をとると勝率が高い」\nという関係をAIに学習させることができます。\nこの方法には明確な利点があります。\n実際に、私が制作した初期の人狼AIにおいても、この方法によって一定のゲーム進行を実現することができました。\nしかし、同時に別の問題も生じました。\n「AIが正しい行動を選択できたとして、その行動を選択する根拠までAI自身が扱えているのだろうか。」\nここで、初期のAIを制作する過程で現れた「占い師のCO」を例に、この問題を考えてみます。\n\n\n▍初期のAI制作で生じた具体例\n今回想定している人狼ゲームでは、占い師はゲーム開始直後の初日にCOすることを基本的なルールとして設定しています。\n一方、人狼陣営がこのルールを利用し、初日はCOせず、二日目以降になってから占い師としてCOするケースを考えます。\nこのような状況では、プレイヤーは、\n「今回のルールでは、占い師は初日にCOすることが前提になっている。それにもかかわらず、このプレイヤーは2日目になってから占い師COをしている。したがって、このCOは偽である可能性が高い。」\nという判断をすることが考えられます。\nしかし、私が制作した初期のAIでは、この判断を直接的なルールとして与えるのではなく、「何日目にCOしたか」という情報を特徴量として与える方法を取りました。\nそして、大量のゲームをシミュレーションした結果、\n2日目以降にCOした占い師を処刑すると、村人陣営の勝率が高くなる\nという傾向をAIが獲得することができました。\nつまり、結果としては、人間のプレイヤーと同じような行動を選択することができました。\nしかし、ここには重要な違いがあります。\n\n\n▍「正しい行動」と「正しい理由」は同じなのか\n人間のプレイヤーがこの状況を判断する場合、その根拠の一つとして、ゲームのルールを利用することができます。\n例えば、次のような流れです。\n【ルール】\n占い師は初日にCOする\n        ↓\n【観察】\nプレイヤーAは２日目に占い師COした\n        ↓\n【推論】\nプレイヤーAの行動は通常のCOルールと矛盾する\n        ↓\n【仮説】\nプレイヤーAの占い師COは偽である可能性が高い\n        ↓\n【意思決定】\nプレイヤーAを処刑候補とする\n一方、今回の特徴量に基づくAIでは、少なくとも次のような関係から行動が選択されています。\n２日目以降に占いCOした\n        ↓\n過去の大量のゲーム結果\n        ↓\nこの特徴を持つプレイヤーを処刑した場合、\n村人陣営の勝率が高かった\n        ↓\nプレイヤーAを処刑する\n両者は、同じ行動を選択する可能性があります。\nしかし、意思決定に利用している情報の構造は異なります。\n人間は、今回のルール設定における「占い師は初日にCOする」という知識を利用して、観察された行動との矛盾を判断できます。\n一方、今回のAIは、「2日目以降にCOした」という特徴と、その後のゲーム結果との関係を学習しています。\nこの違いは、単なる説明可能性の問題にとどまらないのではないかと考えています。\n\n\n▍課題① 他の状況への応用が難しい\nここで生じる問題の一つが、学習した特徴と結果の関係を、別の状況に応用することの難しさです。\n例えば、今回のゲームでは、占い師だけでなく、霊能者についても初日にCOすることがルールとして定められているとします。\nこの場合、人間は、\n「占い師が初日にCOするのは、今回のゲームルールに基づいている」\nという一般的な知識を利用することで、\n「霊能者についても同じルールが設定されている」\nという情報から、類似した状況を判断できます。\nつまり、人間のプレイヤーは、個別の事例だけではなく、その背後にあるルールや関係を利用することができます。\n一方で、\n「2日目に占いCOしたプレイヤーは怪しい」\nという特徴と結果の関係を学習しただけのAIが、\n「では、2日目に霊能COしたプレイヤーについても同じ論理が成立する」\nと自動的に判断できるとは限りません。\nこの問題は、\n「学習した知識を、どのように別の状況へ一般化するのか」\nという問題につながっています。\n\n\n▍課題② 行動の意味を説明できない\nもう一つの問題は、AIが選択した行動について、その根拠をどのように扱うのかということです。\n人狼ゲームでは、単に正しい行動を取るだけでは十分ではありません。\n例えば、あるプレイヤーを処刑すると判断した場合、\n「この人を処刑すると勝率が高い」\nという情報だけでは、他のプレイヤーを納得させることは難しいでしょう。\n人狼では、\n\nなぜこのプレイヤーが人狼だと考えられるのか\nその行動は村人陣営にとって合理的なのか\nその行動は人狼陣営にとって合理的なのか\n他の可能性を考えた場合にも、この判断が成立するのか\n\nといった、行動の意味や根拠を考える必要があります。\nところが、意思決定が特徴量と勝率の関係だけによって決定されている場合、その判断をゲーム上の意味に基づいて説明することは難しくなります。\n\n\n▍「特徴量 → 行動 → 後付けの説明」というアプローチ\nここで、特徴量に基づく意思決定に、言語による説明を組み合わせる方法も考えられます。\n例えば、\n特徴量\n   ↓\nAIが行動を決定\n   ↓\n「なぜこの行動を選んだのか」を言語化\nという仕組みです。\nこの方法によって、AIが選択した行動に対して、人間が理解しやすい説明を生成することは可能になると考えられます。\nしかし、これだけでは根本的な問題を解決できていない可能性があります。\nなぜなら、この構成だけでは、生成された説明がAIの実際の意思決定過程をどの程度反映しているのかを保証することが難しいからです。\n例えば、\n「プレイヤーAは初日にCOしなかったため、偽占い師である可能性が高いと判断しました。」\nという説明が生成されたとしても、その説明がAIの行動決定に実際に利用された情報なのか、それとも行動決定後に生成された説明なのかを、この構成だけから区別することは困難です。\nしたがって、もしAIにゲーム上の意味を利用した推論をさせたいのであれば、\n行動した後に理由を説明させるのではなく、行動を決定する過程そのものに推論を組み込む必要があるのではないか。\nと考えています。\n\n\n▍推論型の人狼AI\nそこで現在考えているのが、「推論型の人狼AI」です。\nこれは、特徴量から直接行動を決定するのではなく、複数の事実やルールを組み合わせ、その結果として行動を導き出すAIです。\n例えば、単純化すると、\nAだからB\nBだからC\nしたがってAだからC\nというような論理的な関係を、AIの意思決定の中に持たせます。\n人狼ゲームに当てはめれば、例えば次のような構造になります。\n【ルール】\n今回のゲームでは、占い師は初日にCOする\n        ↓\n【観察】\nプレイヤーAは2日目に占い師COした\n        ↓\n【推論】\nプレイヤーAの行動は通常のCOルールと矛盾する\n        ↓\n【仮説】\nプレイヤーAの占い師COは偽である可能性が高い\n        ↓\n【意思決定】\nプレイヤーAを処刑候補とする\nこの場合、AIの行動は単なる「勝率の高い行動」として選択されるのではなく、明示された事実やルール、そこから導かれる推論の結果として決定されます。\nここに、現在の特徴量ベースのAIとは異なる可能性があると考えています。\n\n\n▍実装における新たな壁\nここまで考えると、次の問題が生じます。\nそもそも、推論を行うAIをどのようにプログラムすればよいのでしょうか。\n人間は自然に、\n「AだからB」\n「BだからC」\n「したがってAだからC」\nという推論を行っているように見えます。\nしかし、コンピュータ上でこのような推論をどのように表現し、実装するのかは簡単ではありません。\n例えば、ゲームのルールをすべて人間が記述し、\nRule 1\nRule 2\nRule 3\n...\nという形でAIに与える方法が考えられます。\nしかし、人狼ゲームでは、状況が複雑になるにつれて、考慮すべきルールや例外も増えていきます。\nまた、ルールだけではなく、\n\n他プレイヤーの行動\n過去の投票結果\nCO状況\n占い結果\n発言\n各プレイヤーが持っている可能性のある情報\n\nなど、多くの情報を組み合わせる必要があります。\nそのため、すべての推論規則を人間が事前に記述することにも限界があります。\n一方、現在の対話型AIは、推論を行っているように見える文章を生成することができます。\nしかし、出力された文章が論理的に見えることと、AI内部でどのような推論過程が行われているのかは同じ問題ではありません。\nそのため、\n\n「現在のAIはどの程度、明示的な論理構造に基づいて推論しているのか」\n\nという問題についても、今後検討する必要があります。\nさらに、\n\n「推論を成立させるために、大規模な学習はどの程度必要なのか」\n\nという問題もあります。\n\n\n▍今後の展望とリサーチクエスチョン\n現時点では、まだこの問題に対する明確な答えを持っているわけではありません。\nむしろ、初期の人狼AIを制作したことで、\n「勝率の高い行動を選択できるAI」と「その行動がなぜ合理的なのかを推論できるAI」は同じものなのか？\nという新しい疑問が生まれました。\n今後は、まず特徴量に基づく現在のAIをさらに発展させながら、その意思決定過程を分析したいと考えています。\nその上で、\n\n特徴量に基づく意思決定\n明示的なルールに基づく推論\n特徴量とルールを組み合わせたハイブリッド型\n\nなどを比較することが考えられます。\n例えば、それぞれの方法について、\n\n勝率\n未知の状況への一般化\n推論過程の追跡可能性\n判断根拠の説明可能性\n実装に必要な知識量\n\nなどを比較することで、それぞれの方法の特徴を明らかにできる可能性があります。\n最終的には、\n人狼ゲームにおいて、AIが「勝つための行動」を選択するだけではなく、「なぜその行動が合理的なのか」を推論し、その推論を別の状況にも適用できるようにするにはどうすればよいのか。\nという問題を研究したいと考えています。\nそして、現時点で最も大きな問いとして残っているのは、\n「推論するAI」を作るために、大規模な学習は本当に必要なのでしょうか。それとも、学習とは異なる形で推論能力を構築することができるのでしょうか。\nということです。\nこの問いに対する答えを探すことが、今後の人狼AI研究における一つの大きな方向性になると考えています。"
+  },
+  {
+    "objectID": "theory/motivation.html",
+    "href": "theory/motivation.html",
+    "title": "なぜ人狼ゲームの意思決定AIを作ろうと思ったか",
+    "section": "",
+    "text": "今回は、私がなぜ人狼ゲームの意思決定AIを作ろうと考えたのか、その背景について述べたいと思います。"
+  },
+  {
+    "objectID": "theory/motivation.html#会話と進行",
+    "href": "theory/motivation.html#会話と進行",
+    "title": "なぜ人狼ゲームの意思決定AIを作ろうと思ったか",
+    "section": "会話と進行",
+    "text": "会話と進行\n人狼ゲームにおいて、勝敗を左右する要素には何があるのか。私は、大きく二つに分けることができると考えています。一つは「会話」、そしてもう一つは「進行」です。\n会話については、あえて説明する必要もないかもしれません。むしろ、多くの人が人狼ゲームと聞いて最初に思い浮かべるのはこちらではないでしょうか。プレイヤーの発言から「この人は怪しい」「この人は村人らしい」と判断し、他のプレイヤーの発言や行動と照らし合わせながら、自分の推理を組み立てていきます。私は、人狼ゲームにおける面白さの一つは、このような心理的な駆け引きやコミュニケーションにあると考えています。\n一方、もう一つの要素である「進行」は、やや異なる性質を持っています。\nここでいう進行とは、例えば「どの役職から吊るべきか」「狩人は誰を護衛するのが合理的か」といった、その時点で得られている盤面情報から、ゲームをどのように進めるべきかを判断することを指します。\nこれは本質的には、確率やゲーム理論、将来の状態の予測などが関係する意思決定問題です。"
+  },
+  {
+    "objectID": "theory/motivation.html#私が進行に疑問を持った理由",
+    "href": "theory/motivation.html#私が進行に疑問を持った理由",
+    "title": "なぜ人狼ゲームの意思決定AIを作ろうと思ったか",
+    "section": "私が「進行」に疑問を持った理由",
+    "text": "私が「進行」に疑問を持った理由\n私が以前所属していた人狼コミュニティでは、こうした「進行」を重視する風潮が比較的強くありました。そのため、進行に関する知識や経験は、人狼ゲームにおけるプレイヤーの強さを評価するうえで重要な要素となっていました。\nしかし、そこで一つの疑問が生じました。\n果たして、私たちは本当に「最適な進行」を知っているのだろうか。\n実際の人狼ゲームでは、初日の時点ですでに多くの選択肢が存在します。例えば、複数の役職がCOした場合、「どの役職から吊るのが合理的なのか」という判断一つを取っても、その後の吊り先、占い結果、護衛先、襲撃先、そして各プレイヤーの行動によって、ゲームは無数の分岐へと展開していきます。\nしかし、人間がこれらすべての分岐を考慮し、その先に生じる結果まで比較したうえで最適な進行を判断することは、現実的には困難です。\nだからこそ、人狼ゲームでは、これまでに蓄積された対戦経験や議論、個々の検討などから、「この盤面ではこの役職から吊るのが合理的である」といった進行が、経験則として形成されてきました。\nこれは、決して不合理なことではありません。\n人間がすべての可能性を計算することができないのであれば、過去の経験から一定のパターンを見つけ出し、「この状況ではこうするのがよい」と判断することは、むしろ自然なことです。実際、そうして蓄積された進行に関する知識は、人狼ゲームを考えるうえで非常に有用なものとなっています。\nしかし、私はそこで、もう一つの疑問を持つようになりました。\n「その進行は、本当に最適なのだろうか。」\n現在広く用いられている進行は、人間が考えられるすべてのゲーム展開を比較したうえで導き出されたものではありません。人間が実際の対戦や議論を通じて得た経験や知識をもとに、「おそらくこれが最も合理的だろう」と判断し、少しずつ積み上げてきたものです。\n人間がすべての分岐を考えきれない以上、現在の進行が、本当にゲーム全体を考慮したうえでの最適解であるとは限りません。\nもしかすると、私たちは「最適な進行」を知っているのではなく、人間が計算できる範囲の中で、最も合理的だと思われる進行を使っているだけなのではないか。私は、そう考えるようになりました。"
+  },
+  {
+    "objectID": "theory/motivation.html#コンピュータによって進行を考える",
+    "href": "theory/motivation.html#コンピュータによって進行を考える",
+    "title": "なぜ人狼ゲームの意思決定AIを作ろうと思ったか",
+    "section": "コンピュータによって進行を考える",
+    "text": "コンピュータによって進行を考える\nそこで私は、人間には処理しきれないほど膨大なゲームの分岐をコンピュータ上で探索し、各進行がその後のゲーム展開にどのような影響を与えるのかをシミュレーションすることで、人間の経験則に依存せず、ゲーム全体を考慮したときにどの進行が最も合理的なのかを明らかにできないかと考えました。\nこれが、私が人狼ゲームの意思決定AIを作ろうと思ったきっかけです。\nしかし、私がこの研究を始めようと思った理由は、それだけではありません。\n実際、進行の是非を人間の手で考えることは、パズルを解くような面白さがあります。私自身も、これまでそのパズルに加担する一人の人間でした。盤面を眺め、様々な可能性を考え、「この進行が最も合理的なのではないか」と議論する。その過程そのものにも、人狼ゲームの一つの面白さがあると思っています。\n一方で、AIが急速に発展し、これまで人間にしかできないと思われていた問題を、コンピュータが解き始めている現在、このパズルもまた、いつか人間以外の知能によって解かれる日が来るのではないかと考えるようになりました。\nそして、もしその日が来るのであれば、\nこれまで人間が経験と議論によって積み上げてきた「進行」の時代を終わらせる存在は、自分でありたい。\nそう思うようになりました。これもまた、私が人狼ゲームの意思決定AIを作ろうと考えた理由の一つです。"
+  },
+  {
+    "objectID": "theory/motivation.html#この研究で目指すもの",
+    "href": "theory/motivation.html#この研究で目指すもの",
+    "title": "なぜ人狼ゲームの意思決定AIを作ろうと思ったか",
+    "section": "この研究で目指すもの",
+    "text": "この研究で目指すもの\nもちろん、私が目指しているのは、単に「人間より強い人狼プレイヤー」を作ることではありません。\n\n「この盤面では何をするのが最も合理的なのか」という問いに対して、経験則ではなく、明示的なモデルと計算に基づいて答えられるAIを作ること。\nそのAIによって、これまで人間が経験や議論によって蓄積してきた「進行」というものを、より客観的に捉え直すこと。\n\nさらに究極的には、進行に関する知識の有無によって生じるプレイヤー間の差をできるだけ小さくし、「進行を知っているから有利」という状態から離れ、プレイヤー同士が純粋に発言や推理によって競い合える人狼ゲームを実現できないかと考えています。\nこれは、単に「進行をなくしたい」という話ではありません。\nむしろ、これまで人間が経験と議論によって築き上げてきた「進行」というものを、一度コンピュータによって計算可能な形に落とし込み、本当にそれが合理的なのか、他により良い選択肢が存在するのかを検証してみたいのです。\n「進行の信仰を終わらせ、会話が醍醐味となる人狼ゲームの時代を作る。」\nこれが、私がこの研究を通して目指している一つの到達点です。"
   }
 ]

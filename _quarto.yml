@@ -8,10 +8,12 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - href: research.qmd
+      - href: research/index.qmd
         text: Research
-      - href: experiments.qmd
-        text: Experiments
+      - href: mathematics.qmd
+        text: Mathematics
+      - href: theory/index.qmd
+        text: Theory
       - href: about.qmd
         text: About
 
