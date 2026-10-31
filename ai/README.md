@@ -5,6 +5,7 @@
 
 - Python 3、**標準ライブラリのみ**（追加のインストールは不要）
 - コードは `src/` にあります。Claude との対話の中で作成し、手元で実行していた最終版（`werewolf_ai.zip`）をそのまま置いています。
+- 学習済みの重み（9スタ、第 0〜1700 世代）は `weights/9std/` にあります。
 - 使い方の詳細は [`src/README_使い方.md`](src/README_使い方.md) を見てください。
 
 ## 実行例
@@ -70,14 +71,48 @@ Windows の PowerShell では `WEREWOLF_MODE=9std` の代わりに `$env:WEREWOL
 | `persistence.py` | 重みの保存と読み込み | — |
 | `log_export.py` | `main.py` の対戦ログを JSON に変換する | — |
 
+## 学習済みの重み
+
+`weights/9std/` に、9スタで重みを 0 から学習したときの世代を置いています（記事の §4.3 の総当たりで使った系統）。
+
+| ファイル | 内容 |
+|---|---|
+| `gen_000100.pkl` 〜 `gen_001700.pkl` | 100 エポック（10 万試合）ごとの世代 |
+| `gen_000200.pkl` | **第 200 世代**。総当たりで最も強かった世代で、公開用の重みとして選んだもの |
+| `zero.pkl`、`gen_000000.pkl` | すべて 0 の重み（全員がランダムに行動する基準） |
+
+第 200 世代で 1 試合を表示するには、`src/` で次のようにします。
+
+```bash
+cp ../weights/9std/gen_000200.pkl trained_weights_9std.pkl
+```
+
+```bash
+WEREWOLF_MODE=9std python3 main.py
+```
+
+§4.3 の総当たりをやり直すには、世代を `src/generations_9std/` に置いてから `crossplay` を実行します（1 組 500 試合で、全体で数十分〜1 時間程度かかります）。
+
+```bash
+mkdir -p generations_9std && cp ../weights/9std/*.pkl generations_9std/
+```
+
+```bash
+python3 generations.py crossplay --games 500 --mode 9std --sort
+```
+
+Windows の PowerShell では `cp` の代わりに `Copy-Item`、`mkdir -p` の代わりに `New-Item -ItemType Directory -Force` を使ってください。
+乱数を固定していないので、総当たりの勝率は記事の値と試合数に応じた誤差（500 試合で ±2〜4 ポイント程度）の範囲でずれます。
+この手順で再実行した結果は [`results/crossplay_9std_500games.txt`](results/crossplay_9std_500games.txt) にあります（総合勝率は記事の表と 0.5 ポイント以内で一致しました）。
+
 ## 公開していないもの
 
-- **学習済みの重み**（`*.pkl`）。記事の §4.3 で使った世代（第 200 世代など）は含まれていません。上のコマンドで 0 から学習し直すことはできますが、乱数を固定していないため、同じ重みにはなりません。
+- **リーグ学習と独立系統の世代**（記事の §4.3 後半）。
 - **7人村（霊狩2w）の段階のコード**。記事の §4.1 の結果は、このコードより前の版で得たものです。
 - 対戦ログ。
 
-学習や総当たりで生成されるファイル（`trained_weights*.pkl`、`generations*/`、`games.json`、`board_split_report.txt`）は `.gitignore` でコミットの対象外にしています。
+`src/` で学習や総当たりを行うと生成されるファイル（`trained_weights*.pkl`、`generations*/`、`games.json`、`board_split_report.txt`）は `.gitignore` でコミットの対象外にしています。`weights/` の重みは書き換えられません。
 
 ## 注意
 
-- 重みファイルは Python の pickle 形式です。pickle は読み込むとコードを実行できる形式なので、自分で作ったものなど、出所の確かなファイルだけを読み込んでください。
+- 重みファイルは Python の pickle 形式です。pickle は読み込むとコードを実行できる形式なので、出所の確かなファイルだけを読み込んでください。`weights/9std/` の各ファイルは、辞書・リスト・数値・文字列だけでできていて、クラスや関数への参照を含まないことを確認しています。

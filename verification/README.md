@@ -31,4 +31,4 @@ GitHub Actions（`.github/workflows/verify.yml`）でも、`verification/` を�
 
 ## 自己対戦人狼AI
 
-研究ノート「[自己対戦による人狼AIの開発](https://leonmfvo.github.io/werewolf-decision-ai/research/self-play-ai.html)」のコードは [`ai/`](../ai) にあります。学習済みの重みは公開していません。
+研究ノート「[自己対戦による人狼AIの開発](https://leonmfvo.github.io/werewolf-decision-ai/research/self-play-ai.html)」のコードは [`ai/`](../ai) にあります。§4.3 の世代（9スタ、第 0〜1700 世代）の重みは `ai/weights/9std/` にあり、総当たりをやり直せます。
