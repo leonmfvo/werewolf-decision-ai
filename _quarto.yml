@@ -9,15 +9,15 @@ website:
   navbar:
     left:
       - href: index.qmd
-        text: ホーム
+        text: Home
       - href: research/index.qmd
-        text: 研究
+        text: Research
       - href: mathematics.qmd
-        text: 数学
+        text: Mathematics
       - href: theory/index.qmd
-        text: 理論
+        text: Theory
       - href: about.qmd
-        text: このサイトについて
+        text: About
 
     right:
       - icon: github

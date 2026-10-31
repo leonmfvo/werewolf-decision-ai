@@ -2,16 +2,4 @@
 title: "このサイトについて"
 ---
 
-## 概要
-
-人狼ゲームを題材に、意思決定 AI と確率・数学の研究をまとめたサイトです。
-
-## 過去の研究アーカイブ
-
-このサイトを作る前は、研究のまとめを次のサイトに置いていました。過去の研究の記録として残しています。
-
-- 過去の研究アーカイブ（mayuyu wiki）：<https://mayuyu.wiki.fc2.com/>
-
-## 検証コード
-
-記事に載せた数式・数値は、リポジトリの [`verification/`](https://github.com/leonmfvo/werewolf-decision-ai/tree/main/verification) にあるスクリプトで再現できます。いずれも Python 3 の標準ライブラリだけで動きます。
+人狼ゲームを題材に、意思決定 AI と確率・数学の研究をまとめたサイトです。このサイトを作る前の研究は [mayuyu wiki](https://mayuyu.wiki.fc2.com/) にまとめていました。記事に載せた数式・数値を再現する検証コードは、リポジトリの [`verification/`](https://github.com/leonmfvo/werewolf-decision-ai/tree/main/verification) で公開しています。
