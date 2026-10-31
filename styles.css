@@ -1,16 +1,76 @@
 /* css styles */
-/* Home page section spacing */
-#quarto-content h3 {
-  margin-top: 2.5rem;
-  margin-bottom: 1rem;
-}
 
+/* 本文の小見出しの余白 */
 #quarto-content h3 {
   margin-top: 2.5rem;
   margin-bottom: 1rem;
   letter-spacing: 0.02em;
 }
+
 /* 表の中のファイル名などを途中で折り返さない */
 td code {
   white-space: nowrap !important;
+}
+
+/* ------------------------------------------------------------
+   記事一覧（Mathematics / Research / Theory の listing）
+   画像の列をなくして 1 列にし、日付・タイトル・抜粋を詰めて並べる
+   ------------------------------------------------------------ */
+#quarto-content .quarto-listing-default .quarto-post {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  margin: 0;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--bs-border-color, #dee2e6);
+}
+
+#quarto-content .quarto-listing-default .quarto-post:first-child {
+  padding-top: 0.25rem;
+}
+
+#quarto-content .quarto-listing-default .quarto-post .metadata {
+  order: 0;
+  padding: 0;
+}
+
+#quarto-content .quarto-listing-default .quarto-post .body {
+  order: 1;
+  padding: 0;
+}
+
+#quarto-content .quarto-listing h3.listing-title {
+  margin: 0 0 0.2rem;
+  font-size: 1.08rem;
+  font-weight: 600;
+  line-height: 1.45;
+  letter-spacing: 0;
+}
+
+#quarto-content .quarto-listing .listing-title a {
+  text-decoration: none;
+}
+
+#quarto-content .quarto-listing .listing-title a:hover {
+  text-decoration: underline;
+}
+
+#quarto-content .quarto-listing .listing-description {
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--bs-secondary-color, #6c757d);
+}
+
+#quarto-content .quarto-listing .listing-description p {
+  margin: 0;
+}
+
+#quarto-content .quarto-listing .listing-date {
+  font-size: 0.78rem;
+  color: var(--bs-secondary-color, #6c757d);
+}
+
+/* 一覧のあとの見出しとの間隔 */
+#quarto-content .quarto-listing {
+  margin-bottom: 1.5rem;
 }

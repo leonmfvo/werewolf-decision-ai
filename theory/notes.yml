@@ -1,0 +1,8 @@
+- title: "人狼AIの制作とその限界"
+  path: ai-limitations.qmd
+  date: 2026-10-03
+  description: "特徴量に基づく意思決定と推論型AIについて考察した研究ノートです。"
+- title: "なぜ人狼ゲームの意思決定AIを作ろうと思ったか"
+  path: motivation.qmd
+  date: 2026-10-05
+  description: "開発の動機について書いています。"

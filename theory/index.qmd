@@ -1,5 +1,14 @@
 ---
 title: "理論"
+listing:
+  id: theory-list
+  contents: notes.yml
+  type: default
+  sort: false
+  fields: [date, title, description]
+  date-format: "YYYY/MM/DD"
+  sort-ui: false
+  filter-ui: false
 ---
 
 ## 概要
@@ -8,14 +17,5 @@ title: "理論"
 
 ## 理論ノート
 
-### 人狼AIの制作とその限界
-
-特徴量に基づく意思決定と推論型AIについて考察した研究ノートです。
-
-[ノートを読む →](ai-limitations.qmd)
-
-### なぜ人狼ゲームの意思決定AIを作ろうと思ったか
-
-開発の動機について書かれています。
-
-[ノートを読む →](motivation.qmd)
+::: {#theory-list}
+:::

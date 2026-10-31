@@ -1,64 +1,23 @@
-﻿---
+---
 title: "数学"
 subtitle: "人狼ゲームを題材とした数学的研究"
-page-layout: full
 toc: false
+listing:
+  id: math-notes
+  contents: mathematics/notes.yml
+  type: default
+  sort: false
+  fields: [date, title, description]
+  date-format: "YYYY/MM/DD"
+  sort-ui: false
+  filter-ui: false
 ---
 
 人狼ゲームの構造から現れる数学的性質や、確率過程についての研究をまとめています。
 
 ## 数学ノート
 
-::: {.grid}
-
-::: {.g-col-12 .g-col-md-6}
-::: {.card .h-100}
-::: {.card-body}
-
-### Wallis積と π/4 の出現
-
-**人狼ゲームに着想を得たランダム排除過程**
-
-人狼ゲームを単純化したランダム排除過程を考察し、偶奇構造・二重階乗・中心二項係数を通じて、Wallis積と π/4 の出現を示します。
-
-[論文を読む →](mathematics/wallis-pi.html)
-
-:::
-:::
-:::
-
-::: {.g-col-12 .g-col-md-6}
-::: {.card .h-100}
-::: {.card-body}
-
-### 人狼×数学 オリジナル問題集
-
-**入試形式の問題として作成**
-
-処刑・襲撃・投票といった人狼ゲームの場面を題材に、組合せ確率、ランダム排除過程の数え上げ、二項係数の和、ポアソン近似などを扱う問題を作成しました。
-
-[問題を見る →](mathematics/problems.html)
-
-:::
-:::
-:::
-
-::: {.g-col-12 .g-col-md-6}
-::: {.card .h-100}
-::: {.card-body}
-
-### ランダム排除人狼モデルの一般化
-
-**複数狼・Wallis と Leibniz の統一・臨界スケーリング**
-
-人狼が複数いる場合に π/4 と 4/π が交代して現れること、Wallis 積と Leibniz 級数が同じ Wallis 積分から導かれること、人狼 n 人・村人 n² 人の勝率が π/4 ではなく、誤差関数で書ける値（0.7912 など）に収束することを示します。
-
-[研究ノートを読む →](mathematics/random-elimination-general.html)
-
-:::
-:::
-:::
-
+::: {#math-notes}
 :::
 
 ## 研究の方向性

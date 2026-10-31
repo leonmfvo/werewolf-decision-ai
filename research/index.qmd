@@ -1,5 +1,14 @@
 ---
 title: "研究"
+listing:
+  id: research-list
+  contents: notes.yml
+  type: default
+  sort: false
+  fields: [date, title, description]
+  date-format: "YYYY/MM/DD"
+  sort-ui: false
+  filter-ui: false
 ---
 
 ## 概要
@@ -8,14 +17,5 @@ title: "研究"
 
 ## 研究ノート {#research-notes}
 
-### 自己対戦による人狼AIの開発
-
-霊狩2w（7人村）と9人村を対象に、全員をAIが演じる自己対戦で進行を学習させた記録です。線形方策＋REINFORCE、盤面別学習、情報リークの監査、世代間総当たりで見つかった「第200世代が最強」現象とその原因を、研究ノートとしてまとめました。
-
-[研究ノートを読む →](self-play-ai.qmd)
-
-### 小さな配役におけるCO戦略の厳密解析
-
-村村狩狼（4人）と霊狩2w（7人）で、霊媒師・狩人のCO日、護衛方針、ローラーの有無を変えた 64 通りの進行を比べました。人狼が騙り・襲撃を最善に選ぶ場合の村勝率を、有理数で厳密に計算しています。最善の進行は「霊媒師・狩人が1日目にCO＋ローラー」の $3/10$ で、COを遅らせる進行は人狼の対抗COで大きく崩れることが分かりました。
-
-[研究ノートを読む →](co-strategy-exact.qmd)
+::: {#research-list}
+:::
