@@ -33,7 +33,7 @@ subtitle: "A mathematical and computational study of decision-making in Werewolf
 ## 研究ノート
 
 理論モデルの導出、シミュレーション実験の推移、および得られた研究成果は、研究ノートとして随時公開・更新していきます。   
- [Research Notes](https://leonmfvo.github.io/werewolf-decision-ai/research.html#research-notes)
+ [Research Notes](research/index.qmd#research-notes)
 
 ## コード・リポジトリ
 
