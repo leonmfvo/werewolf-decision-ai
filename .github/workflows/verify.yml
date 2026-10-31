@@ -1,0 +1,32 @@
+name: Verify article numbers
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "verification/**"
+      - ".github/workflows/verify.yml"
+  pull_request:
+    paths:
+      - "verification/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run verification scripts
+        run: python3 verification/run_all.py

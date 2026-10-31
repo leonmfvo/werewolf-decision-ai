@@ -10,3 +10,7 @@
   margin-bottom: 1rem;
   letter-spacing: 0.02em;
 }
+/* 表の中のファイル名などを途中で折り返さない */
+td code {
+  white-space: nowrap !important;
+}

@@ -5,7 +5,7 @@ toc: true
 date: 2026/10/04
 ---
 
-[← Mathematics に戻る](../mathematics.qmd)
+[← 数学に戻る](../mathematics.qmd)
 
 ## 概要
 
@@ -641,6 +641,10 @@ $$
 - 12A猫
 
 などの実在する配役への適用を検討する。
+
+# 検証コード
+
+4.4 節の閉形式、定理 5.1 の $R_n=S_n$、定理 3.4 の収束は、[`verification/wallis/wallis_correspondence.py`](https://github.com/leonmfvo/werewolf-decision-ai/blob/main/verification/wallis/wallis_correspondence.py) で確認できる（Python 3、標準ライブラリのみ）。人狼勝率は閉形式を使わずにゲームを直接計算し、$2\le n<400$ で $R_n=S_n=\dfrac{4^{2n-1}}{n\binom{2n}{n}^2}$ が厳密に成り立つことを確かめている。
 
 # 参考文献
 

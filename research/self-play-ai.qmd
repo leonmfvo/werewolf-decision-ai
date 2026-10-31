@@ -7,7 +7,7 @@ number-sections: false
 date: 2026/10/31
 ---
 
-[← Research に戻る](index.qmd)
+[← 研究に戻る](index.qmd)
 
 ::: {.callout-note}
 ## この研究ノートについて

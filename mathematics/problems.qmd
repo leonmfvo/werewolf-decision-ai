@@ -5,7 +5,7 @@ toc: true
 date: 2026/10/31
 ---
 
-[← Mathematics に戻る](../mathematics.qmd)
+[← 数学に戻る](../mathematics.qmd)
 
 ## 概要
 
@@ -228,4 +228,6 @@ $Z_i$ たちが独立であれば $q_n = p_n^2$ となり，(A) の第 $2$ 項�
 実際の値 $\dfrac{e-2}{e^2} \fallingdotseq 0.097$ はこれより小さい．誰かが無得票だと，その人に入るはずだった票が他の人へ回るため，他の人は無得票になりにくくなる．この負の相関によって $q_n$ は $p_n^2$ よりわずかに小さくなり，その比が $c_m$ である．$1$ 組ごとの差はわずかだが，$(n+1)n$ 組すべてについて積み重なり，分散の極限に $-\dfrac{1}{e^2}$ という有限の差を生む．
 
 なお，答えは $e^{-1} - 2e^{-2}$ とも書ける．独立なら出てくる部分 $e^{-1} - e^{-2}$ から，補正項 $e^{-2}$ を引いた形である．
+
+**数値での確認．** (1) と (2) の極限は [`verification/problems/problem_d.py`](https://github.com/leonmfvo/werewolf-decision-ai/blob/main/verification/problems/problem_d.py) で確かめられる．$n=1000$ で $V(Y_n)/n=0.097325$（極限 $0.097209$）であり，$n=20$ のモンテカルロ法（20 万回）とも一致する．
 :::

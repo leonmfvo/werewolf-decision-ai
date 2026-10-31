@@ -7,13 +7,14 @@ number-sections: false
 date: 2026/10/31
 ---
 
-[← Mathematics に戻る](../mathematics.qmd)
+[← 数学に戻る](../mathematics.qmd)
 
 ::: {.callout-note}
 ## この研究ノートについて
 
 本ノートは、2026年10月に Claude との対話の中で行った計算・証明の試み（PDF にして約 650 ページ分）を、研究ノートとして再構成したものである。
 対話中に示された数値はすべて、本ノート付録のコードで **独立に再計算して確認したもの** だけを掲載した。
+検証コードはリポジトリの [`verification/`](https://github.com/leonmfvo/werewolf-decision-ai/blob/main/verification/) で公開している（[§10](#code)）。
 対話中に誤りと判明した主張、および再計算で一致しなかった数値は本文から除き、[§7](#negative) にまとめた。
 各結果には次のいずれかの区分を付ける。
 
@@ -419,7 +420,7 @@ $$
 | 偶数 | strict（ルール B と同じ） | $F_{\text{偶}}^{\text{strict}}(c)=\mathrm{erf}\!\left(\dfrac{c}{\sqrt2}\right)$ | $0.682689$ |
 | 偶数 | ルール A | $F_{\text{偶}}^{\text{A}}(c)=(1+c^2)\,\mathrm{erf}\!\left(\dfrac{c}{\sqrt2}\right)+\sqrt{\dfrac2\pi}\,c\,e^{-c^2/2}-c^2$ | $0.849320$ |
 
-§5.3 の数値（外挿値 $0.79115$、$0.84933$）とは 4〜5 桁で一致する。$c=0.5,\ 1.5$ でも動的計画法の外挿値と 5 桁で一致することを確認した。 **[数値]**
+§5.3 の数値（外挿値 $0.79115$、$0.84933$）とは 4〜5 桁で一致する。$c=0.5,\ 1.5$ でも動的計画法の外挿値と 4〜5 桁で一致することを確認した（[`limits_vs_dp.py`](https://github.com/leonmfvo/werewolf-decision-ai/blob/main/verification/random_elimination/limits_vs_dp.py)）。 **[数値]**
 
 **導出（strict 規約）.** Migdał (2010) は strict 規約で、総人数 $N$・人狼 $\mu$ 人の人狼勝率の閉形式を与えている。
 
@@ -529,6 +530,8 @@ Migdał は式 (25) の直後で、「$n$ が偶数なら $i=2$ の項が消え�
 | 900（偶） | 30 | 0.69062 | 0.79766 | 0.68269 |
 | 901（奇） | 30 | 0.80099 | 1.25227 | 0.79094 |
 
+（この表と次の段落の値は [`migdal_comparison.py`](https://github.com/leonmfvo/werewolf-decision-ai/blob/main/verification/random_elimination/migdal_comparison.py) で再現できる。）
+
 勝率が $1/2$ になる $c=\mu/\sqrt N$ も、Migdał の式 (25) では偶数 $0.6267$・奇数 $0.3989$ である。これに対して、極限の式から求めると偶数 $0.6745$（$\mathrm{erf}(c/\sqrt2)=1/2$、つまり標準正規分布の四分位点）、奇数 $0.4946$ になる。Migdał 自身も式 (25) を「手振りの議論」とし、奇数の場合は成り立たないかもしれないと注意している。
 
 以上から、§5.4 の極限値は、閉形式そのものは Migdał によるが、極限の式としてはこの 3 編には現れない。ただし、これら以外の文献（引用している後続の論文など）までは調べていない。
@@ -558,14 +561,34 @@ Migdał は式 (25) の直後で、「$n$ が偶数なら $i=2$ の項が消え�
 - ルール A・総人数偶数の包除係数 $a_i(N)$（§5.4）の一般的な証明。
 - 臨界配役の勝率が常に $\pi/4$ を上回ることの証明。
 - 定理 4.1 の証明の完成（§4.2 の不等式の詳細、§4.3 の密度表示の存在）。
-- 再生時刻の期待値 $\mathbb{E}[\tau]$ について、数値的には $\mathbb{E}[\tau]=n-1+\frac{3}{n+2}$ と一致して見える。この等式の証明。
+- 再生時刻の期待値 $\mathbb{E}[\tau]$（夜開始の $(n,n^2)$ から最初に人狼が処刑されるまでのラウンド数）の漸近形。$\mathbb{E}[\tau]$ は $n-1+\frac{3}{n+2}$ に非常に近いが、**等式ではない**。差は正で、$n=10$ で $6.2\times10^{-9}$、$n=20$ で $2.2\times10^{-19}$ と急速に小さくなる（厳密な有理数計算、[`numerical_claims.py`](https://github.com/leonmfvo/werewolf-decision-ai/blob/main/verification/random_elimination/numerical_claims.py)）。この近さの理由と、差の大きさの評価。
 - 占い師・霊媒師などの情報役職を入れたときに、同様の構造が残るかどうか（[研究ノート：自己対戦人狼AI](../research/self-play-ai.qmd) と接続する）。
 
 ---
 
+# 10 検証コード {#code}
+
+本ノートの数値は、リポジトリの [`verification/random_elimination/`](https://github.com/leonmfvo/werewolf-decision-ai/blob/main/verification/random_elimination) にあるスクリプトで再現できる。いずれも Python 3.8 以降の標準ライブラリだけで動く。
+
+| スクリプト | 再現する内容 |
+|------------|--------------------------|
+| [`win_table.py`](https://github.com/leonmfvo/werewolf-decision-ai/blob/main/verification/random_elimination/win_table.py) | 付録 A。§3 の 1 狼の閉形式と積の恒等式、§4.1 の偶奇比の表、§5.3 の勝率表と外挿値 |
+| [`critical_limits.py`](https://github.com/leonmfvo/werewolf-decision-ai/blob/main/verification/random_elimination/critical_limits.py) | 付録 B。§5.4 の Migdał の閉形式、ルール A の包除係数、極限値 |
+| [`limits_vs_dp.py`](https://github.com/leonmfvo/werewolf-decision-ai/blob/main/verification/random_elimination/limits_vs_dp.py) | §5.4 の極限の式と動的計画法の外挿値の比較（$c=0.5,1,1.5$） |
+| [`numerical_claims.py`](https://github.com/leonmfvo/werewolf-decision-ai/blob/main/verification/random_elimination/numerical_claims.py) | §3–§7 と §9 の **[数値]** の主張（挟み込み、strict 規約の偶奇比、§4.5、§5.1 の表、§5.5 の振動と 2 値、§5.6、§6 の狩人、§7 の順列モデル、$\mathbb{E}[\tau]$） |
+| [`migdal_comparison.py`](https://github.com/leonmfvo/werewolf-decision-ai/blob/main/verification/random_elimination/migdal_comparison.py) | §8 の Migdał の近似との比較表 |
+
+すべてまとめて実行するには、リポジトリの直下で次のようにする（数分かかる）。
+
+```bash
+python3 verification/run_all.py
+```
+
+GitHub Actions でも同じスクリプトを実行している。
+
 # 付録 A：検証コード（勝率表）
 
-本ノートの数値はすべて次のコードで再計算した（Python 3、標準ライブラリのみ）。
+本ノートの数値はすべて次のコードで再計算した（Python 3、標準ライブラリのみ）。ファイル：[`verification/random_elimination/win_table.py`](https://github.com/leonmfvo/werewolf-decision-ai/blob/main/verification/random_elimination/win_table.py)
 
 ```python
 """ランダム排除人狼モデルの検証コード（昼開始・ルールA）
@@ -655,7 +678,7 @@ n=4: W_n(2k)/W_n(2k+1) = 1.27130  (π/4=0.78540, 4/π=1.27324)
 
 # 付録 B：臨界スケーリングの極限値の検証
 
-§5.4 の Migdał の閉形式、ルール A の包除展開、極限値の式を確認するコード（Python 3、標準ライブラリのみ）。
+§5.4 の Migdał の閉形式、ルール A の包除展開、極限値の式を確認するコード（Python 3、標準ライブラリのみ）。ファイル：[`verification/random_elimination/critical_limits.py`](https://github.com/leonmfvo/werewolf-decision-ai/blob/main/verification/random_elimination/critical_limits.py)
 
 ```python
 """臨界スケーリング（人狼 μ = c√N）の極限値の検証（昼開始）

@@ -1,21 +1,23 @@
 project:
   type: website
 
+lang: ja
+
 website:
   title: "Werewolf Decision AI"
 
   navbar:
     left:
       - href: index.qmd
-        text: Home
+        text: ホーム
       - href: research/index.qmd
-        text: Research
+        text: 研究
       - href: mathematics.qmd
-        text: Mathematics
+        text: 数学
       - href: theory/index.qmd
-        text: Theory
+        text: 理論
       - href: about.qmd
-        text: About
+        text: このサイトについて
 
     right:
       - icon: github

@@ -1,5 +1,5 @@
 ﻿---
-title: "Mathematics"
+title: "数学"
 subtitle: "人狼ゲームを題材とした数学的研究"
 page-layout: full
 toc: false
@@ -7,7 +7,7 @@ toc: false
 
 人狼ゲームの構造から現れる数学的性質や、確率過程についての研究をまとめています。
 
-## Research Papers
+## 数学ノート
 
 ::: {.grid}
 
@@ -61,7 +61,7 @@ toc: false
 
 :::
 
-## Research Direction
+## 研究の方向性
 
 現在は、単純化された人狼モデルにおける確率構造を出発点として、
 
