@@ -23,7 +23,7 @@ toc: true
 |---|---|---|
 | **確率モデル** | 処刑・襲撃を無作為に行う単純化した人狼モデルを、確率過程として解析する | [Wallis積と π/4 の出現](mathematics/wallis-pi.qmd)、[ランダム排除人狼モデルの一般化](mathematics/random-elimination-general.qmd) |
 | **ゲーム理論** | 村側の進行と人狼側の騙り・襲撃を、双方が最善を尽くすゲームとして厳密に解く | 研究中 |
-| **人工知能** | 全員を AI が演じる自己対戦で、進行を強化学習させる | [自己対戦による人狼AIの開発](research/self-play-ai.qmd) |
+| **人工知能** | 全員を AI が演じる自己対戦で進行を強化学習させる。大規模言語モデル（LLM）に人間と会話で議論させる | [自己対戦による人狼AIの開発](research/self-play-ai.qmd)、[LLMで人狼プレイヤーを作る](research/llm-player-design.qmd)（全 3 回） |
 | **教育・問題作成** | 研究で得た構造を、入試形式の数学の問題として切り出す | [人狼×数学 オリジナル問題集](mathematics/problems.qmd) |
 
 : {tbl-colwidths="[20,42,38]"}

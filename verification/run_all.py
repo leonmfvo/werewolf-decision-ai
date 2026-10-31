@@ -16,6 +16,7 @@ SCRIPTS = [
     "random_elimination/migdal_comparison.py",
     "random_elimination/limits_vs_dp.py",
     "problems/problem_d.py",
+    "llm_games/stage_summary.py",
 ]
 
 failed = []

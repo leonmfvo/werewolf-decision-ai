@@ -2,3 +2,15 @@
   path: self-play-ai.qmd
   date: 2026-10-31
   description: "霊狩2w（7人村）と9人村を対象に、全員をAIが演じる自己対戦で進行を学習させた記録です。線形方策＋REINFORCE、盤面別学習、情報リークの監査、世代間総当たりで見つかった「第200世代が最強」現象とその原因をまとめました。"
+- title: "LLMで人狼プレイヤーを作る（1）設計と、ローカルLLMからAPIへ"
+  path: llm-player-design.qmd
+  date: 2026-10-31
+  description: "テキスト人狼に参加する LLM プレイヤーの構成（事実は Python、言葉は LLM）と、ローカル LLM から素の LLM までの 5 段階、実戦 55 試合の戦績の概要です。"
+- title: "LLMで人狼プレイヤーを作る（2）LLM人狼は何を読み違えるのか"
+  path: llm-player-misreading.qmd
+  date: 2026-10-31
+  description: "AI の発言 921 件を人間と比べ、内部推論の漏洩・事実の捏造・冗談や引用の読み違えを具体例で整理しました。読解問題は全問正解でも、返答では外すという食い違いも扱います。"
+- title: "LLMで人狼プレイヤーを作る（3）足し算の設計はなぜ失敗したか"
+  path: llm-player-simplicity.qmd
+  date: 2026-10-31
+  description: "苦情のたびに指示を足した多層の設計と、指示を外した素の LLM を比べました。開発時は素の LLM が最も強く感じられましたが、実戦では村側 7 戦全敗で、勝率による裏付けは得られませんでした。"

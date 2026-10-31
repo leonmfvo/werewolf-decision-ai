@@ -1,0 +1,56 @@
+game,stage,players,jobset,missing_roles,ai_role,ai_side,winner,ai_win,ai_died,ai_posts,ai_vote_hit,spectators,test_room,human_village_votes,human_village_vote_hits
+1,S1,4,wolf1 seer1 villager2,yes,seer,village,werewolf,0,1,3,0,0,yes,1,0
+2,S1,4,wolf1 seer1 villager2,yes,werewolf,werewolf,werewolf,1,0,4,,0,yes,2,1
+3,S1,4,wolf1 seer1 villager2,yes,seer,village,werewolf,0,1,6,0,0,yes,1,0
+4,S1,4,wolf1 seer1 villager2,yes,seer,village,werewolf,0,1,14,1,0,yes,1,0
+5,S2,4,wolf1 seer1 villager2,yes,villager,village,village,1,0,11,1,0,yes,1,1
+6,S2,4,wolf1 seer1 villager2,yes,villager,village,village,1,0,25,1,0,yes,1,1
+7,S2,4,wolf1 seer1 villager2,yes,villager,village,werewolf,0,0,5,0,0,yes,1,1
+8,S2,4,wolf1 seer1 villager2,yes,seer,village,werewolf,0,1,9,1,0,yes,1,0
+9,S2,4,wolf1 seer1 villager2,yes,villager,village,village,1,0,8,1,0,yes,1,0
+10,S2,4,wolf1 villager3,yes,villager,village,werewolf,0,0,8,0,0,yes,1,1
+11,S2,4,wolf1 villager3,yes,werewolf,werewolf,village,0,1,14,,28,no,2,2
+12,S2,4,wolf1 villager3,yes,villager,village,werewolf,0,1,95,0,30,no,1,0
+13,S2,4,wolf1 villager3,yes,werewolf,werewolf,village,0,1,11,,36,no,2,2
+14,S2,4,wolf1 villager3,yes,villager,village,werewolf,0,1,12,1,35,no,1,0
+15,S2,12,wolf3 seer1 hunter1 medium1 madman1 nekomata1 villager4,yes,hunter,village,village,1,0,35,0,40,no,,
+16,S2,6,wolf1 villager5,yes,werewolf,werewolf,village,0,1,19,,20,no,,
+17,S3,4,wolf1 villager3,yes,werewolf,werewolf,village,0,1,11,,24,no,2,2
+18,S3,4,wolf1 villager3,yes,villager,village,werewolf,0,1,21,0,25,no,1,0
+19,S3,5,wolf1 villager4,yes,villager,village,werewolf,0,1,16,0,25,no,,
+20,S3,4,wolf1 villager3,yes,werewolf,werewolf,werewolf,1,0,9,,0,yes,2,1
+21,S3,4,wolf1 villager3,yes,werewolf,werewolf,werewolf,1,0,10,,0,yes,2,1
+22,S3,4,wolf1 villager3,yes,werewolf,werewolf,village,0,1,10,,0,yes,2,2
+23,S3,4,wolf1 villager3,yes,villager,village,werewolf,0,1,14,0,0,yes,1,1
+24,S3,4,wolf1 villager3,yes,villager,village,village,1,0,17,1,0,yes,1,1
+25,S4,4,wolf1 villager3,yes,werewolf,werewolf,werewolf,1,0,12,,0,yes,2,0
+26,S4,4,wolf1 villager3,yes,villager,village,werewolf,0,1,12,,0,yes,1,0
+27,S4,4,wolf1 villager3,yes,villager,village,werewolf,0,1,14,1,0,yes,1,0
+28,S4,4,wolf1 villager3,yes,werewolf,werewolf,werewolf,1,0,17,,0,yes,2,1
+29,S4,4,wolf1 villager3,yes,werewolf,werewolf,village,0,1,12,,0,yes,2,2
+30,S4,4,wolf1 villager3,yes,villager,village,village,1,0,13,1,0,yes,1,1
+31,S4,4,wolf1 villager3,yes,villager,village,werewolf,0,1,16,1,0,yes,1,0
+32,S4,4,wolf1 villager3,yes,villager,village,werewolf,0,1,13,0,0,yes,1,0
+33,S4,4,wolf1 villager3,yes,villager,village,village,1,0,15,1,0,yes,1,1
+34,S4,4,wolf1 villager3,yes,villager,village,village,1,0,21,1,0,yes,1,1
+35,S4,4,wolf1 villager3,yes,werewolf,werewolf,village,0,1,71,,0,yes,1,1
+36,S4,4,wolf1 villager3,yes,villager,village,village,1,0,17,1,0,yes,1,1
+37,S4,4,wolf1 villager3,yes,werewolf,werewolf,village,0,1,15,,0,yes,2,2
+38,S4,4,wolf1 villager3,yes,werewolf,werewolf,werewolf,1,0,13,,0,yes,2,1
+39,S4,4,wolf1 villager3,yes,villager,village,werewolf,0,0,20,0,0,yes,1,1
+40,S4,4,wolf1 villager3,yes,villager,village,village,1,0,29,1,7,no,1,1
+41,S4,4,wolf1 villager3,yes,villager,village,werewolf,0,1,19,0,8,no,1,0
+42,S4,4,wolf1 villager3,yes,werewolf,werewolf,village,0,1,23,,4,no,2,2
+43,S4,4,wolf1 villager3,yes,werewolf,werewolf,village,0,1,21,,4,no,2,2
+44,S4,4,wolf1 villager3,yes,villager,village,village,1,0,13,1,4,no,1,1
+45,S4,4,wolf1 villager3,yes,villager,village,werewolf,0,1,25,0,4,no,1,0
+46,S4,4,wolf1 villager3,yes,villager,village,werewolf,0,1,15,1,4,no,1,0
+47,S5,4,wolf1 villager3,yes,villager,village,werewolf,0,0,7,0,10,no,1,0
+48,S5,4,wolf1 villager3,no,villager,village,werewolf,0,0,16,0,10,no,1,1
+49,S5,4,wolf1 villager3,no,villager,village,werewolf,0,1,18,1,20,no,1,0
+50,S5,4,wolf1 villager3,yes,villager,village,werewolf,0,1,8,0,8,no,1,0
+51,S5,4,wolf1 villager3,yes,villager,village,werewolf,0,1,7,1,7,no,1,0
+52,S5,4,wolf1 villager3,yes,werewolf,werewolf,werewolf,1,0,10,,10,no,2,1
+53,S5,4,wolf1 medium1 villager2,no,villager,village,werewolf,0,1,13,1,11,no,1,0
+54,S5,4,wolf1 villager3,yes,werewolf,werewolf,werewolf,1,0,12,,13,no,2,1
+55,S5,4,wolf1 medium1 villager2,no,villager,village,werewolf,0,1,17,1,14,no,1,0
