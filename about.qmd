@@ -1,5 +1,64 @@
 ---
 title: "このサイトについて"
+subtitle: "Werewolf Decision AI — 人狼ゲームの意思決定を、数理と計算で解き明かす"
+toc: true
 ---
 
-人狼ゲームを題材に、意思決定 AI と確率・数学の研究をまとめたサイトです。このサイトを作る前の研究は [mayuyu wiki](https://mayuyu.wiki.fc2.com/) にまとめていました。記事に載せた数式・数値を再現する検証コードは、リポジトリの [`verification/`](https://github.com/leonmfvo/werewolf-decision-ai/tree/main/verification) で公開しています。
+## プロジェクトの概要
+
+**Werewolf Decision AI** は、不完全情報ゲームである人狼ゲームを題材に、「その場面でどう進めるのが最も良いのか」という意思決定の問題を、数学・ゲーム理論・人工知能の方法で研究する個人研究プロジェクトです。
+大学院進学に向けて、これまでの研究成果と進行中の研究を、再現可能な形でまとめています。
+
+人狼ゲームの強さを左右する要素の一つに、盤面の情報から「誰を吊るか」「誰を護衛するか」「いつ役職を明かすか」を決める **進行** があります。プレイヤーの間では経験的に「最適」とされる進行が共有されていますが、それが本当に最適なのかは、ほとんど検証されていません（背景は「[なぜ人狼ゲームの意思決定AIを作ろうと思ったか](theory/motivation.qmd)」）。本プロジェクトは、進行を感覚や慣習ではなく、**計算と証明によって評価する** ことを目指しています。
+
+## 研究課題
+
+1. 人狼ゲームの配役 10A狩・12A猫における、初日の人狼陣営の CO 戦略のナッシュ均衡
+2. AI はいかにして「推論する」のか
+3. 盤面情報を入力として、最適なゲーム進行を出力する AI の開発
+
+## 研究の柱
+
+| 分野 | 内容 | 主な成果 |
+|---|---|---|
+| **確率モデル** | 処刑・襲撃を無作為に行う単純化した人狼モデルを、確率過程として解析する | [Wallis積と π/4 の出現](mathematics/wallis-pi.qmd)、[ランダム排除人狼モデルの一般化](mathematics/random-elimination-general.qmd) |
+| **ゲーム理論** | 村側の進行と人狼側の騙り・襲撃を、双方が最善を尽くすゲームとして厳密に解く | [小さな配役におけるCO戦略の厳密解析](research/co-strategy-exact.qmd) |
+| **人工知能** | 全員を AI が演じる自己対戦で、進行を強化学習させる | [自己対戦による人狼AIの開発](research/self-play-ai.qmd) |
+| **教育・問題作成** | 研究で得た構造を、入試形式の数学の問題として切り出す | [人狼×数学 オリジナル問題集](mathematics/problems.qmd) |
+
+: {tbl-colwidths="[20,42,38]"}
+
+## アプローチ
+
+- **厳密計算を優先する.** 勝率は、可能な限りモンテカルロ法ではなく、漸化式や状態の列挙によって有理数として厳密に求めます。近似値を使う場合は、その誤差の大きさを明記します。
+- **主張の確からしさを区別する.** 数学の記事では、各結果に「証明」「証明の概略」「数値による確認」「予想」の区分を付けています。誤りと判明した主張も削除せず、訂正として記録します。
+- **再現できる形で公開する.** 記事に載せた数値はすべて、公開しているコードで再計算できます。検証コードは GitHub Actions で自動的に実行しています。
+- **先行研究との関係を示す.** 既存の研究（Braverman–Etesami–Mossel 2008、Migdał 2010 など）と照らし合わせ、新しい部分とそうでない部分を区別します。
+- **AI との共同作業について.** 研究の一部は、AI アシスタント（Claude）との対話の中で進めました。対話の中で得た数値や主張は、そのまま掲載せず、独立に再計算・検証したものだけを載せています。
+
+## 技術スタック
+
+| 用途 | 使用技術 |
+|---|---|
+| 計算・シミュレーション | Python 3（標準ライブラリのみ。厳密計算には `fractions` を使用） |
+| 機械学習 | 線形ソフトマックス方策と REINFORCE（自前実装） |
+| サイト構築 | Quarto、MathJax |
+| 公開・自動化 | GitHub Pages、GitHub Actions（サイトのビルドと検証コードの実行） |
+
+: {tbl-colwidths="[30,70]"}
+
+## 公開しているコードとデータ
+
+| 内容 | 場所 |
+|---|---|
+| 記事の数値を再現する検証コード | [`verification/`](https://github.com/leonmfvo/werewolf-decision-ai/tree/main/verification) |
+| 自己対戦人狼 AI のソースコードと学習済みの重み | [`ai/`](https://github.com/leonmfvo/werewolf-decision-ai/tree/main/ai) |
+| 論文・解答の PDF | [`papers/`](https://github.com/leonmfvo/werewolf-decision-ai/tree/main/papers) |
+
+## 著者・リンク
+
+- **著者**：leonmfvo（[GitHub](https://github.com/leonmfvo)）
+- **リポジトリ**：[github.com/leonmfvo/werewolf-decision-ai](https://github.com/leonmfvo/werewolf-decision-ai)
+- **過去の研究アーカイブ**：このサイトを作る前の研究のまとめは、[mayuyu wiki](https://mayuyu.wiki.fc2.com/) に残しています。
+
+記事の誤りや改善点に気づいた場合は、[GitHub の Issue](https://github.com/leonmfvo/werewolf-decision-ai/issues) でお知らせください。

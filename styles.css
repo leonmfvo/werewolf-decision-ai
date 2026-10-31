@@ -47,12 +47,25 @@ td code {
   letter-spacing: 0;
 }
 
+/* 一覧のタイトルはリンクだと分かるように青色にし、ホバーで下線を引く */
 #quarto-content .quarto-listing .listing-title a {
+  color: #0969da;
   text-decoration: none;
+  text-underline-offset: 0.2em;
+  transition: color 0.15s ease;
 }
 
-#quarto-content .quarto-listing .listing-title a:hover {
+#quarto-content .quarto-listing .listing-title a:hover,
+#quarto-content .quarto-listing .listing-title a:focus-visible {
+  color: #0550ae;
   text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+
+/* 抜粋・日付の部分もリンクだが、色は変えずにホバー時だけタイトルに下線を出す */
+#quarto-content .quarto-listing .quarto-post:hover .listing-title a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
 }
 
 #quarto-content .quarto-listing .listing-description {
