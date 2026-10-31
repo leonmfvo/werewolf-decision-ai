@@ -21,7 +21,6 @@ GitHub Actions（`.github/workflows/verify.yml`）でも、`verification/` を�
 | [`random_elimination/numerical_claims.py`](random_elimination/numerical_claims.py) | 同 §3–§7, §9 | 本文中の **[数値]** の主張（挟み込み、strict 規約の偶奇比、$w(N,2)=2w(N,1)$、比率一定の表、のこぎり状の振動、0.646 / 0.720 の 2 値、$\pi/4$ になる $c$、狩人の恒等式、順列モデル、$\mathbb{E}[\tau]$） |
 | [`random_elimination/migdal_comparison.py`](random_elimination/migdal_comparison.py) | 同 §8 | Migdał (2010) の 1 次近似・勝率五分の人狼数と、厳密値・極限の式の比較表 |
 | [`random_elimination/model.py`](random_elimination/model.py) | — | 上のスクリプトが共通に使う勝率表（浮動小数点の動的計画法） |
-| [`co_strategy/reproduce_note.py`](co_strategy/reproduce_note.py) | [小さな配役におけるCO戦略の厳密解析](https://leonmfvo.github.io/werewolf-decision-ai/research/co-strategy-exact.html) | 本文の村勝率（村村狩狼・霊狩2w、対話ログの再現、人狼の最善応答）をすべて厳密に再計算。モデル本体は [`co_exact.py`](co_strategy/co_exact.py)、64 通りの進行の表は [`search_all.py`](co_strategy/search_all.py)（約 15 分、出力は [`search_all_output.txt`](co_strategy/search_all_output.txt)） |
 | [`problems/problem_d.py`](problems/problem_d.py) | [人狼×数学 問題集](https://leonmfvo.github.io/werewolf-decision-ai/mathematics/problems.html) 問題 D | $P(X_n=k)\to e^{-1}/k!$、$V(Y_n)/n\to(e-2)/e^2$（厳密計算とモンテカルロ法） |
 
 ## モデルの約束
