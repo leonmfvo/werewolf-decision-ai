@@ -29,6 +29,6 @@ GitHub Actions（`.github/workflows/verify.yml`）でも、`verification/` を�
 - **規則 A**：人狼 $\ge$ 村人 になった時点で人狼勝利。**strict**：人狼 $>$ 村人 で人狼勝利（Migdał (2010) の規約）。どちらも人狼 0 人で村勝利。
 - 夜開始の流儀 $f(w,v)$ は昼開始の $W_w(v-1)$ に等しい。
 
-## 公開していないもの
+## 自己対戦人狼AI
 
-- 研究ノート「[自己対戦による人狼AIの開発](https://leonmfvo.github.io/werewolf-decision-ai/research/self-play-ai.html)」の学習コード（`main.py`、`generations.py` など）と学習済みの重みは、まだこのリポジトリにありません。
+研究ノート「[自己対戦による人狼AIの開発](https://leonmfvo.github.io/werewolf-decision-ai/research/self-play-ai.html)」のコードは [`ai/`](../ai) にあります。学習済みの重みは公開していません。

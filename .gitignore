@@ -1,3 +1,9 @@
 /.quarto/
 **/*.quarto_ipynb
 __pycache__/
+
+# 自己対戦AI（ai/src）の実行で生成されるファイル
+ai/src/trained_weights*.pkl
+ai/src/generations*/
+ai/src/games.json
+ai/src/board_split_report.txt
