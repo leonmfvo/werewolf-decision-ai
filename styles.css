@@ -87,3 +87,71 @@ td code {
 #quarto-content .quarto-listing {
   margin-bottom: 1.5rem;
 }
+
+/* ------------------------------------------------------------
+   対局ログ（チャット形式）：research/llm-player-replays.qmd
+   ------------------------------------------------------------ */
+.wl-log {
+  margin: 1rem 0 1.5rem;
+  padding: 0.75rem;
+  background: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.wl-msg { margin: 0.35rem 0; max-width: 92%; }
+.wl-msg.wl-ai { margin-left: auto; }
+.wl-name {
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-bottom: 0.1rem;
+}
+.wl-ai .wl-name { text-align: right; color: #0550ae; }
+.wl-top .wl-name { color: #a04000; }
+.wl-other .wl-name { color: #57606a; }
+.wl-ts {
+  font-weight: 400;
+  color: #8c959f;
+  font-size: 0.7rem;
+  margin-left: 0.4rem;
+  font-variant-numeric: tabular-nums;
+}
+.wl-bubble {
+  display: inline-block;
+  padding: 0.35rem 0.65rem;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid #d0d7de;
+  overflow-wrap: anywhere;
+}
+.wl-ai { text-align: right; }
+.wl-ai .wl-bubble { background: #ddf4ff; border-color: #9cd0ff; text-align: left; }
+.wl-top .wl-bubble { background: #fff1e5; border-color: #ffc9a0; }
+.wl-sys {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #57606a;
+  margin: 0.5rem 0;
+}
+.wl-sys .wl-ts { margin: 0 0.4rem 0 0; }
+.wl-vote { color: #6e40c9; }
+.wl-gap {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #8c959f;
+  border-top: 1px dashed #d0d7de;
+  border-bottom: 1px dashed #d0d7de;
+  padding: 0.2rem 0;
+  margin-bottom: 0.5rem;
+}
+.wl-key {
+  display: inline-block;
+  padding: 0 0.45rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  border: 1px solid;
+}
+.wl-key-ai { background: #ddf4ff; border-color: #9cd0ff; }
+.wl-key-top { background: #fff1e5; border-color: #ffc9a0; }
+.wl-key-other { background: #fff; border-color: #d0d7de; }

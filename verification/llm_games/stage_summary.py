@@ -123,6 +123,15 @@ def main():
             print(f"{s} {label}: {len(gs)} 試合  勝ち {sum(int(g['ai_win']) for g in gs)}/{len(gs)}"
                   f"  村側 {sum(int(g['ai_win']) for g in vil)}/{len(vil)}")
 
+    print("\n== すぐれてない さん（top_player=yes）と同じ村でプレイした試合（第 4 回） ==")
+    tp = [g for g in games if g["top_player"] == "yes"]
+    print(f"全体: {len(tp)} 試合  AI {sum(int(g['ai_win']) for g in tp)} 勝 "
+          f"{len(tp) - sum(int(g['ai_win']) for g in tp)} 敗")
+    for s in STAGES:
+        gs = [g for g in tp if g["stage"] == s]
+        if gs:
+            print(f"  {s}: {len(gs)} 試合  AI {sum(int(g['ai_win']) for g in gs)} 勝")
+
     print("\n== AI と人間の発言の比較（全試合） ==")
     hum = [u for u in utts if u["speaker"] == "human"]
     for label, rows in (("AI", ai_utts), ("人間", hum)):

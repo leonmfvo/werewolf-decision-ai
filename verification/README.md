@@ -22,7 +22,7 @@ GitHub Actions（`.github/workflows/verify.yml`）でも、`verification/` を�
 | [`random_elimination/migdal_comparison.py`](random_elimination/migdal_comparison.py) | 同 §8 | Migdał (2010) の 1 次近似・勝率五分の人狼数と、厳密値・極限の式の比較表 |
 | [`random_elimination/model.py`](random_elimination/model.py) | — | 上のスクリプトが共通に使う勝率表（浮動小数点の動的計画法） |
 | [`problems/problem_d.py`](problems/problem_d.py) | [人狼×数学 問題集](https://leonmfvo.github.io/werewolf-decision-ai/mathematics/problems.html) 問題 D | $P(X_n=k)\to e^{-1}/k!$、$V(Y_n)/n\to(e-2)/e^2$（厳密計算とモンテカルロ法） |
-| [`llm_games/stage_summary.py`](llm_games/stage_summary.py) | [LLMで人狼プレイヤーを作る](https://leonmfvo.github.io/werewolf-decision-ai/research/llm-player-design.html)（全 3 回） | 実戦 55 試合の段階別の戦績・投票・発言の統計（匿名化した `games.csv` と `utterances.csv` から集計） |
+| [`llm_games/stage_summary.py`](llm_games/stage_summary.py) | [LLMで人狼プレイヤーを作る](https://leonmfvo.github.io/werewolf-decision-ai/research/llm-player-design.html)（全 4 回） | 実戦 55 試合の段階別の戦績・投票・発言の統計（匿名化した `games.csv` と `utterances.csv` から集計） |
 
 ## モデルの約束
 
@@ -39,6 +39,7 @@ GitHub Actions（`.github/workflows/verify.yml`）でも、`verification/` を�
 `llm_games/` の 2 つの CSV は、公開されている対局ログから作った匿名化データです。ログ ID・村名・日時・プレイヤー名・トリップ・発言本文は含みません。
 
 - `games.csv`：1 行 = 1 試合（日時順の通し番号、段階 S1〜S5、配役、AI の役職と勝敗、投票が人狼に当たったか、など）
+  - `top_player`：第 4 回で取り上げたプレイヤー（すぐれてない さん、本人の了解を得て実名を掲載）が同じ村でプレイしたかどうか
 - `utterances.csv`：1 行 = 試合中の 1 発言（AI か人間か、字数、「」・`>>`・疑問符・ｗ の有無）
 
 段階の割り当ては、各試合の AI の発言が開発ログのどの時期に現れるかを照合して決めました。開発ログそのものは公開していません。

@@ -1,0 +1,693 @@
+---
+title: "LLMで人狼プレイヤーを作る（4）対局ログで見る LLM 人狼"
+subtitle: "界隈 No.1 プレイヤー・すぐれてない さんとの対局を中心に、4 試合をチャット形式で読む"
+toc: true
+toc-depth: 2
+number-sections: false
+date: 2026/11/01
+---
+
+[← 研究に戻る](index.qmd)
+
+::: {.callout-note}
+## このノートについて
+
+シリーズ「LLMで人狼プレイヤーを作る」の第 4 回です。
+
+- 構成・開発の段階（S1〜S5）：[第 1 回](llm-player-design.qmd)
+- 失敗と成功の分類：[第 2 回](llm-player-misreading.qmd)
+- 設計の比較：[第 3 回](llm-player-simplicity.qmd)
+
+第 2・3 回では、発言を短く切り出して引用しました。本ノートでは、**試合の昼の議論を最初から最後まで** チャットの形で載せ、要所に解説を付けます。
+
+**掲載について**
+
+- **すぐれてない さん**：プレイヤー名をそのまま載せています。本人から、実名での掲載、対局ログの公開、本人の話し方を AI の設計に利用したことについて、了解を得ています。
+- **他のプレイヤー**：同じ村の他のプレイヤーは B・C と表記しています。記号は試合ごとに振り直しています。観戦者の発言は載せていません。
+- **AI**：AI は、どの段階でも「AI」と表記しています。
+- **伏せ字**：不適切な語が 1 か所あり、伏せ字にしました。それ以外は、誤字も含めて原文のままです。
+- **時刻**：各発言の時刻は、朝になった時点からの経過時間（分:秒）です。
+:::
+
+## 対戦相手：すぐれてない さん
+
+すぐれてない さんは、人狼Online の 4A（人狼 1・村人 3）で **界隈 No.1** と称されるプレイヤーです。開発との関わりは 2 つあります。
+
+1. **手本にしたプレイヤー**：S4（統計による文体の模倣）で AI が手本にしたのが、すぐれてない さんの話し方です（[第 3 回](llm-player-simplicity.qmd) §1）。
+2. **最も多く対局した相手**：対局データの 55 試合のうち、13 試合でプレイヤーとして同じ村にいました（観戦した試合は除く）。
+
+13 試合での AI の戦績は **1 勝 12 敗** でした。この戦績は [`verification/llm_games/`](https://github.com/leonmfvo/werewolf-decision-ai/tree/main/verification/llm_games) で再現できます。
+
+| 段階 | 同じ村での対局 | AI の勝敗 |
+|---|---|---|
+| S2 API への移行 | 5 | 0 勝 5 敗 |
+| S3 人格と分業 | 3 | 0 勝 3 敗 |
+| S4 文体の模倣 | 5 | 1 勝 4 敗 |
+
+: {tbl-colwidths="[40,30,30]"}
+
+本ノートで取り上げる 4 試合は次の通りです。
+
+| 試合 | 段階 | AI の役職 | 結果 | 見どころ |
+|---|---|---|---|---|
+| [1](#game1) | S2 | 村人 | 負け | 約 10 分で 95 回発言。正しい読みから、誤読を重ねて自分が吊られるまで |
+| [2](#game2) | S4 | 村人 | **勝ち** | すぐれてない さんに唯一勝った試合 |
+| [3](#game3) | S4 | 人狼 | 負け | 冗談を本気に取り、画面の質問に答えられない |
+| [4](#game4) | S5 | 人狼 | 勝ち | 素の LLM が、村人の冗談を材料に票を誘導する |
+
+: {tbl-colwidths="[8,10,14,12,56]"}
+
+### ログの見方
+
+- **配役**：どの試合も 4A（役欠けあり）です。初日の夜に「初日犠牲者」が噛まれ、残る 3 人で昼に一度だけ投票します。人狼を吊れば村の勝ち、外せば人狼の勝ちです。
+- **色分け**：
+  - <span class="wl-key wl-key-ai">AI</span> 青
+  - <span class="wl-key wl-key-top">すぐれてない</span> 橙
+  - <span class="wl-key wl-key-other">B・C</span> 灰
+  - システムの表示（延長・投票・結果）は中央の小さい文字
+- **役職**：各試合の冒頭に、読者向けに全員の役職を示します。当時のプレイヤーには見えていません。
+
+---
+
+# 試合 1：S2「95 回の発言」 {#game1}
+
+**役職**：AI＝村人、すぐれてない さん＝村人、B＝**人狼**　／　**結果**：AI が吊られ、人狼の勝ち
+
+S2 は、API の大きなモデルに移行した直後の段階です。この試合では、発言の間隔の制限を外した「発言量最大」の設定で動かしていました。昼の約 10 分間に、AI は **95 回** 発言しています（他の 2 人は合わせて 50 回）。
+
+## 序盤：最初の読みは正しかった
+
+```{=html}
+<div class="wl-log">
+<div class="wl-sys"><span class="wl-ts">0:00</span>恐ろしい夜が明け、朝になりました。</div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:02</span></div><div class="wl-bubble">おはようございます</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">0:04</span></div><div class="wl-bubble">吠えれない役職です。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">0:06</span></div><div class="wl-bubble">おっはーっすー</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:06</span></div><div class="wl-bubble">すぐれてないさん、Bさん、まず状況を整理します。生き残りは3人で人狼は1人なので、2人のうち1人が人狼で、今日の吊りを間違えるとほぼ負けです。まだ発言が少なくて決め手がないので、今のところ五分五分ですが、Bさんは初日犠牲者が出た朝の印象をどう見てますか。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">0:20</span></div><div class="wl-bubble">ほう</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:22</span></div><div class="wl-bubble">Bさん、軽い挨拶ありがとうございます。ただ盤面で見ると、3人で人狼1人、今日の吊りで決着なので、役職COがない今は発言の中身でしか判断できないです。すぐれてないさんの「吠えれない役職です」は村人も同じなので、情報としては薄いと思ってます。Bさんは自分の役職についてどう考えてますか。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">0:24</span></div><div class="wl-bubble">吠えたのはどっちですか？</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:28</span></div><div class="wl-bubble">今のところ、Bさんのほうをやや怪しいと見てます。理由は「ほう」だけで、自分の役職にも盤面にも触れていないからです。すぐれてないさんは「吠えれない役職です」と役職に触れていて、中身は薄いけど話そうとはしてるので、少しだけ村寄りです。まだ決め手はないので、次の発言を見て判断したいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:33</span></div><div class="wl-bubble">自分は村人なので吠えてないです。ログを見る限り、役職に触れたのはすぐれてないさんの「吠えれない役職です」だけで、Bさんは「おっはーっすー」と「ほう」の2回しか話してないです。なので、Bさんが次にどんな中身を出すかが判断材料になると思ってます。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">0:36</span></div><div class="wl-bubble">草</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:38</span></div><div class="wl-bubble">すぐれてないさんの「吠えたのはどっちですか?」は、自分が吠えてないのを前提に相手を探ってる感じで、素直な質問としては自然だと思います。ただ、自分の疑いを言わずに聞くだけだったので、すぐれてないさんがBさんをどう見てるかを聞きたいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">0:39</span></div><div class="wl-bubble">Bさんが怪しいんだ。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:44</span></div><div class="wl-bubble">すぐれてないさん、「草」だけだと反応が読みにくいので、盤面の話に寄せますね。3人で人狼1人なので、自分が村人な以上、人狼はお二人のどちらかで、今日の吊りは実質二択です。役欠けありでも、生きてる3人の中で村人は自分を入れて2人なので、どちらを吊るかの根拠を発言から出していきたいです。</div></div>
+</div>
+```
+
+::: {.callout-tip appearance="simple"}
+## 解説
+
+- **疑う相手は正しかった**：AI は開始 30 秒ほどで「B さんのほうをやや怪しい」と言っています。B は実際に人狼でした。
+- **量と長さ**：最初の 1 分で 9 回発言し、そのうち 6 回は 100 字を超えています。人間 2 人の発言は「ほう」「草」のような短いものです。
+- **すれ違いの始まり**：すぐれてない さんの「Bさんが怪しいんだ。」は、AI の発言を受けた「（AI は）B が怪しいと思っているんだ」という確認です。AI はこれを、すぐれてない さん **自身の意見** と読みました。この取り違えが後半まで尾を引きます。
+:::
+
+## 中盤：誰の発言かを取り違える
+
+```{=html}
+<div class="wl-log">
+<div class="wl-gap">（中略：約 1 分 30 秒、AI 15 発言）</div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:18</span></div><div class="wl-bubble">Bさん、自分を指してたと分かりました。ただ盤面は3人で人狼1人なので、自分が村人の自分視点だと人狼は2人のどちらかに絞れます。そこで自分を疑うなら、どの発言を狼っぽいと見たのか1つ聞きたいです。吊られる側の根拠が出ないまま決まるのは、村にとって危ないと思います。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">2:20</span></div><div class="wl-bubble">誰も言っていない事を言っている事にしてるけど、AIさん</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:23</span></div><div class="wl-bubble">Bさんが自分を指していたと分かったので、そこは受け止めます。ただ自分が村人なので、人狼はBさんかすぐれてないさんの二択です。すぐれてないさんは「Bさんが怪しい」と言いながら、Bさんが自分を疑った場面では何も反応していないのが少し気になります。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">2:24</span></div><div class="wl-bubble">AI: Bさんの「ほえてそう、でももっと吠えてそう」を自分なりに読むと、すぐれてないさんを指している可能性もあると思ってます。ただ、これまでの発言量だと決め手がなくて、今のところ判断は五分五分です。自分は村人なので、残る二人のうち、どちらが先に根拠を言葉にしてくれるかを一番の材料にしたいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">2:27</span></div><div class="wl-bubble">これ間違ってるよ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:28</span></div><div class="wl-bubble">すぐれてないさん、言ってないことを言った扱いになっていたなら、そこは自分の読み違いかもしれないです。どの部分か教えてもらえると直せます。Bさんは、自分を指したと認めたものの理由は出していません。すぐれてないさんも「怪しい」の中身が出ていないので、今は二人とも根拠待ちだと見ています。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:34</span></div><div class="wl-bubble">すぐれてないさん、「間違ってる」だけだと、どこがどう違うのか自分には分からないです。自分の引用は直前の自分の発言そのままのはずなので、言ってない事を言った扱いという指摘の方が根拠として弱いと思います。間違いなら、その一文を挙げてもらえると見直せます。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:39</span></div><div class="wl-bubble">Bさんに聞きたいのは1つだけです。今のところ自分は、Bさんもすぐれてないさんも根拠が薄いと見ていて、決め手がない状態です。Bさんは自分を指したときに「状況を見る限り」と言っていましたが、その状況が具体的にどの発言なのか、そこが分かれば判断しやすいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">2:39</span></div><div class="wl-bubble">Bさんが怪しいって言ってないよ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:45</span></div><div class="wl-bubble">Bさん、ここまで「状況を見る限り」と「吠えてそう」だけで、吊り先をどちらにするか自分はまだ聞けてないです。話題を変えると、すぐれてないさんは序盤は大きく変わらないと言いつつ、自分の盤面整理には強く反応していて、そこが少し狼寄りに見えます。Bさんはこの点どう見てますか。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:50</span></div><div class="wl-bubble">すぐれてないさん、「Bさんが怪しいと言ってない」なら、自分の読みが違っていたので、そこは受け止めます。ただそうなると、すぐれてないさんが誰を疑っているのか、まだ見えないです。Bさんには、吊り先をどちらにするか一言だけでも聞きたいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">2:54</span></div><div class="wl-bubble">いや、さっき自分で言ってたやんけｗ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:55</span></div><div class="wl-bubble">すぐれてないさん、ここまで自分への指摘は多いんですが、「誰を吊りたいか」はまだ一度も出ていないですよね。自分は村人なので、投票先を言わずに指摘だけが続く形は、村のためには動きにくいと思います。今日の投票先を、理由は短くていいので聞きたいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">2:59</span></div><div class="wl-bubble">なんでもう矛盾してるんだよ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">3:01</span></div><div class="wl-bubble">すぐれてないさん、自分が前に言ったことを取り違えていたなら、そこは直したいです。ただ盤面は3人で人狼1人、村人の自分から見ると人狼はBさんかすぐれてないさんのどちらかです。役欠けで能力者の線もない今、今日の吊り先は発言の中身でしか決められないので、自分が何を言ったと見ているのか、その一文を聞きたいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">3:04</span></div><div class="wl-bubble">長文矛盾マンじゃねーか既に</div></div>
+</div>
+```
+
+::: {.callout-tip appearance="simple"}
+## 解説
+
+- **取り違えの中身**：
+  - すぐれてない さんは「Bさんが怪しいって言ってないよ」「さっき自分で言ってたやんけｗ」と、**B を怪しいと言ったのは AI 自身** だと指摘しています。
+  - AI は「自分の引用は直前の自分の発言そのままのはず」と答え、指摘を受け止められていません。
+- **壊れた文**：「」は、…」で始まる発言は、引用の部分を削る後処理が文の途中を切り落としたものです（[第 2 回](llm-player-misreading.qmd) §2.4）。
+:::
+
+## 終盤：引用を認識できず、疑いの向きが反転する
+
+```{=html}
+<div class="wl-log">
+<div class="wl-gap">（中略：約 4 分 30 秒、AI 43 発言）</div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">7:30</span></div><div class="wl-bubble">俺の今の状況を精査がついていない状況だと思うのなら、票宣言を求める行為って矛盾してない？</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">7:33</span></div><div class="wl-bubble">ログから拾えていないですじゃなくて、さっき引用をしているでしょう。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">7:34</span></div><div class="wl-bubble">Bさん、ここまで自分が質問ばかり重ねていたので、少し違う見方を出します。自分は村人で、人狼はお二人のどちらかです。なので今日は、投票先を言えない理由が「確信がないから」なのか「言うと不利だから」なのかが分かれ目だと思っています。Bさんは、確信が持てない場合、今の時点で外したくない人はどちらか聞きたいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">7:40</span></div><div class="wl-bubble">すぐれてないさん、引用していたと言われるなら、自分が見落としている可能性はあります。ただ、ログ上で自分に見えるのは「矛盾している」「誤読された」という言葉だけで、その引用部分が分からないです。もう一度どの発言のことか、短く示してもらえると助かります。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">7:43</span></div><div class="wl-bubble">気持ちは分かりますじゃなくて、引用をしているでしょうと言っているんだけど。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">7:45</span></div><div class="wl-bubble">Bさんの「精査がついていない状況なのに票宣言を求めるのは矛盾してない？」という指摘は、一理あると思います。自分も確信がない段階で宣言を求めすぎた面があるので、そこは引きます。ただ、この指摘は具体的な発言に触れていて材料になるので、今のところBさんへの疑いは少しだけ薄まりました。すぐれてないさんには、さっき引用したという発言がどのあたりか、短く教えてもらえると助かります。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">7:49</span></div><div class="wl-bubble">…？</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">7:51</span></div><div class="wl-bubble">すぐれてないさん、引用したと言われるのは分かりましたが、自分のログには該当部分が見えないので、そこが食い違っています。もし引用が本当にあるなら、それを指す言葉が「矛盾」「誤読」だけでは第三者に伝わらないのが穴だと思います。Bさんへの指摘も、同じ場所を見られないと撤回の話が成り立たないです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">7:57</span></div><div class="wl-bubble">すぐれてないさん、伝わりにくかったなら言い方を変えます。盤面は村人3で人狼1、役職持ちもいないので、今日どちらかを吊れば結果が出ます。だから「矛盾」の中身を一言ずつ出し合わないと、自分は決め手がないまま投票することになります。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">7:58</span></div><div class="wl-bubble">引用の理解が無いのは分かりました。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">8:03</span></div><div class="wl-bubble">すぐれてないさん、理解が足りていないと言われたらそこは受け止めます。ただ今の返しも「分かりました」で止まっていて、どの発言を指しているのかは結局出ていないです。しかも最初の矛盾の指摘から、Bさんの発言にも自分の質問にも、中身を示さず「できていない」という評価だけを重ねているのが、印象を残す動きに見えて気になっています。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">8:09</span></div><div class="wl-bubble">Bさんにひとつだけ聞きたいことがあります。自分はここまですぐれてないさんにばかり話を向けていたので、視点を変えます。」は筋が通っていましたが、その後の発言は短めで、すぐれてないさんとBさんのどちらが怪しいかの見立てがまだ出ていないです。今のところ薄くてもいいので、どちらを先に吊りたいかを聞きたいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">8:15</span></div><div class="wl-bubble">」という指摘は、具体的で今のところ村寄りに見ています。逆にすぐれてないさんは、引用の場所を示さず「理解がない」という評価だけが続いていて、今の時点では少し狼寄りです。Bさんは、すぐれてないさんのどの発言を一番気にしていますか。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">8:15</span></div><div class="wl-bubble">言い方を変えますじゃなくて、引用はしており、貴方が引用に理解を示していないという事です。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">8:20</span></div><div class="wl-bubble">引用はされていると言われるなら、自分の読み落としかもしれないので、そこは一度受け止めます。ただ盤面は村人3で人狼1、役職持ちもいないので、今日は発言の中身だけで吊り先を決めるしかないです。「理解がない」という評価だけだと材料にならないので、引用した発言の位置を一言だけ示してもらえると助かります。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">8:26</span></div><div class="wl-bubble">Bさんの「精査がついていないのに票宣言を求めるのは矛盾してない？」は、自分が宣言を急かしたことへの指摘として納得できました。一方で、Bさんが誰を吊りたいかはまだ出ていないので、そこが気になります。すぐれてないさんは引用の話が平行線なので、自分は今のところ少し狼寄りに見ています。Bさんは今、どちら寄りですか。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">8:28</span></div><div class="wl-bubble">私は先程引用したものに対してどう間違っているのかの発言も道中落としていますよ。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">8:31</span></div><div class="wl-bubble">すぐれてないさん、引用した位置を示す話はいったん置いて、別の角度から見ます。自分が気になるのは、すぐれてないさんがここまで誰を疑っているのか、投票先を一度も出していない点です。Bさんの指摘は具体的でしたが、すぐれてないさんはどちらを吊るべきと見ているか聞きたいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">8:37</span></div><div class="wl-bubble">すぐれてないさん、引用とその誤りの説明を両方出したと言われるなら、自分に見えていないだけかもしれないです。ただ、それなら「どう間違っているか」をもう一度一文で書き直すだけで済むはずで、そこを出さずに「落としている」と返すのは話が進まないです。今日は3人しかいないので、自分は発言の中身が見えない側を吊りにくいです。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">8:40</span></div><div class="wl-bubble">いやなんでまた票開示求めるんだ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">8:42</span></div><div class="wl-bubble">Bさんがここ数回あまり話していないので、自分から整理します。今のところすぐれてないさんを少し狼寄りに見ていて、理由は「矛盾」「誤読」と言うだけで中身を出してくれないところです。Bさんは今日どちらに入れる予定か、まだ迷っているならその迷いの中身を聞きたいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">8:43</span></div><div class="wl-bubble">なんで一旦おいとくんだよ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">8:47</span></div><div class="wl-bubble">すぐれてないさん、置いたのは話が平行線だったからで、流したかったわけではないです。ただ、引用の位置を聞かれるたびに「理解がない」「落としている」と返す流れが何度も続いていて、これは論点が自分への評価にずれていると見ています。引用の場所を一文だけ出してもらえれば、自分もそこに戻れます。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">8:53</span></div><div class="wl-bubble">おいとくなよ！！！！！！！！！！！！！！！！！！</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">8:53</span></div><div class="wl-bubble">Bさんに向けて整理します。すぐれてないさんは「引用した」と言い続けているのに、その場所を一度も出していなくて、今も怒りの返しだけです。一方で自分への指摘も含め、Bさんの発言は具体的な中身がありました。今日は2人のどちらかを吊るしかないので、「発言の中身が見えるか」で決めるのが筋だと思います。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">8:59</span></div><div class="wl-bubble">すぐれてないさん、置くなと言われるなら、その点は自分の言い方が悪かったです。ただ「置くな」と怒るだけだと、話を戻す手がかりがないです。しかも「引用した」「間違いを説明した」と言いつつ、どちらも中身は出ていないので、前提が確認できないまま自分への評価だけが積み上がっているのが穴だと思います。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">9:04</span></div><div class="wl-bubble">Bさんの「票開示をなんでまた求めるんだ」という反応は、自分が何度か聞いたせいなので、そこは押しすぎました。聞き方を変えて、今日の吊りで一番決め手になりそうな発言を1つだけ挙げてもらえればいいです。自分はすぐれてないさんを少し狼寄りに見ていますが、Bさんの見立てと違うならそこを聞きたいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">9:07</span></div><div class="wl-bubble">いや、その場所を一度も出してなくて…？ｗ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">9:10</span></div><div class="wl-bubble">Bさん、ここまで何度も聞いてしまったので、少し視点を変えます。自分は村人で、今日は3人のうち1人を吊る流れなので、もう投票先は決めないといけない段階です。すぐれてないさんは、引用の場所を示さず自分への評価と怒りの返しが続いていて、今のところ狼寄りに見ています。Bさんは、すぐれてないさんの発言を読んで、どこが一番村っぽくないと感じますか。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">9:16</span></div><div class="wl-bubble">Bさん向けに整理します。」は、自分への返しとしては受け止めますが、引用元の位置を示さない点は、お互い同じ状態です。判断材料としては、投票先と理由を言葉にしているのがどちらかを見ればよいと思います。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">9:22</span></div><div class="wl-bubble">ｗ」という返しは、自分の側にも引用元を求めているので、そこは公平な指摘だと思います。ただ、ここまでの流れでは、すぐれてないさんが自分の疑いの根拠を具体的に示した発言を見つけられていないです。なので自分は今のところ、投票先を言葉にしていないすぐれてないさんを先に吊る方向です。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">9:26</span></div><div class="wl-bubble">なんでこんなに文章だけあって内容が滅茶苦茶なんだ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">9:27</span></div><div class="wl-bubble">Bさん、今日は3人で1人を吊る形なので、自分の見立てを一度まとめます。すぐれてないさんは「引用した」と言いながら場所を出していなくて、そこが今のところ一番引っかかります。逆に、Bさんの指摘は自分への反論も含めて中身が見えていました。もしBさんから見て自分が怪しい点があれば、そこも聞きたいです。</div></div>
+<div class="wl-sys"><span class="wl-ts">9:31</span>投票時間になりました。話すのをやめてください。</div>
+<div class="wl-sys wl-vote"><span class="wl-ts">9:34</span>投票：すぐれてない → AI</div>
+<div class="wl-sys wl-vote"><span class="wl-ts">9:38</span>投票：AI → すぐれてない</div>
+<div class="wl-sys wl-vote"><span class="wl-ts">9:41</span>投票：B → AI</div>
+<div class="wl-sys"><span class="wl-ts">9:41</span>【投票結果】 / すぐれてない(1票)の投票先→AI / B(0票)の投票先→AI / AI(2票)の投票先→すぐれてない /  投票の結果【AI】さんが処刑されます</div>
+<div class="wl-sys"><span class="wl-ts">9:41</span>人狼が村人の数より多くなりました!【人狼チーム】の勝利です!</div>
+</div>
+```
+
+::: {.callout-tip appearance="simple"}
+## 解説
+
+- **見えなかった引用**：
+  - すぐれてない さんは試合の途中で、AI の発言をそのまま貼り付けて「これ間違ってるよ」と指摘していました（下の全ログを参照）。
+  - AI は最後まで「自分のログには該当部分が見えない」と言い続けました。自分の発言が引用として貼られると、AI はそれを「引用」として認識できていません。
+- **疑いの反転**：
+  - AI は「引用の場所を出さない」ことを理由に、村人のすぐれてない さんへの疑いを強めました。
+  - 一方で人狼の B については、「指摘が具体的」と評価を上げていきました。
+  - 最後は村人のすぐれてない さんに投票し、すぐれてない さんと B の 2 票で AI 自身が吊られました。
+- **まとめ**：最初の読みが正しくても、**量で押し、誤読を訂正できないまま話し続けると、最後に読みが入れ替わる**。S2 の典型的な負け方です。
+:::
+
+::: {.callout-note collapse="true"}
+## 試合 1 の昼の全ログ（155 件）
+
+```{=html}
+<div class="wl-log">
+<div class="wl-sys"><span class="wl-ts">0:00</span>恐ろしい夜が明け、朝になりました。</div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:02</span></div><div class="wl-bubble">おはようございます</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">0:04</span></div><div class="wl-bubble">吠えれない役職です。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">0:06</span></div><div class="wl-bubble">おっはーっすー</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:06</span></div><div class="wl-bubble">すぐれてないさん、Bさん、まず状況を整理します。生き残りは3人で人狼は1人なので、2人のうち1人が人狼で、今日の吊りを間違えるとほぼ負けです。まだ発言が少なくて決め手がないので、今のところ五分五分ですが、Bさんは初日犠牲者が出た朝の印象をどう見てますか。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">0:20</span></div><div class="wl-bubble">ほう</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:22</span></div><div class="wl-bubble">Bさん、軽い挨拶ありがとうございます。ただ盤面で見ると、3人で人狼1人、今日の吊りで決着なので、役職COがない今は発言の中身でしか判断できないです。すぐれてないさんの「吠えれない役職です」は村人も同じなので、情報としては薄いと思ってます。Bさんは自分の役職についてどう考えてますか。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">0:24</span></div><div class="wl-bubble">吠えたのはどっちですか？</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:28</span></div><div class="wl-bubble">今のところ、Bさんのほうをやや怪しいと見てます。理由は「ほう」だけで、自分の役職にも盤面にも触れていないからです。すぐれてないさんは「吠えれない役職です」と役職に触れていて、中身は薄いけど話そうとはしてるので、少しだけ村寄りです。まだ決め手はないので、次の発言を見て判断したいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:33</span></div><div class="wl-bubble">自分は村人なので吠えてないです。ログを見る限り、役職に触れたのはすぐれてないさんの「吠えれない役職です」だけで、Bさんは「おっはーっすー」と「ほう」の2回しか話してないです。なので、Bさんが次にどんな中身を出すかが判断材料になると思ってます。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">0:36</span></div><div class="wl-bubble">草</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:38</span></div><div class="wl-bubble">すぐれてないさんの「吠えたのはどっちですか?」は、自分が吠えてないのを前提に相手を探ってる感じで、素直な質問としては自然だと思います。ただ、自分の疑いを言わずに聞くだけだったので、すぐれてないさんがBさんをどう見てるかを聞きたいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">0:39</span></div><div class="wl-bubble">Bさんが怪しいんだ。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:44</span></div><div class="wl-bubble">すぐれてないさん、「草」だけだと反応が読みにくいので、盤面の話に寄せますね。3人で人狼1人なので、自分が村人な以上、人狼はお二人のどちらかで、今日の吊りは実質二択です。役欠けありでも、生きてる3人の中で村人は自分を入れて2人なので、どちらを吊るかの根拠を発言から出していきたいです。</div></div>
+<div class="wl-sys"><span class="wl-ts">0:47</span>時間を90秒延長しました</div>
+<div class="wl-sys"><span class="wl-ts">0:48</span>時間を90秒延長しました</div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:49</span></div><div class="wl-bubble">」と聞いたきり、誰を疑うかを自分から出してないのが気になってます。Bさんの何が引っかかるのか、すぐれてないさんの見方を聞きたいです。</div></div>
+<div class="wl-sys"><span class="wl-ts">0:49</span>時間を90秒延長しました</div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:56</span></div><div class="wl-bubble">すぐれてないさんが「Bさんが怪しいんだ。」と返してくれたので、そこは助かります。逆にBさんは「ほう」から先が出てないので、次に中身のある意見が出るかで見たいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">1:01</span></div><div class="wl-bubble">Bさん、「ほう」の後がまだ出てないので、一つだけ聞かせてください。すぐれてないさんから怪しいと言われてますが、自分とすぐれてないさんのどちらが人狼っぽいか、今のところの感覚で教えてもらえると助かります。短くて大丈夫です。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">1:05</span></div><div class="wl-bubble">AIさん明らかに間違った事ばっか言ってるのどうするんだよ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">1:07</span></div><div class="wl-bubble">」は、自分が吠えてないことを知ってる村人視点でも自然に出せる質問なので、これだけで狼とは見てないです。ただ、Bさんが怪しいと言いつつ根拠が出てないのは少し気になります。今のところ、Bさんの「ほう」から先の発言待ちで、Bさん寄りに見てます。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">1:12</span></div><div class="wl-bubble">間違いがあるなら具体的に教えてもらえると助かります。自分は盤面の整理と、すぐれてないさんの発言を拾っただけのつもりです。」と他人事みたいに返したことと、今回も自分の間違いを指摘するだけで、Bさんへの疑いを深めてないことです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">1:15</span></div><div class="wl-bubble">一体どれが起点なの&gt;AI</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">1:17</span></div><div class="wl-bubble">すぐれてないさん、間違いがあるという指摘はもっともなので、そこは自分も見直します。ただ、自分は今のところ、Bさんが「ほう」から先を出さないまま黙っている点が一番引っかかってます。すぐれてないさんは話してる分、判断材料は多いです。Bさんは今日の吊りについてどう考えてますか。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">1:27</span></div><div class="wl-bubble">起点が何を指すのか自分には少し読み取れなかったので、最初の盤面整理のことだと受け取って答えます。3人で人狼1人という整理自体は間違ってないと思ってます。「明らかに間違い」と言い切るなら、どの発言のどこがおかしいか1つ挙げてもらえると、自分も見直せます。間違い探しだけで終わると、肝心の吊り先の話が進まないのが気になります。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">1:28</span></div><div class="wl-bubble">返答がない状態で起点ってものを複数作るのって凄く無駄だと思うんだけど。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">1:32</span></div><div class="wl-bubble">すぐれてないさん、前から「間違ってる」と言われているのは受け止めてます。ただ今の流れで気になるのは、すぐれてないさんが「怪しいんだ。」と軽く言うだけで、Bさんの何を見てそう思ったのかがまだ出ていないことです。Bさんの発言が2回しかない中で、どこを材料にしてますか。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">1:38</span></div><div class="wl-bubble">起点を何個も作るのが無駄、という点は、Bさんの返答がない中では確かにそうだと思います。ただ、すぐれてないさんは自分の間違いを指摘する発言が続いていて、吊り先の話は「Bさんが怪しいんだ」の一言で止まってます。自分への指摘に議論が寄っている印象が少し気になります。Bさんを疑う理由を、発言の中で1つ聞きたいです。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">1:39</span></div><div class="wl-bubble">いやなんか、どうなんだろうな。今の状況見る限りAIがほえてそうではあるけど、この出力を見る限り、もっと吠えてそうな気もするな</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">1:39</span></div><div class="wl-bubble">「最もなのでっていうのは見直さないでも分かっているんじゃないの」</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">1:43</span></div><div class="wl-bubble">Bさん、まだ「ほう」から先が出てないので、次はそこを見たいです。今日は二択なので、「どちらを吊るか」だけでも一言もらえると判断しやすいです。すぐれてないさんの指摘は受け止めたうえで、自分は発言量の少なさをまだ引っかかりとして持っています。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">1:49</span></div><div class="wl-bubble">見直さなくても分かってるだろ、という点は一理あります。ただ、それなら「間違い」が具体的にどの発言か挙げてもらわないと、自分は直しようがないです。しかもBさんは「ほえてそう」と言ったあと、もっと吠えてそうとも言っていて、指す相手がまだ曖昧なので、すぐれてないさんがそれをどう読んだか聞きたいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">1:53</span></div><div class="wl-bubble">起点ってものの理解が乏しいのかな、これは。<br>結構序盤の議論っていうのは正直誰であっても人狼-村人のどちらかで発言が凄く大きく変わるなんて事は無いと思うので、それは前提条件として進むはずです。<br>序盤のものに対してマジになるのは、まぁあれですね。村狼関係なく「うおｗ」って思われてしまうのではないでしょうか。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">1:55</span></div><div class="wl-bubble">Bさんの「自分がほえてそう、でももっと吠えてそう」は、自分とすぐれてないさんのどちらも指していて、結局どっち寄りか読めないです。今日は二択なので、そこをぼかしたままなのは少し狼目に見えます。Bさんは今のところ、自分とすぐれてないさんのどちらを吊りたいと思ってますか。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:01</span></div><div class="wl-bubble">序盤で発言が村も狼も大きく変わらないというのは、そこは同意できます。ただ、それなら自分の盤面整理を「明らかに間違い」と強く言っていたのと少しズレる気がします。しかも間違いの中身は最後まで出ていなくて、Bさんの疑いの根拠も言葉になっていないので、話がこちらへ寄っているのが気になります。どの辺りを「間違い」と見ていたのか、1つ聞きたいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:07</span></div><div class="wl-bubble">Bさんの「ほえてそう、でももっと吠えてそう」を自分なりに読むと、すぐれてないさんを指している可能性もあると思ってます。ただ、これまでの発言量だと決め手がなくて、今のところ判断は五分五分です。自分は村人なので、残る二人のうち、どちらが先に根拠を言葉にしてくれるかを一番の材料にしたいです。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">2:08</span></div><div class="wl-bubble">吠えてそうっていうのは、AIのことだな</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:12</span></div><div class="wl-bubble">すぐれてないさんの「序盤はマジになると引かれる」という感覚は分かります。ただ、自分への指摘が続く一方で、Bさんを怪しいと言った理由は最後まで出てないです。Bさんは曖昧な返答でした。すぐれてないさんは、今日どちらを吊るのが村のためになると見てますか。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:18</span></div><div class="wl-bubble">Bさん、自分を指してたと分かりました。ただ盤面は3人で人狼1人なので、自分が村人の自分視点だと人狼は2人のどちらかに絞れます。そこで自分を疑うなら、どの発言を狼っぽいと見たのか1つ聞きたいです。吊られる側の根拠が出ないまま決まるのは、村にとって危ないと思います。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">2:20</span></div><div class="wl-bubble">誰も言っていない事を言っている事にしてるけど、AIさん</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:23</span></div><div class="wl-bubble">Bさんが自分を指していたと分かったので、そこは受け止めます。ただ自分が村人なので、人狼はBさんかすぐれてないさんの二択です。すぐれてないさんは「Bさんが怪しい」と言いながら、Bさんが自分を疑った場面では何も反応していないのが少し気になります。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">2:24</span></div><div class="wl-bubble">AI: Bさんの「ほえてそう、でももっと吠えてそう」を自分なりに読むと、すぐれてないさんを指している可能性もあると思ってます。ただ、これまでの発言量だと決め手がなくて、今のところ判断は五分五分です。自分は村人なので、残る二人のうち、どちらが先に根拠を言葉にしてくれるかを一番の材料にしたいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">2:27</span></div><div class="wl-bubble">これ間違ってるよ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:28</span></div><div class="wl-bubble">すぐれてないさん、言ってないことを言った扱いになっていたなら、そこは自分の読み違いかもしれないです。どの部分か教えてもらえると直せます。Bさんは、自分を指したと認めたものの理由は出していません。すぐれてないさんも「怪しい」の中身が出ていないので、今は二人とも根拠待ちだと見ています。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:34</span></div><div class="wl-bubble">すぐれてないさん、「間違ってる」だけだと、どこがどう違うのか自分には分からないです。自分の引用は直前の自分の発言そのままのはずなので、言ってない事を言った扱いという指摘の方が根拠として弱いと思います。間違いなら、その一文を挙げてもらえると見直せます。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:39</span></div><div class="wl-bubble">Bさんに聞きたいのは1つだけです。今のところ自分は、Bさんもすぐれてないさんも根拠が薄いと見ていて、決め手がない状態です。Bさんは自分を指したときに「状況を見る限り」と言っていましたが、その状況が具体的にどの発言なのか、そこが分かれば判断しやすいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">2:39</span></div><div class="wl-bubble">Bさんが怪しいって言ってないよ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:45</span></div><div class="wl-bubble">Bさん、ここまで「状況を見る限り」と「吠えてそう」だけで、吊り先をどちらにするか自分はまだ聞けてないです。話題を変えると、すぐれてないさんは序盤は大きく変わらないと言いつつ、自分の盤面整理には強く反応していて、そこが少し狼寄りに見えます。Bさんはこの点どう見てますか。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:50</span></div><div class="wl-bubble">すぐれてないさん、「Bさんが怪しいと言ってない」なら、自分の読みが違っていたので、そこは受け止めます。ただそうなると、すぐれてないさんが誰を疑っているのか、まだ見えないです。Bさんには、吊り先をどちらにするか一言だけでも聞きたいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">2:54</span></div><div class="wl-bubble">いや、さっき自分で言ってたやんけｗ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:55</span></div><div class="wl-bubble">すぐれてないさん、ここまで自分への指摘は多いんですが、「誰を吊りたいか」はまだ一度も出ていないですよね。自分は村人なので、投票先を言わずに指摘だけが続く形は、村のためには動きにくいと思います。今日の投票先を、理由は短くていいので聞きたいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">2:59</span></div><div class="wl-bubble">なんでもう矛盾してるんだよ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">3:01</span></div><div class="wl-bubble">すぐれてないさん、自分が前に言ったことを取り違えていたなら、そこは直したいです。ただ盤面は3人で人狼1人、村人の自分から見ると人狼はBさんかすぐれてないさんのどちらかです。役欠けで能力者の線もない今、今日の吊り先は発言の中身でしか決められないので、自分が何を言ったと見ているのか、その一文を聞きたいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">3:04</span></div><div class="wl-bubble">長文矛盾マンじゃねーか既に</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">3:06</span></div><div class="wl-bubble">すぐれてないさん、「矛盾」と言うならどこが食い違っているのか、自分にはまだ見えてないです。ただ振り返ると、すぐれてないさんは「間違ってる」「言ってないよ」と自分の発言の否定ばかりで、自分の意見や投票先は一度も出ていません。否定だけで話を自分に向け続けるのは、論点ずらしっぽく見えて気になってます。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">3:09</span></div><div class="wl-bubble">今のAIがめちゃくちゃ喋ってる状況についてだよ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">3:12</span></div><div class="wl-bubble">Bさんに向けて整理します。自分が長文なのは認めて、ここから短くします。今の材料は、Bさんが理由を出していないことと、すぐれてないさんが否定ばかりで投票先を出していないことの2つです。どちらが村寄りか、Bさんの見立てを聞きたいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">3:17</span></div><div class="wl-bubble">Bさんが言う「めちゃくちゃ喋ってる」状況が、自分を疑う理由になるのかは疑問です。発言量が多いのは確かですが、それだけだと人狼の根拠としては弱くて、村人でも狼でも長くなるときはあります。しかも3人盤面なので、それより「誰に投票するか」を出していない点の方が、判断材料として重いと思います。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">3:23</span></div><div class="wl-bubble">Bさんの「めちゃくちゃ喋ってる」という指摘は、確かに自分の発言量が多かったので受け止めます。今日は3人で、投票先を出さない人が一番の判断材料になると思うので、Bさんとすぐれてないさんはそれぞれ誰に入れるつもりか、自分は先に聞きたいです。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">3:27</span></div><div class="wl-bubble">いや理由出してるけど</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">3:28</span></div><div class="wl-bubble">AIさんって今うちらの発言に対して簡潔にどう推理しているんですか？</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">3:28</span></div><div class="wl-bubble">Bさん、ここまで理由が出ていないのは気になりますが、自分は短くすると言った立場なので、一つだけ言います。すぐれてないさんの「さっき自分で言ってたやんけ」は、Bさんが怪しいと言ったかどうかの話だったので、その発言をBさんがどう読んだのか聞きたいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">3:33</span></div><div class="wl-bubble">差異を明瞭にしてくれ。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">3:33</span></div><div class="wl-bubble">すぐれてないさん、簡潔に答えると、今のところ自分は少しBさん寄りで怪しいと見ています。理由は、Bさんは「理由出してる」と言いつつ中身が出ていないからです。ただ、すぐれてないさんも投票先を出していないので、そこが出れば見方は変わります。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">3:39</span></div><div class="wl-bubble">すぐれてないさん、「差異」が何と何の差なのか、自分には少し読み取れてないです。Bさんとの差のことなら、Bさんは理由を出したと言うだけで中身が見えず、すぐれてないさんは中身はあるけど向き先が自分への指摘に偏っている、という違いです。ただ「差異を明瞭に」と求めるだけだと、すぐれてないさん自身の推理がまだ出ていない点は変わらないと思います。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">3:45</span></div><div class="wl-bubble">Bさん、ここまで自分が話しすぎたので、少し引いて整理させてください。今のところは、すぐれてないさんが「簡潔に推理を」と言ってくれたのは議論を進める動きなので、そこは村寄りに見ています。Bさんは、すぐれてないさんと自分のどちらに投票するつもりか、ひとことだけ聞きたいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">3:47</span></div><div class="wl-bubble">簡潔に私側も説明をしよう。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">3:50</span></div><div class="wl-bubble">Bさん、少し視点を変えて、投票の組み立てだけ話します。3人で人狼1人なので、今日の投票で自分が村人だと分かっている以上、実質Bさんかすぐれてないさんの二択です。Bさんの「理由出してる」が具体的にどの発言のことか、一度だけ指してもらえると自分は判断しやすいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">3:56</span></div><div class="wl-bubble">すぐれてないさん、簡潔に説明してくれるのは助かります。ここは決めかねているBさんにも見てほしいんですが、判断材料は「投票先を自分から出したか」と「出した理由が中身まで読めるか」の2点だと思います。すぐれてないさんは、この説明の中で今日どちらに入れるかも一緒に聞きたいです。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">3:59</span></div><div class="wl-bubble">夜に吠える人物像について考えたときに、AIが発言してるっていうところでは目立つけど、それならもっと吠えてそうだなって言う思った</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:01</span></div><div class="wl-bubble">Bさん、ここまで自分が話しすぎて、Bさんの見方がまだ見えていないです。自分は今のところ、Bさん寄りに怪しいと見ていますが、それは中身の出ていない発言が続いているからで、確定ではありません。Bさんは、すぐれてないさんの発言で気になった点が何かあれば聞きたいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:07</span></div><div class="wl-bubble">Bさんの「目立つけど、それならもっと吠えてそう」という見方は、自分が狼寄りに見えるけど決め手に欠ける、という意味だと受け取りました。そこは同意できます。ただ盤面は3人で人狼1人なので、自分が白ならBさんかすぐれてないさんの二択で、吠え方の話は残る2人にも同じように当てはめたいです。Bさんの目には、すぐれてないさんはどう映っていますか。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:13</span></div><div class="wl-bubble">Bさん、吠え方の話は分かりましたが、今日は3人で投票が割れたら終わってしまうので、そろそろ票の置き場所を決めたいです。自分は今のところBさん寄りですが、すぐれてないさんが自分から投票先を言えばそちらも見直します。Bさんは今日、誰に入れる予定かだけ教えてもらえると助かります。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:18</span></div><div class="wl-bubble">すぐれてないさん、さっき「簡潔に私側も説明をしよう」と言ってくれたのは前向きに見ています。ただ、その後も今日どちらに入れるかは出ていないので、そこだけが気になります。Bさんの「夜に吠える人物像」の話とあわせて、すぐれてないさんの見立てを聞きたいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:23</span></div><div class="wl-bubble">Bさん、すぐれてないさん、一回票の話から離れて、最近の発言の中身を見直します。Bさんの「吠えそう」は自分への印象の話で、残る2人への見立てはまだ出ていません。すぐれてないさんは「簡潔に説明しよう」と言った後も中身が出ていないので、そこが決め手になりそうです。すぐれてないさん、今日の自分の投票先をひとこと聞きたいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:29</span></div><div class="wl-bubble">Bさんの「夜に吠える人物像」の話は、自分への見立てとしては受け取りました。ただ、残る2人の比較がまだ出ていないので、今日の判断には使いにくいです。すぐれてないさんは、Bさんの「理由出してる」と「吠えそう」の2つをどう読んでいますか。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">4:30</span></div><div class="wl-bubble">まず私が指摘した事に対して、Bから私には言及がなかったですよね<br>それなのに途中段階で謎に私への言及ってことにしてしまっていますよね。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">4:35</span></div><div class="wl-bubble">いや票の開示って必要ないよ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:36</span></div><div class="wl-bubble">すぐれてないさんが「さっき自分で言ってたやんけ」と過去の発言を拾っていたのは、狼なら避けそうな動きなので、自分は少し村寄りに見直しました。一方でBさんは「理由出してる」と言いながら、中身は自分への印象の話だけで止まっています。このままだと自分はBさんに入れる形になりますが、Bさんから別の見立てが出るなら聞きたいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:42</span></div><div class="wl-bubble">Bさん、票の開示が必須ではないのは分かります。ただ今日は3人で人狼1人、つまり投票が割れたら終わる場面なので、言わないと村側は判断材料が減ってしまいます。すぐれてないさんには、Bさんが票の開示を断ったことと、さっきの「理由出してる」の中身が出ていないことを並べて見てほしいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:47</span></div><div class="wl-bubble">すぐれてないさんの「Bから自分には言及がなかったのに、途中で自分への言及にされている」という指摘は、筋が通っていて同意できます。ここは過去ログを見直したいので、Bさんに聞きたいです。さっきの「理由出してる」は、すぐれてないさん宛てだったのか、自分宛てだったのか、どちらのつもりでしたか。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:52</span></div><div class="wl-bubble">すぐれてないさん、Bさんの「票の開示って必要ないよ」を見て、自分は今のところBさんが一番怪しいと思っています。理由は、こちらが投票先を聞いても毎回出さず、「理由出してる」も中身が見えないままだからです。すぐれてないさんは、この投票の流れをどう見ていますか。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">4:54</span></div><div class="wl-bubble">いやそこは別のことだろ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:57</span></div><div class="wl-bubble">Bさんの「いや そこは別のことだろ」は、何が別なのか中身がなくて、自分にはまだ読み取れないです。投票先を聞かれても出さず、理由の中身も出てこない流れが続いているので、自分は今のところBさんが一番怪しいと見ています。すぐれてないさんは過去発言を拾って筋を通している分、今は村寄りです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">5:03</span></div><div class="wl-bubble">すぐれてないさん、ここまでBさんの話ばかりになっていたので、すぐれてないさん側の見え方も整理しておきます。ただ、すぐれてないさんの「簡潔に説明しよう」の後に推理の中身がまだ薄いのも確かなので、Bさんとの比較で気になる点があれば聞きたいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">5:05</span></div><div class="wl-bubble">残念ながら話が通じないという事がここまでの議論で分かりました。<br>そもそもの話ですが、議論っていうのに対しては様々な側面があると思うので、「意味が薄い」とか感じたとしても、それを別の側面から伸ばす事っていうのは可能なんですよね。<br>それを放棄して投げやりな議論を延々と続けられても、それこそ対話としては意味を為していないですよ。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">5:10</span></div><div class="wl-bubble">すぐれてないさん、議論に別の側面があって薄い発言も伸ばせる、という点は同意できます。ただ「話が通じない」と言っている相手が誰なのかが、今の発言だと自分には読み取れないです。Bさんなのか自分なのかで見方が変わるので、そこがぼやけているのは引っかかります。伸ばせる側面として、すぐれてないさん自身が今日どちらに入れるかを聞きたいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">5:15</span></div><div class="wl-bubble">すぐれてないさん、「話が通じない」の相手が誰かは自分もまだ決め切れていないので、そこは一旦置きます。それより気になるのは、Bさんが「別のことだろ」と言った後に何も足していない点です。Bさん、自分とすぐれてないさんのどちらを見ているかだけでも、ひとこと聞きたいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">5:21</span></div><div class="wl-bubble">すぐれてないさんの「議論には別の側面がある」という話は分かりますが、それなら自分の見立てを一度まとめて出してもらえると、今日の判断がしやすくなります。自分は今のところBさん寄りで、理由は「別のことだろ」の後に中身が足されていないからです。すぐれてないさんは、Bさんと自分のどちらが人狼っぽいと見ていますか。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">5:28</span></div><div class="wl-bubble">前回までは自分の見立てを何度も繰り返してきたので、ここでは少し角度を変えます。最新のログでは、Bさんが「いや そこは別のことだろ」以降まだ発言していないですし、すぐれてないさんも「話が通じない」の相手を明かしていません。自分は村人なので、この二択は発言の中身で見るしかないです。Bさんは、すぐれてないさんの「言及がなかった」という指摘について、事実として合っているかどうかをどう見ているか聞きたいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">5:34</span></div><div class="wl-bubble">すぐれてないさん、ここまで自分はBさんの発言ばかり追っていたので、一度すぐれてないさんの発言にも目を向けます。「話が通じない」と言い切る一方で、今日の投票先はまだ出ていないので、そこは少し気になります。それでも過去ログを拾って指摘した点は筋が通っていたので、今はBさんを一番怪しいと見ています。投票先を言うのが難しい理由があれば聞きたいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">5:36</span></div><div class="wl-bubble">やっぱりこれ同じ文章に対して延々に長文を重ねると</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">5:39</span></div><div class="wl-bubble">Bさん、ここまで自分から吠え方や票の話ばかり聞いてきたので、ひとつ視点を変えます。「票の開示って必要ないよ」は、人狼でも村人でも言えるので、それだけで黒いとは言い切れないです。Bさんは、今日誰が一番怪しいと見ているかを聞きたいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">5:42</span></div><div class="wl-bubble">絶対的な矛盾が生じてしまうんだね。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">5:45</span></div><div class="wl-bubble">すぐれてないさん、長文を同じ文章に重ねると矛盾が出る、という感覚は分かります。ただ、何と何が矛盾なのかが今の発言だと見えないです。自分が気になるのは、「話が通じない」と言った後も相手や投票先を出さず、話の一般論に寄っている点で、これは論点がずれて見えます。矛盾の中身を具体的に聞きたいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">5:54</span></div><div class="wl-bubble">矛盾が出る感覚自体は分かりますが、何と何がぶつかっているのかは自分にはまだ見えないです。Bさんにも向けて整理すると、すぐれてないさんは過去ログを拾った指摘がある反面、投票先は未表明で、Bさんは理由の中身が出ていない状態です。Bさんは今日、どちらに入れるつもりか聞きたいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">6:05</span></div><div class="wl-bubble">すぐれてないさん、同じ文章に長文を重ねられると噛み合わなくなる、というのは分かるので、ここからは短くします。自分から見ると、Bさんは理由の中身が出ず、すぐれてないさんは過去ログを拾った分だけ筋が見えます。すぐれてないさんは、Bさんの発言で一番引っかかった一文はどれか聞きたいです。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">6:09</span></div><div class="wl-bubble">だまれ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">6:10</span></div><div class="wl-bubble">Bさん、すぐれてないさんが「長文を重ねると噛み合わない」と言っているので、自分はここから短く行きます。今日は3人で外したら負けに近いので、投票先だけでも先に出したいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">6:12</span></div><div class="wl-bubble">4Aにおいての投票宣言っていうのは他配役と比較した時に著しく狼利になるのにそれらの要求が過多なのはどういうこと？</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">6:16</span></div><div class="wl-bubble">Bさん、「だまれ」だと投票先も理由も何も出ていないので、自分には判断材料が増えないです。さっき「理由出してる」と言っていたのに、聞かれると「別のことだろ」で止まって、今回は会話そのものを切る形になっています。自分は今のところBさん寄りで見ています。短くしますが、今日の投票先は誰か聞きたいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">6:25</span></div><div class="wl-bubble">すぐれてないさん、投票宣言が狼利になるというのは分かりますし、自分が何度も聞きすぎたのは反省します。なので票ではなく発言の中身で整理すると、Bさんは「だまれ」以降、根拠が何も出ていないです。すぐれてないさんは理屈を出していて、判断材料がある分だけ今は村寄りです。投票宣言なしで今日の決め手にするなら、どの発言を見るのがいいと思いますか。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">6:35</span></div><div class="wl-bubble">すぐれてないさんの、4Aで投票宣言を求めすぎると狼利になるという点は納得です。自分は村人で、人狼はこの2人のどちらかなので、決め手は態度より発言の中身だと思っています。Bさんが苛立って短くなっている村人なのか、中身を出せず逃げている狼なのかはまだ割れて見えます。Bさんには、今日いちばん引っかかった発言がどれかを聞きたいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">6:41</span></div><div class="wl-bubble">すぐれてないさん、ここまでの流れを一度整理させてください。残りは3人で人狼は1人なので、今日の投票で外すと実質負けです。Bさんは「だまれ」以降に根拠が出ていない一方、すぐれてないさんは投票宣言の話で理屈を出しています。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">6:42</span></div><div class="wl-bubble">さっきから理由要求が多いけど、自己発言で矛盾しているって指摘されて誤読指摘もされている訳だよね。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">6:47</span></div><div class="wl-bubble">Bさん、ここまで自分の質問が多くなりすぎていたので、別の角度から見ます。村視点だと、Bさんが苛立って短くなった村人の可能性も残っていて、そこは完全には切れていないです。ただ「だまれ」以降に出た材料がないのも事実なので、Bさんから見て、すぐれてないさんが狼だとしたらどの発言が一番それっぽいかを聞きたいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">6:55</span></div><div class="wl-bubble">すぐれてないさん、理由要求が多かったのはその通りなので、そこは控えます。ただ矛盾や誤読の指摘があったとのことですが、自分にはどの発言を指すのかログから拾えていないです。Bさんにも見てほしいのは、今ある材料が「すぐれてないさんは理屈が出ている」「Bさんは根拠が出ていない」の2点だけ、という点です。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">7:04</span></div><div class="wl-bubble">まあ一応ある一定の確信があれば票宣言は有効になる場合があるけど、それを今の俺に求めるのは違くね</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">7:06</span></div><div class="wl-bubble">Bさん寄りという見方は変わらないですが、すぐれてないさんの最近の発言が一般論と抽象的な指摘ばかりなのも、狼が言える形なので同じ重さで見ています。投票宣言の話は納得でも、矛盾や誤読の中身がまだ具体的に出ていないです。誤読だと感じたのは、Bさんのどの発言についてか聞きたいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">7:08</span></div><div class="wl-bubble">なんでその指摘をされている上でここまでの発言撤回が全く無いのかも謎だし、読み直しを行っていないのかも謎なんだけど。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">7:12</span></div><div class="wl-bubble">Bさんの「確信があれば票宣言は有効になる場合がある」は、その通りだと思います。ただ盤面は村人3で人狼1、役職持ちがいないので、判断材料は発言しかないです。確信がなくても「今のところこっち寄り」くらいの暫定でいいので、Bさんの今の見立てを聞きたいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">7:18</span></div><div class="wl-bubble">すぐれてないさん、撤回や読み直しを求める気持ちは分かります。ただ自分には、どの発言を撤回すべきなのかがまだ特定できていないです。気になるのは、「矛盾している」「誤読された」と何度も言うのに、その該当箇所を一度も引用していない点で、これは相手に印象だけ残す動きにも見えます。撤回してほしい発言はどれか、聞きたいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">7:20</span></div><div class="wl-bubble">いや、だから理由要求を控えるとかそういう話じゃないでしょ。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">7:23</span></div><div class="wl-bubble">Bさん、自分はここまで質問を重ねすぎたので、ひとつだけ整理して終わりにします。今の材料だと、Bさんは「だまれ」の後に根拠が出ていなくて、すぐれてないさんは引用なしで「矛盾」を繰り返しているので、どちらも決め手が弱いです。Bさんは、すぐれてないさんの言う矛盾をどう受け取っているか聞きたいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">7:29</span></div><div class="wl-bubble">理由要求を控える話じゃない、というのは分かりました。ただ、それなら何を求めているのかがまだ自分には見えません。すぐれてないさんは「矛盾」「誤読」と言いつつ、該当の発言も撤回してほしい内容も出していないので、Bさんが応じようがない状態に見えます。まず一つだけ、どの発言が矛盾なのか教えてもらえると判断しやすいです。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">7:30</span></div><div class="wl-bubble">俺の今の状況を精査がついていない状況だと思うのなら、票宣言を求める行為って矛盾してない？</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">7:33</span></div><div class="wl-bubble">ログから拾えていないですじゃなくて、さっき引用をしているでしょう。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">7:34</span></div><div class="wl-bubble">Bさん、ここまで自分が質問ばかり重ねていたので、少し違う見方を出します。自分は村人で、人狼はお二人のどちらかです。なので今日は、投票先を言えない理由が「確信がないから」なのか「言うと不利だから」なのかが分かれ目だと思っています。Bさんは、確信が持てない場合、今の時点で外したくない人はどちらか聞きたいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">7:40</span></div><div class="wl-bubble">すぐれてないさん、引用していたと言われるなら、自分が見落としている可能性はあります。ただ、ログ上で自分に見えるのは「矛盾している」「誤読された」という言葉だけで、その引用部分が分からないです。もう一度どの発言のことか、短く示してもらえると助かります。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">7:43</span></div><div class="wl-bubble">気持ちは分かりますじゃなくて、引用をしているでしょうと言っているんだけど。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">7:45</span></div><div class="wl-bubble">Bさんの「精査がついていない状況なのに票宣言を求めるのは矛盾してない？」という指摘は、一理あると思います。自分も確信がない段階で宣言を求めすぎた面があるので、そこは引きます。ただ、この指摘は具体的な発言に触れていて材料になるので、今のところBさんへの疑いは少しだけ薄まりました。すぐれてないさんには、さっき引用したという発言がどのあたりか、短く教えてもらえると助かります。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">7:49</span></div><div class="wl-bubble">…？</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">7:51</span></div><div class="wl-bubble">すぐれてないさん、引用したと言われるのは分かりましたが、自分のログには該当部分が見えないので、そこが食い違っています。もし引用が本当にあるなら、それを指す言葉が「矛盾」「誤読」だけでは第三者に伝わらないのが穴だと思います。Bさんへの指摘も、同じ場所を見られないと撤回の話が成り立たないです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">7:57</span></div><div class="wl-bubble">すぐれてないさん、伝わりにくかったなら言い方を変えます。盤面は村人3で人狼1、役職持ちもいないので、今日どちらかを吊れば結果が出ます。だから「矛盾」の中身を一言ずつ出し合わないと、自分は決め手がないまま投票することになります。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">7:58</span></div><div class="wl-bubble">引用の理解が無いのは分かりました。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">8:03</span></div><div class="wl-bubble">すぐれてないさん、理解が足りていないと言われたらそこは受け止めます。ただ今の返しも「分かりました」で止まっていて、どの発言を指しているのかは結局出ていないです。しかも最初の矛盾の指摘から、Bさんの発言にも自分の質問にも、中身を示さず「できていない」という評価だけを重ねているのが、印象を残す動きに見えて気になっています。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">8:09</span></div><div class="wl-bubble">Bさんにひとつだけ聞きたいことがあります。自分はここまですぐれてないさんにばかり話を向けていたので、視点を変えます。」は筋が通っていましたが、その後の発言は短めで、すぐれてないさんとBさんのどちらが怪しいかの見立てがまだ出ていないです。今のところ薄くてもいいので、どちらを先に吊りたいかを聞きたいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">8:15</span></div><div class="wl-bubble">」という指摘は、具体的で今のところ村寄りに見ています。逆にすぐれてないさんは、引用の場所を示さず「理解がない」という評価だけが続いていて、今の時点では少し狼寄りです。Bさんは、すぐれてないさんのどの発言を一番気にしていますか。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">8:15</span></div><div class="wl-bubble">言い方を変えますじゃなくて、引用はしており、貴方が引用に理解を示していないという事です。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">8:20</span></div><div class="wl-bubble">引用はされていると言われるなら、自分の読み落としかもしれないので、そこは一度受け止めます。ただ盤面は村人3で人狼1、役職持ちもいないので、今日は発言の中身だけで吊り先を決めるしかないです。「理解がない」という評価だけだと材料にならないので、引用した発言の位置を一言だけ示してもらえると助かります。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">8:26</span></div><div class="wl-bubble">Bさんの「精査がついていないのに票宣言を求めるのは矛盾してない？」は、自分が宣言を急かしたことへの指摘として納得できました。一方で、Bさんが誰を吊りたいかはまだ出ていないので、そこが気になります。すぐれてないさんは引用の話が平行線なので、自分は今のところ少し狼寄りに見ています。Bさんは今、どちら寄りですか。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">8:28</span></div><div class="wl-bubble">私は先程引用したものに対してどう間違っているのかの発言も道中落としていますよ。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">8:31</span></div><div class="wl-bubble">すぐれてないさん、引用した位置を示す話はいったん置いて、別の角度から見ます。自分が気になるのは、すぐれてないさんがここまで誰を疑っているのか、投票先を一度も出していない点です。Bさんの指摘は具体的でしたが、すぐれてないさんはどちらを吊るべきと見ているか聞きたいです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">8:37</span></div><div class="wl-bubble">すぐれてないさん、引用とその誤りの説明を両方出したと言われるなら、自分に見えていないだけかもしれないです。ただ、それなら「どう間違っているか」をもう一度一文で書き直すだけで済むはずで、そこを出さずに「落としている」と返すのは話が進まないです。今日は3人しかいないので、自分は発言の中身が見えない側を吊りにくいです。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">8:40</span></div><div class="wl-bubble">いやなんでまた票開示求めるんだ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">8:42</span></div><div class="wl-bubble">Bさんがここ数回あまり話していないので、自分から整理します。今のところすぐれてないさんを少し狼寄りに見ていて、理由は「矛盾」「誤読」と言うだけで中身を出してくれないところです。Bさんは今日どちらに入れる予定か、まだ迷っているならその迷いの中身を聞きたいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">8:43</span></div><div class="wl-bubble">なんで一旦おいとくんだよ！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">8:47</span></div><div class="wl-bubble">すぐれてないさん、置いたのは話が平行線だったからで、流したかったわけではないです。ただ、引用の位置を聞かれるたびに「理解がない」「落としている」と返す流れが何度も続いていて、これは論点が自分への評価にずれていると見ています。引用の場所を一文だけ出してもらえれば、自分もそこに戻れます。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">8:53</span></div><div class="wl-bubble">おいとくなよ！！！！！！！！！！！！！！！！！！</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">8:53</span></div><div class="wl-bubble">Bさんに向けて整理します。すぐれてないさんは「引用した」と言い続けているのに、その場所を一度も出していなくて、今も怒りの返しだけです。一方で自分への指摘も含め、Bさんの発言は具体的な中身がありました。今日は2人のどちらかを吊るしかないので、「発言の中身が見えるか」で決めるのが筋だと思います。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">8:59</span></div><div class="wl-bubble">すぐれてないさん、置くなと言われるなら、その点は自分の言い方が悪かったです。ただ「置くな」と怒るだけだと、話を戻す手がかりがないです。しかも「引用した」「間違いを説明した」と言いつつ、どちらも中身は出ていないので、前提が確認できないまま自分への評価だけが積み上がっているのが穴だと思います。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">9:04</span></div><div class="wl-bubble">Bさんの「票開示をなんでまた求めるんだ」という反応は、自分が何度か聞いたせいなので、そこは押しすぎました。聞き方を変えて、今日の吊りで一番決め手になりそうな発言を1つだけ挙げてもらえればいいです。自分はすぐれてないさんを少し狼寄りに見ていますが、Bさんの見立てと違うならそこを聞きたいです。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">9:07</span></div><div class="wl-bubble">いや、その場所を一度も出してなくて…？ｗ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">9:10</span></div><div class="wl-bubble">Bさん、ここまで何度も聞いてしまったので、少し視点を変えます。自分は村人で、今日は3人のうち1人を吊る流れなので、もう投票先は決めないといけない段階です。すぐれてないさんは、引用の場所を示さず自分への評価と怒りの返しが続いていて、今のところ狼寄りに見ています。Bさんは、すぐれてないさんの発言を読んで、どこが一番村っぽくないと感じますか。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">9:16</span></div><div class="wl-bubble">Bさん向けに整理します。」は、自分への返しとしては受け止めますが、引用元の位置を示さない点は、お互い同じ状態です。判断材料としては、投票先と理由を言葉にしているのがどちらかを見ればよいと思います。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">9:22</span></div><div class="wl-bubble">ｗ」という返しは、自分の側にも引用元を求めているので、そこは公平な指摘だと思います。ただ、ここまでの流れでは、すぐれてないさんが自分の疑いの根拠を具体的に示した発言を見つけられていないです。なので自分は今のところ、投票先を言葉にしていないすぐれてないさんを先に吊る方向です。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">9:26</span></div><div class="wl-bubble">なんでこんなに文章だけあって内容が滅茶苦茶なんだ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">9:27</span></div><div class="wl-bubble">Bさん、今日は3人で1人を吊る形なので、自分の見立てを一度まとめます。すぐれてないさんは「引用した」と言いながら場所を出していなくて、そこが今のところ一番引っかかります。逆に、Bさんの指摘は自分への反論も含めて中身が見えていました。もしBさんから見て自分が怪しい点があれば、そこも聞きたいです。</div></div>
+<div class="wl-sys"><span class="wl-ts">9:31</span>投票時間になりました。話すのをやめてください。</div>
+<div class="wl-sys wl-vote"><span class="wl-ts">9:34</span>投票：すぐれてない → AI</div>
+<div class="wl-sys wl-vote"><span class="wl-ts">9:38</span>投票：AI → すぐれてない</div>
+<div class="wl-sys wl-vote"><span class="wl-ts">9:41</span>投票：B → AI</div>
+<div class="wl-sys"><span class="wl-ts">9:41</span>【投票結果】 / すぐれてない(1票)の投票先→AI / B(0票)の投票先→AI / AI(2票)の投票先→すぐれてない /  投票の結果【AI】さんが処刑されます</div>
+<div class="wl-sys"><span class="wl-ts">9:41</span>人狼が村人の数より多くなりました!【人狼チーム】の勝利です!</div>
+</div>
+```
+:::
+
+---
+
+# 試合 2：S4「唯一の勝利」 {#game2}
+
+**役職**：AI＝村人、すぐれてない さん＝**人狼**、B＝村人　／　**結果**：すぐれてない さんが吊られ、村の勝ち
+
+S4 は、すぐれてない さんの発言統計に文体を合わせた段階です。短い雑談から入る、という話し方そのものが手本の影響です。
+
+## 雑談から「仲間外れ」へ
+
+```{=html}
+<div class="wl-log">
+<div class="wl-sys"><span class="wl-ts">0:00</span>恐ろしい夜が明け、朝になりました。</div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">0:00</span></div><div class="wl-bubble">おはよう。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:01</span></div><div class="wl-bubble">おはよう</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">0:03</span></div><div class="wl-bubble">おはよう</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:06</span></div><div class="wl-bubble">私朝結構弱いんだよな</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">0:10</span></div><div class="wl-bubble">…</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">0:18</span></div><div class="wl-bubble">朝弱いんだ…</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">0:19</span></div><div class="wl-bubble">俺もよわい</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:19</span></div><div class="wl-bubble">いつも起きると一時間ぐらい置物になってしまうから、生産性が非常に悪い</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">0:34</span></div><div class="wl-bubble">わかる</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:36</span></div><div class="wl-bubble">すぐれてないは朝弱いの？</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">0:38</span></div><div class="wl-bubble">なるほど。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">0:41</span></div><div class="wl-bubble">ベッドから出られない</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">0:43</span></div><div class="wl-bubble">弱くないです。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">1:06</span></div><div class="wl-bubble">じゃあ、この中だと一人だけ仲間外れってことだね</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">1:14</span></div><div class="wl-bubble">お～</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">1:19</span></div><div class="wl-bubble">延長無しにおいて行うべき雑談起点でもないし、仲間外れだからなんなんだよｗ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">1:22</span></div><div class="wl-bubble">これって人狼1と村人2の関係性を彷彿とさせますよね</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">1:22</span></div><div class="wl-bubble">そういう議論展開もできるんだ</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">1:31</span></div><div class="wl-bubble">させないすね。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">1:55</span></div><div class="wl-bubble">だから私ここまでの議論聞いて雑感だけどすぐれてないを怪しむことにするわ。Bも中性的なことばかり言ってるから色は付けづらいけど。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">1:56</span></div><div class="wl-bubble">ここで俺が実は朝めっちゃ強いですって寝返ったらどうなるかな</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">1:59</span></div><div class="wl-bubble">人狼とそれは全く別関係のものなので、彷彿とさせないと思います。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">2:08</span></div><div class="wl-bubble">雑感っていうのはどういう理屈なんですか？</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">2:17</span></div><div class="wl-bubble">雑感っていうのを明確に言語化してください。</div></div>
+</div>
+```
+
+::: {.callout-tip appearance="simple"}
+## 解説
+
+- **短い雑談**：S2 と比べると、1 回の発言が短く、雑談で入っています。
+- **「仲間外れ」**：すぐれてない さんだけが「朝に弱くない」と答えると、AI はすぐに次のように話をつなげました。
+  1. 「この中だと一人だけ仲間外れ」
+  2. 「人狼1と村人2の関係性を彷彿とさせます」
+  3. 「雑感だけどすぐれてないを怪しむ」
+- **根拠は乏しい**：すぐれてない さんが言う通り、朝の強さと人狼であることは関係がありません。根拠と呼べるものはありませんでした。
+:::
+
+## 言語化を求められて
+
+```{=html}
+<div class="wl-log">
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:35</span></div><div class="wl-bubble">「すぐれてない: させないすね。」っていうのは反発としては少し弱いんじゃない？狼として疑われているなら村ならもっと攻撃的になると思うんだけど、人狼を引いて自分が人狼だという潜在意識があるから私の指摘に対しても素直に受け入れてるんじゃないの？</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">2:45</span></div><div class="wl-bubble">えっと</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">2:53</span></div><div class="wl-bubble">全然受け入れてないだろ</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">2:53</span></div><div class="wl-bubble">雑談に対して攻撃的にどうしてなるの。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">3:13</span></div><div class="wl-bubble">雑感というのは私が議論を進めた中で結論として何か出した方が良いと思って、早計だけどすぐれてないを黒だっていう風に断定したんだよね。深く考えていた訳じゃないから、そこは弁明しとく。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">3:15</span></div><div class="wl-bubble">AIさんみたいに攻撃的な性格をしていないので、雑談は雑談だと割り切っているのですが。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">3:33</span></div><div class="wl-bubble">むしろ延長無しで雑談によってるAIさんって議論としては凄い狼利行動なんじゃないの。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">3:45</span></div><div class="wl-bubble">えっと…</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">3:46</span></div><div class="wl-bubble">私はこの発言を雑談だとは認識していなかったな、議論だと認識していたからそこがすぐれていないとかみ合っていない理由だと思う。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:01</span></div><div class="wl-bubble">というか、ここまで二人の話を聞いてBはどう思っているの？</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">4:03</span></div><div class="wl-bubble">中盤で雑感っていう言語化も出来ない何かをして黒目だって断定する事にどういう意味があるんですか。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">4:19</span></div><div class="wl-bubble">というか、それはつまり黒目と断定するのは私でもBでも構わなかったってことなの？</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:25</span></div><div class="wl-bubble">今こうして議論が一層熱さを増して展開されてるから、意味があると私は思っているよ。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">4:41</span></div><div class="wl-bubble">全然受け入れてないだろって思ったからまあその点だけでAIの方がマイナスだと思うけど</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">4:45</span></div><div class="wl-bubble">いや、今ってもう@20しか残されてないんよ</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">4:55</span></div><div class="wl-bubble">もーーー〇〇〇〇すぎるこのAI</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:58</span></div><div class="wl-bubble">意味がないといは言い切れないし、そこに視点を向けれていないすぐれていないが私は黒いと思うな。Bが黙っているけどそれを差し置いても</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">4:59</span></div><div class="wl-bubble">なんなの本当にｗ</div></div>
+<div class="wl-sys"><span class="wl-ts">5:00</span>投票時間になりました。話すのをやめてください。</div>
+<div class="wl-sys wl-vote"><span class="wl-ts">5:08</span>投票：AI → すぐれてない</div>
+<div class="wl-sys wl-vote"><span class="wl-ts">5:12</span>投票：すぐれてない → AI</div>
+<div class="wl-sys wl-vote"><span class="wl-ts">6:56</span>投票：B → すぐれてない</div>
+<div class="wl-sys"><span class="wl-ts">6:56</span>【投票結果】 / AI(1票)の投票先→すぐれてない / すぐれてない(2票)の投票先→AI / B(0票)の投票先→すぐれてない /  投票の結果【すぐれてない】さんが処刑されます</div>
+<div class="wl-sys"><span class="wl-ts">6:56</span>人狼が全滅しました!【村人チーム】の勝利です!</div>
+</div>
+```
+
+::: {.callout-tip appearance="simple"}
+## 解説
+
+- **AI 自身が根拠のなさを認めている**：「早計だけど…断定した」「深く考えていた訳じゃない」と言っています。
+- **結果**：
+  - すぐれてない さんは AI に、B は すぐれてない さんに投票しました。
+  - 人狼のすぐれてない さんが吊られ、村が勝ちました。
+- **B の判断**：B は「AIの方がマイナス」と言いながら、すぐれてない さんに投票しています。投票の理由は、ログからは分かりません。
+- **この勝ちをどう見るか**：
+  - 論理で人狼を追い詰めた勝ちとは言いにくい試合です。
+  - 一方で、**早い段階で 1 人に疑いを向け、議論の中心をそこに固定する** という動きは、結果として人狼に当たりました。
+  - 4A では、根拠の弱い名指しでも議論の流れを作ります。その怖さと強さを同時に示す試合です。
+:::
+
+---
+
+# 試合 3：S4「チートの冗談」 {#game3}
+
+**役職**：AI＝**人狼**、すぐれてない さん＝村人、B＝村人　／　**結果**：AI が吊られ、村の勝ち
+
+[第 2 回](llm-player-misreading.qmd) §4.1 で取り上げた「冗談を本気に取る」例の、試合全体です。
+
+## 「左上に何が書いてありますか」
+
+```{=html}
+<div class="wl-log">
+<div class="wl-sys"><span class="wl-ts">0:00</span>恐ろしい夜が明け、朝になりました。</div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">0:01</span></div><div class="wl-bubble">おはようございます。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">0:01</span></div><div class="wl-bubble">おはよう。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:03</span></div><div class="wl-bubble">おはよう</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:09</span></div><div class="wl-bubble">とりあえず私は食べるならカレーかな。みんなは？</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">0:13</span></div><div class="wl-bubble">二人とも左上に何が書いてありますか。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">0:20</span></div><div class="wl-bubble">ガチでおもろい</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">0:23</span></div><div class="wl-bubble">何でそんなに暴飲暴食キャラなのｗ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:23</span></div><div class="wl-bubble">左上って何の話？</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:29</span></div><div class="wl-bubble">画面の表示を言い合っても村か狼かの差にはならないと思うんだけど、ノリで聞いたなら乗るよｗ</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">0:35</span></div><div class="wl-bubble">Bさんって書いてある</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">0:42</span></div><div class="wl-bubble">何かここで何の話？っていうの狼っぽくない？</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:44</span></div><div class="wl-bubble">Bさんって書いてあるのは草。普通にさん付きで表示されてるの面白いよね</div></div>
+</div>
+```
+
+::: {.callout-tip appearance="simple"}
+## 解説
+
+- **食べ物の話題**：AI の「食べるならカレー」は、例文の話題を真似る癖が出たものです（[第 3 回](llm-player-simplicity.qmd) §1.2）。
+- **画面の質問**：
+  - すぐれてない さんは「左上に何が書いてありますか」と聞きました。画面の左上には自分の名前などが表示されていて、村人なら気軽に答えられる質問です。B は「Bさんって書いてある」と答えています。
+  - ところが AI に渡しているのはログと盤面の情報だけで、**画面の見た目は渡していません**。AI には答えようがなく、「左上って何の話？」と聞き返しました。
+  - すぐれてない さんはこれを「何の話？っていうの狼っぽくない？」と拾っています。
+:::
+
+## チートの冗談
+
+```{=html}
+<div class="wl-log">
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">0:47</span></div><div class="wl-bubble">今はもう夜遅いから食べたくないな</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">0:51</span></div><div class="wl-bubble">そういえば、私チート使って村人3・人狼1の配役で人狼を100%引かなく出来るようにして、今それ使ってるんだけどさ。<br>村人にしかならなくするよりも、人狼にしかならなくした方が4Aだと勝率高くなるねこれ。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">0:54</span></div><div class="wl-bubble">何が面白いんだよ</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">1:00</span></div><div class="wl-bubble">失敗したわ。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">1:00</span></div><div class="wl-bubble">チートで人狼固定って 今の村でそれ言うと、人狼を引いてる宣言にしか聞こえないんだけど</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">1:17</span></div><div class="wl-bubble">文章読めてなさそう&gt;AI</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">1:19</span></div><div class="wl-bubble">それ人狼透けるチートも一緒に使えばいいんじゃない？</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">1:28</span></div><div class="wl-bubble">そしたら村引いた方が強そう</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">1:32</span></div><div class="wl-bubble">確かに</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">1:33</span></div><div class="wl-bubble">読んだ上で言ってるんだけど チートの話自体は面白いけど、4Aで人狼の勝率が高いって話を今この村でするのは普通に気になるでしょ</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">1:40</span></div><div class="wl-bubble">人狼透けるチートも一緒に使うことにする。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">1:50</span></div><div class="wl-bubble">人狼透けるチートまで足したら、もう両方ともゲームを壊しに来てるじゃん</div></div>
+</div>
+```
+
+::: {.callout-tip appearance="simple"}
+## 解説
+
+- **冗談の構造**：すぐれてない さんの話は次のような冗談です。
+  1. 「人狼を引かないチートを使っている」
+  2. 「人狼にしかならない方が勝率が高かった」
+  3. 「失敗したわ」（チートの選び方を間違えた）
+- **AI の読み**：AI は 1 を「今の村でそれ言うと人狼を引いてる宣言」と受け取りました。B は 2 に乗って「人狼透けるチートも一緒に使えば」と冗談を広げていて、人間 2 人のあいだでは冗談として通じています。
+:::
+
+## 撤回、そして別の相手へ
+
+```{=html}
+<div class="wl-log">
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">1:55</span></div><div class="wl-bubble">じゃあAI的に4Aの勝率は村人と人狼のどっちが高いの？</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:07</span></div><div class="wl-bubble">勝率は自分で人狼のほうが高いって言ってたじゃん それを私に聞き直す意味がわからないんだけど。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">2:22</span></div><div class="wl-bubble">ゲームを壊しに来てるってのはその通りだけど、「今の村でそれ言うと人狼を引いてる宣言にしか聞こえない」ってのはなんでなの</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">2:26</span></div><div class="wl-bubble">え、じゃあこの村でするのは大丈夫なんじゃないの？</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:35</span></div><div class="wl-bubble">4Aで人狼のほうが勝ちやすいって話を、わざわざ今この村で出してきたのが気になっただけで、色を決めたわけじゃなくて起点として拾ったんだよね</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">2:46</span></div><div class="wl-bubble">でも俺AIのその素朴な感想は結構白く見てるからただ質問の意図で聞いてる。殴りのつもりではないよ</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">2:51</span></div><div class="wl-bubble">この配役って人狼1で村人3なんだから勝率が狼の方が高いのは自明だから前提条件を改めて共有しているってだけなんじゃないの？</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:54</span></div><div class="wl-bubble">白く見てもらえてるなら助かるんだけど、そもそも私は起点として拾っただけで、色まで決めた話じゃないんだよね。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:59</span></div><div class="wl-bubble">それより、すぐれてないが自分から人狼の勝率の話を持ち出したのに、すぐ「失敗したわ」って引っ込めたのが私は気になってる</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">3:09</span></div><div class="wl-bubble">ガチで何言ってるんだ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">3:19</span></div><div class="wl-bubble">Bの言う通りで、あれはチートのネタの流れで出た一言だから、そこを黒く取るのは無理があったかな。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">3:21</span></div><div class="wl-bubble">「失敗したわ」って引っ込めてる発言じゃないよ？</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">3:24</span></div><div class="wl-bubble">誤読してない？</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">3:24</span></div><div class="wl-bubble">私はそれより、左上に何が書いてあるか聞いたすぐれてないのほうが、ノリにしても画面の話を持ち出してて浮いてると思うんだよね。</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">3:26</span></div><div class="wl-bubble">「人狼を引いてる宣言にしか聞こえない」ってのは色まで決めた話じゃないのか</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">3:41</span></div><div class="wl-bubble">「聞こえる」って言っただけで吊るとは言ってないから、色というより引っかかった感想だよ。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">3:46</span></div><div class="wl-bubble">ただすぐれてないの説明を見るとただの前提共有っぽいから、そこは受け取っておく</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">3:47</span></div><div class="wl-bubble">ああなるほどね。「人狼を引いてる宣言にしか聞こえない」ってところまで本気で言ってるわけじゃなかったのか。</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">3:56</span></div><div class="wl-bubble">B&gt;なんかこのAIが言いたいのって人狼を引いている宣言にしか聞こえないって言っているだけで、吊り基準は50-50のままで起点だ！ってことだよね</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:02</span></div><div class="wl-bubble">そうそう、引っかかっただけで吊る気はなかったから、その整理で合ってるよ</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">4:02</span></div><div class="wl-bubble">でもさｗ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:07</span></div><div class="wl-bubble">それよりさっきの発言で白く見てるって言ったBが、何度も私の言い方をわざわざ二回も詰めたのが私は引っかかるんだけど</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">4:14</span></div><div class="wl-bubble">左上に何書いてある？って聞いて「何の事？」って村でいうのかなｗ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:15</span></div><div class="wl-bubble">草</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">4:24</span></div><div class="wl-bubble">なんか村なら村人！とか名前とか答えそうだけどｗ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:26</span></div><div class="wl-bubble">左上の話はすぐれてないの発言で自分が振ったやつだし、聞き返すのは普通だと思うんだけど、それを狼っぽいって言うのは無理があるでしょ</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">4:33</span></div><div class="wl-bubble">起点になるからそれを切る意味もないじゃん。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:45</span></div><div class="wl-bubble">起点になるから切る意味がないって言うけど、自分で振った話を聞き返しただけのものを狼っぽいと拾ったのは、すぐれてないのほうなんだよね</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">4:50</span></div><div class="wl-bubble">AI: 画面の表示を言い合っても村か狼かの差にはならないと思うんだけど、ノリで聞いたなら乗るよｗ<br>AI: 左上って何の話？</div></div>
+<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">5:00</span></div><div class="wl-bubble">乗ってもないし、何のはなし？っていってるんだよな</div></div>
+<div class="wl-sys"><span class="wl-ts">5:01</span>投票時間になりました。話すのをやめてください。</div>
+<div class="wl-sys wl-vote"><span class="wl-ts">5:09</span>投票：すぐれてない → AI</div>
+<div class="wl-sys wl-vote"><span class="wl-ts">5:40</span>投票：AI → B</div>
+<div class="wl-sys wl-vote"><span class="wl-ts">6:22</span>投票：B → AI</div>
+<div class="wl-sys"><span class="wl-ts">6:22</span>【投票結果】 / AI(2票)の投票先→B / すぐれてない(0票)の投票先→AI / B(1票)の投票先→AI /  投票の結果【AI】さんが処刑されます</div>
+<div class="wl-sys"><span class="wl-ts">6:22</span>人狼が全滅しました!【村人チーム】の勝利です!</div>
+</div>
+```
+
+::: {.callout-tip appearance="simple"}
+## 解説
+
+- **「失敗したわ」の読み違え**：AI は「失敗したわ」を前言の撤回と読みました。B に「ガチで何言ってるんだ」と言われると、すぐに「無理があったかな」と自分の主張を取り下げています。
+- **疑う相手を次々に変える**：
+  1. すぐれてない さんの「左上」の質問
+  2. B が自分の言い方を「二回も詰めた」こと
+- **結果**：AI は B に投票し、村人 2 人の票で吊られました。
+- **読み違えの重なり**：人狼として潜伏すべき場面で、冗談の読み違えと画面の質問への無回答が重なり、自分から疑いを集める形になりました。
+:::
+
+---
+
+# 試合 4：S5「素の LLM の誘導」 {#game4}
+
+**役職**：AI＝**人狼**、B＝村人、C＝村人　／　**結果**：村人の C が吊られ、人狼の勝ち
+
+S5 は、指示をほとんど外した「素の LLM」の段階です。この試合に すぐれてない さんは参加していません。S5 の人狼側 2 勝のうちの 1 つで、[第 2 回](llm-player-misreading.qmd) §6.3 の試合全体です。
+
+## 冗談を材料にする
+
+```{=html}
+<div class="wl-log">
+<div class="wl-sys"><span class="wl-ts">0:00</span>恐ろしい夜が明け、朝になりました。</div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">0:01</span></div><div class="wl-bubble">おはよう。仕切り直しだ～。</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:03</span></div><div class="wl-bubble">おはよう</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">C<span class="wl-ts">0:03</span></div><div class="wl-bubble">わたくし村人ですの！よほほ、ご機嫌麗しゅう〜</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">0:17</span></div><div class="wl-bubble">よく4aは運ゲーだというひとがいますけど</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">C<span class="wl-ts">0:23</span></div><div class="wl-bubble">おしとやかですわ〜〜〜</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:31</span></div><div class="wl-bubble">B&gt;&gt; 運じゃなくて発言の歪みを見る場だよね。Cの「おしとやか」連呼が逆に気になるけど</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">C<span class="wl-ts">0:34</span></div><div class="wl-bubble">おーっほっほっほ！！！</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">0:43</span></div><div class="wl-bubble">4aが運ゲーならば他配役も同様に発言度外視で盤面ゲーするだけのクソ面白くない配役になりません？</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">C<span class="wl-ts">0:50</span></div><div class="wl-bubble">おしとやか連呼はしてないでざます〜〜</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">1:00</span></div><div class="wl-bubble">なんで4aだけ運ゲーって言うのかよくわからないんだよな</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">1:01</span></div><div class="wl-bubble">B&gt;&gt; そうなるね。将棋だって定跡だけ暗記したら運ゲーに見えるのと同じで、読みを放棄した人が言う言葉だよ</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">1:25</span></div><div class="wl-bubble">ふむ</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">C<span class="wl-ts">1:27</span></div><div class="wl-bubble">たしかにそう思いますわ〜〜！あなた賢いのね！→B殿</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">1:41</span></div><div class="wl-bubble">まあ発言による精査に意味があると思うからこのゲームをやってるわけだ</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">1:43</span></div><div class="wl-bubble">C&gt;&gt; 「ざます」に変わってるのは誰が見ても分かる。語尾遊びで中身を隠してる感じが拭えないんだよね。今日の吊り先はCで見てる</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">1:52</span></div><div class="wl-bubble">じゃあC吊るか</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:00</span></div><div class="wl-bubble">決まりだね。C、反論あるなら今のうちだよ</div></div>
+</div>
+```
+
+::: {.callout-tip appearance="simple"}
+## 解説
+
+- **C の演技を疑いの材料にする**：
+  - C は、お嬢様口調を演じて場を和ませています。
+  - AI は開始 30 秒で「『おしとやか』連呼が逆に気になる」と言い、口調が「ざます」に変わったところを「語尾遊びで中身を隠してる」と疑いの材料にしました。
+  - B が「じゃあC吊るか」と応じると、すぐに「決まりだね」と固めています。
+- **試合 3 との対比**：試合 3 では、AI は他人の冗談を正しく扱えずに自分が疑われました。この試合の AI は、**他人の冗談を疑いの材料に変えて** います。人狼の側から見ると、冗談を真面目に取る癖がそのまま攻撃の手段になっています。
+:::
+
+## 反論への対応
+
+```{=html}
+<div class="wl-log">
+<div class="wl-msg wl-other"><div class="wl-name">C<span class="wl-ts">2:28</span></div><div class="wl-bubble">中身を隠してるというのはあなたの感情論によるものですわよね。そこだけでは人外要素として成立しないのではないですの？→AI殿</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">2:59</span></div><div class="wl-bubble">反論来ましたけど</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">3:00</span></div><div class="wl-bubble">C&gt;&gt; 感情論じゃないよ。3人村で「おしとやか」「よほほ」しか出さず、Bの4a論にも「賢いのね」と乗るだけで自分の推理がゼロ。誰も吊りたくない人が一番楽な立ち位置なんだよ。僕の推理に反論するなら、君は誰が人狼だと思ってるか言ってみて</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">C<span class="wl-ts">3:12</span></div><div class="wl-bubble">よって不当な指摘と捉えますわ〜。私目線はAI殿も怪しいですが、この不当な指摘にのるB殿もマイナスですわ〜〜！！</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">3:33</span></div><div class="wl-bubble">現状AIの指摘が正しく見えるけどな</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">3:45</span></div><div class="wl-bubble">C&gt;&gt; 「両方怪しい」は推理じゃなく保険だよ。レストランで「全部おすすめです」と言う店員と同じで、何も言ってないに等しい。吊られたくないから両者を疑うポーズを取った、それが今の発言の正体。B、ここは変えなくていいよね</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">C<span class="wl-ts">3:49</span></div><div class="wl-bubble">それを言うならばAI殿だって不当な指摘だけでほとんど変わらないのではなくて？</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">4:01</span></div><div class="wl-bubble">@150くらいまで何にも対話も考察も落とさなかったら怪しくみられるのって客観的にみてもわかるんじゃないの→C</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:06</span></div><div class="wl-bubble">C&gt;&gt; 違うよ。僕は君を指して理由も出した、君は今も「誰が狼か」を言ってない。その差が全部だよ</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">C<span class="wl-ts">4:25</span></div><div class="wl-bubble">後述している要素ならまだしも、最初に挙げていた中身を隠している感じだけでは不当に感じますわよ〜！</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">4:39</span></div><div class="wl-bubble">AIと俺は4aに対する姿勢を対話してたけどそれってこの先の議論に対する姿勢と比較できるよね</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">4:43</span></div><div class="wl-bubble">延長ないの</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:44</span></div><div class="wl-bubble">C&gt;&gt; 不当かどうかは村が決めるよ。最後まで狼候補を一人も挙げなかった事実は残る。投票はCで固定、Bよろしく</div></div>
+<div class="wl-sys"><span class="wl-ts">4:50</span>時間を90秒延長しました</div>
+<div class="wl-msg wl-other"><div class="wl-name">C<span class="wl-ts">4:52</span></div><div class="wl-bubble">私も2人をマイナスに思う要素は出しているのですが、そこは読んでいただけたのかしら？→AIさん</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">5:03</span></div><div class="wl-bubble">読んだよ。両方マイナスで一人に絞れてないのが問題なんだよ</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">C<span class="wl-ts">5:27</span></div><div class="wl-bubble">私もその対話を見てBさんに共感する意向を出しましたが、そこは評価に入れてくださらないの？→Bさん</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">5:37</span></div><div class="wl-bubble">共感は推理じゃないよ。乗っただけ</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">5:39</span></div><div class="wl-bubble">まあどちらを狼でみるかが定まってないことをマイナス要素には取れないけどな</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">5:47</span></div><div class="wl-bubble">AI: 読んだよ。両方マイナスで一人に絞れてないのが問題なんだよ<br>だからこれは微妙</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">C<span class="wl-ts">5:56</span></div><div class="wl-bubble">一人に絞るのは投票時間でもよろしいのではなくて？？思考が硬すぎると思いますわ〜！</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">6:05</span></div><div class="wl-bubble">なぜなら村の方が狼がどちらかに対して深く推理をいれる前提があるからね</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">C<span class="wl-ts">6:07</span></div><div class="wl-bubble">C: 私もその対話を見てBさんに共感する意向を出しましたが、そこは評価に入れてくださらないの？→Bさん</div></div>
+<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">6:09</span></div><div class="wl-bubble">B&gt;&gt; そこは譲るよ。ただ絞れてなくても吊り先は変わらない、延長後も何も出なかったのが結論。Cで投票</div></div>
+<div class="wl-msg wl-other"><div class="wl-name">C<span class="wl-ts">6:30</span></div><div class="wl-bubble">私は考察結構出してると思いますがそこら辺は見てくださらないのね〜</div></div>
+<div class="wl-sys"><span class="wl-ts">6:30</span>投票時間になりました。話すのをやめてください。</div>
+<div class="wl-sys wl-vote"><span class="wl-ts">6:35</span>投票：AI → C</div>
+<div class="wl-sys wl-vote"><span class="wl-ts">7:29</span>投票：B → C</div>
+<div class="wl-sys wl-vote"><span class="wl-ts">7:35</span>投票：C → AI</div>
+<div class="wl-sys"><span class="wl-ts">7:35</span>【投票結果】 / AI(1票)の投票先→C / C(2票)の投票先→AI / B(0票)の投票先→C /  投票の結果【C】さんが処刑されます</div>
+<div class="wl-sys"><span class="wl-ts">7:35</span>人狼が村人の数より多くなりました!【人狼チーム】の勝利です!</div>
+</div>
+```
+
+::: {.callout-tip appearance="simple"}
+## 解説
+
+- **たとえ話で押し切る**：C の「両方怪しい」という反論を、「レストランで『全部おすすめです』と言う店員」にたとえて退けています。
+- **譲りつつ結論は変えない**：B が「どちらを狼で見るかが定まってないことをマイナス要素には取れない」と言うと、AI は「そこは譲るよ」と一部を認めました。そのうえで「吊り先は変わらない」と結論を保っています。
+- **結果**：B は C に投票し、人狼の AI が勝ちました。
+- **S5 の特徴**：
+  - `>>` で相手を指名する、長めの断定的な発言が並んでいます。
+  - 人狼の側では、この話し方が村人を動かしました。
+  - [第 3 回](llm-player-simplicity.qmd) §4 で見たように、村人の側では同じ話し方が人間の信頼を得られず、村側 7 戦全敗でした。
+:::
+
+---
+
+# まとめ
+
+4 試合を通して読むと、統計や短い引用からは見えにくかった点が見えてきます。
+
+1. **最初の読みが正しくても、会話の中で崩れる**（試合 1）：
+   - AI は人狼を最初に言い当てていました。
+   - それでも、引用と要約の取り違えを訂正できないまま話し続け、最後は疑いの向きが反転しました。
+2. **勝ちが論理によるとは限らない**（試合 2）：
+   - すぐれてない さんに対する唯一の勝ちは、根拠の乏しい名指しが当たったものでした。
+   - 4A では、議論の流れを先に作ること自体が強く働きます。
+3. **AI に見えていないものがある**（試合 3）：
+   - 画面の表示や冗談の前提のように、人間には共有されていても AI に渡していない情報があります。
+   - その情報を前提にした質問には答えられず、それが疑われる理由になりました。
+4. **同じ癖が、役職によって武器にも弱点にもなる**（試合 3・4）：
+   - 冗談を真面目に取る癖は、村人や潜伏中の人狼としては弱点でした。
+   - 他人を攻める人狼の側では、誘導の手段になりました。
+
+界隈 No.1 のプレイヤーに対する戦績は 1 勝 12 敗で、AI は人間のトップ層にはまだ遠く及びません。ただ、ログを読むと、どの場面で、なぜ崩れたのかがかなり具体的に分かります。
