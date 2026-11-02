@@ -19,6 +19,8 @@ website:
         text: Mathematics
       - href: theory/index.qmd
         text: Theory
+      - href: games/index.qmd
+        text: Games
       - href: about.qmd
         text: About
 

@@ -1,0 +1,21 @@
+---
+title: "ゲーム"
+listing:
+  id: games-list
+  contents: notes.yml
+  type: default
+  sort: false
+  fields: [date, title, description]
+  date-format: "YYYY/MM/DD"
+  sort-ui: false
+  filter-ui: false
+---
+
+## 概要
+
+人狼ゲームの研究から生まれた、ブラウザで遊べるゲームを紹介しています。どちらも、人狼ゲームの一部分（進行の判断、初日の推理）だけを取り出して、人が遊べる形にしたものです。同じルールで AI にも解かせられるように作っているので、今後の研究の土台にもなります。これらのゲームを使った研究の成果は、[Research](../research/index.qmd) に載せていきます。
+
+## ゲーム一覧 {#games}
+
+::: {#games-list}
+:::
