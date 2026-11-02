@@ -7,7 +7,7 @@ project:
 lang: ja
 
 website:
-  title: "Werewolf Decision AI"
+  title: "人狼海図"
 
   navbar:
     left:

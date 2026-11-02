@@ -1,6 +1,6 @@
 ---
-title: "Werewolf Decision AI"
-subtitle: "A mathematical and computational study of decision-making in Werewolf games."
+title: "人狼海図"
+subtitle: "Analytical Approaches to Werewolf"
 ---
 
 ## 本研究について
