@@ -18,3 +18,7 @@
   path: llm-player-replays.qmd
   date: 2026-11-01
   description: "界隈 No.1 プレイヤー・すぐれてない さんとの対局（AI は 1 勝 12 敗）を中心に、4 試合の昼の議論をチャット形式で載せ、どこで読みが崩れ、どこで人間を動かしたかを解説しました。"
+- title: "人狼盤面対戦（Werewolf Board Duel）"
+  path: board-duel.qmd
+  date: 2026-11-02
+  description: "人狼ゲームの進行（CO 要請・処刑・占い先・護衛）を、村側と人狼側の 2 人対戦カードゲームにした Web アプリです。ブラウザで友人や CPU と対戦でき、エンジンは CFR などの探索手法に組み込めるよう設計しています。"
