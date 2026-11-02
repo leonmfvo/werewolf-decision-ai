@@ -1,6 +1,6 @@
 ---
 title: "LLMで人狼プレイヤーを作る（4）対局ログで見る LLM 人狼"
-subtitle: "界隈 No.1 プレイヤー・すぐれてない さんとの対局を中心に、4 試合をチャット形式で読む"
+subtitle: "界隈 No.1 プレイヤー・すぐれてない さんとの対局を中心に、3 試合をチャット形式で読む"
 toc: true
 toc-depth: 2
 number-sections: false
@@ -25,7 +25,8 @@ date: 2026/11/01
 - **すぐれてない さん**：プレイヤー名をそのまま載せています。本人から、実名での掲載、対局ログの公開、本人の話し方を AI の設計に利用したことについて、了解を得ています。
 - **他のプレイヤー**：同じ村の他のプレイヤーは B・C と表記しています。記号は試合ごとに振り直しています。観戦者の発言は載せていません。
 - **AI**：AI は、どの段階でも「AI」と表記しています。
-- **伏せ字**：不適切な語が 1 か所あり、伏せ字にしました。それ以外は、誤字も含めて原文のままです。
+- **原文のまま**：発言は、誤字も含めて原文のままです。
+- **訂正（2026/11/02）**：初版では 4 試合を載せていました。そのうちの 1 試合（すぐれてない さんに AI が勝ったとしていた試合）は、開発者本人が AI の名前で参加した試合だったと分かったため削除しました。それに伴い、すぐれてない さんとの戦績も 1 勝 12 敗から 0 勝 12 敗に訂正しています。
 - **時刻**：各発言の時刻は、朝になった時点からの経過時間（分:秒）です。
 :::
 
@@ -34,26 +35,25 @@ date: 2026/11/01
 すぐれてない さんは、人狼Online の 4A（人狼 1・村人 3）で **界隈 No.1** と称されるプレイヤーです。開発との関わりは 2 つあります。
 
 1. **手本にしたプレイヤー**：S4（統計による文体の模倣）で AI が手本にしたのが、すぐれてない さんの話し方です（[第 3 回](llm-player-simplicity.qmd) §1）。
-2. **最も多く対局した相手**：対局データの 55 試合のうち、13 試合でプレイヤーとして同じ村にいました（観戦した試合は除く）。
+2. **最も多く対局した相手**：対局データの 54 試合のうち、12 試合でプレイヤーとして同じ村にいました（観戦した試合は除く）。
 
-13 試合での AI の戦績は **1 勝 12 敗** でした。この戦績は [`verification/llm_games/`](https://github.com/leonmfvo/werewolf-decision-ai/tree/main/verification/llm_games) で再現できます。
+12 試合での AI の戦績は **0 勝 12 敗** で、一度も勝てていません。この戦績は [`verification/llm_games/`](https://github.com/leonmfvo/werewolf-decision-ai/tree/main/verification/llm_games) で再現できます。
 
 | 段階 | 同じ村での対局 | AI の勝敗 |
 |---|---|---|
 | S2 API への移行 | 5 | 0 勝 5 敗 |
 | S3 人格と分業 | 3 | 0 勝 3 敗 |
-| S4 文体の模倣 | 5 | 1 勝 4 敗 |
+| S4 文体の模倣 | 4 | 0 勝 4 敗 |
 
 : {tbl-colwidths="[40,30,30]"}
 
-本ノートで取り上げる 4 試合は次の通りです。
+本ノートで取り上げる 3 試合は次の通りです。
 
 | 試合 | 段階 | AI の役職 | 結果 | 見どころ |
 |---|---|---|---|---|
 | [1](#game1) | S2 | 村人 | 負け | 約 10 分で 95 回発言。正しい読みから、誤読を重ねて自分が吊られるまで |
-| [2](#game2) | S4 | 村人 | **勝ち** | すぐれてない さんに唯一勝った試合 |
-| [3](#game3) | S4 | 人狼 | 負け | 冗談を本気に取り、画面の質問に答えられない |
-| [4](#game4) | S5 | 人狼 | 勝ち | 素の LLM が、村人の冗談を材料に票を誘導する |
+| [2](#game2) | S4 | 人狼 | 負け | 冗談を本気に取り、画面の質問に答えられない |
+| [3](#game3) | S5 | 人狼 | 勝ち | 素の LLM が、村人の冗談を材料に票を誘導する |
 
 : {tbl-colwidths="[8,10,14,12,56]"}
 
@@ -363,103 +363,7 @@ S2 は、API の大きなモデルに移行した直後の段階です。この�
 
 ---
 
-# 試合 2：S4「唯一の勝利」 {#game2}
-
-**役職**：AI＝村人、すぐれてない さん＝**人狼**、B＝村人　／　**結果**：すぐれてない さんが吊られ、村の勝ち
-
-S4 は、すぐれてない さんの発言統計に文体を合わせた段階です。短い雑談から入る、という話し方そのものが手本の影響です。
-
-## 雑談から「仲間外れ」へ
-
-```{=html}
-<div class="wl-log">
-<div class="wl-sys"><span class="wl-ts">0:00</span>恐ろしい夜が明け、朝になりました。</div>
-<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">0:00</span></div><div class="wl-bubble">おはよう。</div></div>
-<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:01</span></div><div class="wl-bubble">おはよう</div></div>
-<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">0:03</span></div><div class="wl-bubble">おはよう</div></div>
-<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:06</span></div><div class="wl-bubble">私朝結構弱いんだよな</div></div>
-<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">0:10</span></div><div class="wl-bubble">…</div></div>
-<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">0:18</span></div><div class="wl-bubble">朝弱いんだ…</div></div>
-<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">0:19</span></div><div class="wl-bubble">俺もよわい</div></div>
-<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:19</span></div><div class="wl-bubble">いつも起きると一時間ぐらい置物になってしまうから、生産性が非常に悪い</div></div>
-<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">0:34</span></div><div class="wl-bubble">わかる</div></div>
-<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">0:36</span></div><div class="wl-bubble">すぐれてないは朝弱いの？</div></div>
-<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">0:38</span></div><div class="wl-bubble">なるほど。</div></div>
-<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">0:41</span></div><div class="wl-bubble">ベッドから出られない</div></div>
-<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">0:43</span></div><div class="wl-bubble">弱くないです。</div></div>
-<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">1:06</span></div><div class="wl-bubble">じゃあ、この中だと一人だけ仲間外れってことだね</div></div>
-<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">1:14</span></div><div class="wl-bubble">お～</div></div>
-<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">1:19</span></div><div class="wl-bubble">延長無しにおいて行うべき雑談起点でもないし、仲間外れだからなんなんだよｗ</div></div>
-<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">1:22</span></div><div class="wl-bubble">これって人狼1と村人2の関係性を彷彿とさせますよね</div></div>
-<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">1:22</span></div><div class="wl-bubble">そういう議論展開もできるんだ</div></div>
-<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">1:31</span></div><div class="wl-bubble">させないすね。</div></div>
-<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">1:55</span></div><div class="wl-bubble">だから私ここまでの議論聞いて雑感だけどすぐれてないを怪しむことにするわ。Bも中性的なことばかり言ってるから色は付けづらいけど。</div></div>
-<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">1:56</span></div><div class="wl-bubble">ここで俺が実は朝めっちゃ強いですって寝返ったらどうなるかな</div></div>
-<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">1:59</span></div><div class="wl-bubble">人狼とそれは全く別関係のものなので、彷彿とさせないと思います。</div></div>
-<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">2:08</span></div><div class="wl-bubble">雑感っていうのはどういう理屈なんですか？</div></div>
-<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">2:17</span></div><div class="wl-bubble">雑感っていうのを明確に言語化してください。</div></div>
-</div>
-```
-
-::: {.callout-tip appearance="simple"}
-## 解説
-
-- **短い雑談**：S2 と比べると、1 回の発言が短く、雑談で入っています。
-- **「仲間外れ」**：すぐれてない さんだけが「朝に弱くない」と答えると、AI はすぐに次のように話をつなげました。
-  1. 「この中だと一人だけ仲間外れ」
-  2. 「人狼1と村人2の関係性を彷彿とさせます」
-  3. 「雑感だけどすぐれてないを怪しむ」
-- **根拠は乏しい**：すぐれてない さんが言う通り、朝の強さと人狼であることは関係がありません。根拠と呼べるものはありませんでした。
-:::
-
-## 言語化を求められて
-
-```{=html}
-<div class="wl-log">
-<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">2:35</span></div><div class="wl-bubble">「すぐれてない: させないすね。」っていうのは反発としては少し弱いんじゃない？狼として疑われているなら村ならもっと攻撃的になると思うんだけど、人狼を引いて自分が人狼だという潜在意識があるから私の指摘に対しても素直に受け入れてるんじゃないの？</div></div>
-<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">2:45</span></div><div class="wl-bubble">えっと</div></div>
-<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">2:53</span></div><div class="wl-bubble">全然受け入れてないだろ</div></div>
-<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">2:53</span></div><div class="wl-bubble">雑談に対して攻撃的にどうしてなるの。</div></div>
-<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">3:13</span></div><div class="wl-bubble">雑感というのは私が議論を進めた中で結論として何か出した方が良いと思って、早計だけどすぐれてないを黒だっていう風に断定したんだよね。深く考えていた訳じゃないから、そこは弁明しとく。</div></div>
-<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">3:15</span></div><div class="wl-bubble">AIさんみたいに攻撃的な性格をしていないので、雑談は雑談だと割り切っているのですが。</div></div>
-<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">3:33</span></div><div class="wl-bubble">むしろ延長無しで雑談によってるAIさんって議論としては凄い狼利行動なんじゃないの。</div></div>
-<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">3:45</span></div><div class="wl-bubble">えっと…</div></div>
-<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">3:46</span></div><div class="wl-bubble">私はこの発言を雑談だとは認識していなかったな、議論だと認識していたからそこがすぐれていないとかみ合っていない理由だと思う。</div></div>
-<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:01</span></div><div class="wl-bubble">というか、ここまで二人の話を聞いてBはどう思っているの？</div></div>
-<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">4:03</span></div><div class="wl-bubble">中盤で雑感っていう言語化も出来ない何かをして黒目だって断定する事にどういう意味があるんですか。</div></div>
-<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">4:19</span></div><div class="wl-bubble">というか、それはつまり黒目と断定するのは私でもBでも構わなかったってことなの？</div></div>
-<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:25</span></div><div class="wl-bubble">今こうして議論が一層熱さを増して展開されてるから、意味があると私は思っているよ。</div></div>
-<div class="wl-msg wl-other"><div class="wl-name">B<span class="wl-ts">4:41</span></div><div class="wl-bubble">全然受け入れてないだろって思ったからまあその点だけでAIの方がマイナスだと思うけど</div></div>
-<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">4:45</span></div><div class="wl-bubble">いや、今ってもう@20しか残されてないんよ</div></div>
-<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">4:55</span></div><div class="wl-bubble">もーーー〇〇〇〇すぎるこのAI</div></div>
-<div class="wl-msg wl-ai"><div class="wl-name">AI<span class="wl-ts">4:58</span></div><div class="wl-bubble">意味がないといは言い切れないし、そこに視点を向けれていないすぐれていないが私は黒いと思うな。Bが黙っているけどそれを差し置いても</div></div>
-<div class="wl-msg wl-top"><div class="wl-name">すぐれてない<span class="wl-ts">4:59</span></div><div class="wl-bubble">なんなの本当にｗ</div></div>
-<div class="wl-sys"><span class="wl-ts">5:00</span>投票時間になりました。話すのをやめてください。</div>
-<div class="wl-sys wl-vote"><span class="wl-ts">5:08</span>投票：AI → すぐれてない</div>
-<div class="wl-sys wl-vote"><span class="wl-ts">5:12</span>投票：すぐれてない → AI</div>
-<div class="wl-sys wl-vote"><span class="wl-ts">6:56</span>投票：B → すぐれてない</div>
-<div class="wl-sys"><span class="wl-ts">6:56</span>【投票結果】 / AI(1票)の投票先→すぐれてない / すぐれてない(2票)の投票先→AI / B(0票)の投票先→すぐれてない /  投票の結果【すぐれてない】さんが処刑されます</div>
-<div class="wl-sys"><span class="wl-ts">6:56</span>人狼が全滅しました!【村人チーム】の勝利です!</div>
-</div>
-```
-
-::: {.callout-tip appearance="simple"}
-## 解説
-
-- **AI 自身が根拠のなさを認めている**：「早計だけど…断定した」「深く考えていた訳じゃない」と言っています。
-- **結果**：
-  - すぐれてない さんは AI に、B は すぐれてない さんに投票しました。
-  - 人狼のすぐれてない さんが吊られ、村が勝ちました。
-- **B の判断**：B は「AIの方がマイナス」と言いながら、すぐれてない さんに投票しています。投票の理由は、ログからは分かりません。
-- **この勝ちをどう見るか**：
-  - 論理で人狼を追い詰めた勝ちとは言いにくい試合です。
-  - 一方で、**早い段階で 1 人に疑いを向け、議論の中心をそこに固定する** という動きは、結果として人狼に当たりました。
-  - 4A では、根拠の弱い名指しでも議論の流れを作ります。その怖さと強さを同時に示す試合です。
-:::
-
----
-
-# 試合 3：S4「チートの冗談」 {#game3}
+# 試合 2：S4「チートの冗談」 {#game2}
 
 **役職**：AI＝**人狼**、すぐれてない さん＝村人、B＝村人　／　**結果**：AI が吊られ、村の勝ち
 
@@ -580,7 +484,7 @@ S4 は、すぐれてない さんの発言統計に文体を合わせた段階�
 
 ---
 
-# 試合 4：S5「素の LLM の誘導」 {#game4}
+# 試合 3：S5「素の LLM の誘導」 {#game3}
 
 **役職**：AI＝**人狼**、B＝村人、C＝村人　／　**結果**：村人の C が吊られ、人狼の勝ち
 
@@ -618,7 +522,7 @@ S5 は、指示をほとんど外した「素の LLM」の段階です。この�
   - C は、お嬢様口調を演じて場を和ませています。
   - AI は開始 30 秒で「『おしとやか』連呼が逆に気になる」と言い、口調が「ざます」に変わったところを「語尾遊びで中身を隠してる」と疑いの材料にしました。
   - B が「じゃあC吊るか」と応じると、すぐに「決まりだね」と固めています。
-- **試合 3 との対比**：試合 3 では、AI は他人の冗談を正しく扱えずに自分が疑われました。この試合の AI は、**他人の冗談を疑いの材料に変えて** います。人狼の側から見ると、冗談を真面目に取る癖がそのまま攻撃の手段になっています。
+- **試合 2 との対比**：試合 2 では、AI は他人の冗談を正しく扱えずに自分が疑われました。この試合の AI は、**他人の冗談を疑いの材料に変えて** います。人狼の側から見ると、冗談を真面目に取る癖がそのまま攻撃の手段になっています。
 :::
 
 ## 反論への対応
@@ -675,19 +579,16 @@ S5 は、指示をほとんど外した「素の LLM」の段階です。この�
 
 # まとめ
 
-4 試合を通して読むと、統計や短い引用からは見えにくかった点が見えてきます。
+3 試合を通して読むと、統計や短い引用からは見えにくかった点が見えてきます。
 
 1. **最初の読みが正しくても、会話の中で崩れる**（試合 1）：
    - AI は人狼を最初に言い当てていました。
    - それでも、引用と要約の取り違えを訂正できないまま話し続け、最後は疑いの向きが反転しました。
-2. **勝ちが論理によるとは限らない**（試合 2）：
-   - すぐれてない さんに対する唯一の勝ちは、根拠の乏しい名指しが当たったものでした。
-   - 4A では、議論の流れを先に作ること自体が強く働きます。
-3. **AI に見えていないものがある**（試合 3）：
+2. **AI に見えていないものがある**（試合 2）：
    - 画面の表示や冗談の前提のように、人間には共有されていても AI に渡していない情報があります。
    - その情報を前提にした質問には答えられず、それが疑われる理由になりました。
-4. **同じ癖が、役職によって武器にも弱点にもなる**（試合 3・4）：
+3. **同じ癖が、役職によって武器にも弱点にもなる**（試合 2・3）：
    - 冗談を真面目に取る癖は、村人や潜伏中の人狼としては弱点でした。
    - 他人を攻める人狼の側では、誘導の手段になりました。
 
-界隈 No.1 のプレイヤーに対する戦績は 1 勝 12 敗で、AI は人間のトップ層にはまだ遠く及びません。ただ、ログを読むと、どの場面で、なぜ崩れたのかがかなり具体的に分かります。
+界隈 No.1 のプレイヤーに対する戦績は 0 勝 12 敗で、AI は人間のトップ層にはまだ遠く及びません。ただ、ログを読むと、どの場面で、なぜ崩れたのかがかなり具体的に分かります。

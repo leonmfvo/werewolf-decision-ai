@@ -42,15 +42,14 @@ game,stage,players,jobset,missing_roles,ai_role,ai_side,winner,ai_win,ai_died,ai
 41,S4,4,wolf1 villager3,yes,villager,village,werewolf,0,1,19,0,8,no,1,0,no
 42,S4,4,wolf1 villager3,yes,werewolf,werewolf,village,0,1,23,,4,no,2,2,yes
 43,S4,4,wolf1 villager3,yes,werewolf,werewolf,village,0,1,21,,4,no,2,2,yes
-44,S4,4,wolf1 villager3,yes,villager,village,village,1,0,13,1,4,no,1,1,yes
-45,S4,4,wolf1 villager3,yes,villager,village,werewolf,0,1,25,0,4,no,1,0,yes
-46,S4,4,wolf1 villager3,yes,villager,village,werewolf,0,1,15,1,4,no,1,0,yes
-47,S5,4,wolf1 villager3,yes,villager,village,werewolf,0,0,7,0,10,no,1,0,no
-48,S5,4,wolf1 villager3,no,villager,village,werewolf,0,0,16,0,10,no,1,1,no
-49,S5,4,wolf1 villager3,no,villager,village,werewolf,0,1,18,1,20,no,1,0,no
-50,S5,4,wolf1 villager3,yes,villager,village,werewolf,0,1,8,0,8,no,1,0,no
-51,S5,4,wolf1 villager3,yes,villager,village,werewolf,0,1,7,1,7,no,1,0,no
-52,S5,4,wolf1 villager3,yes,werewolf,werewolf,werewolf,1,0,10,,10,no,2,1,no
-53,S5,4,wolf1 medium1 villager2,no,villager,village,werewolf,0,1,13,1,11,no,1,0,no
-54,S5,4,wolf1 villager3,yes,werewolf,werewolf,werewolf,1,0,12,,13,no,2,1,no
-55,S5,4,wolf1 medium1 villager2,no,villager,village,werewolf,0,1,17,1,14,no,1,0,no
+44,S4,4,wolf1 villager3,yes,villager,village,werewolf,0,1,25,0,4,no,1,0,yes
+45,S4,4,wolf1 villager3,yes,villager,village,werewolf,0,1,15,1,4,no,1,0,yes
+46,S5,4,wolf1 villager3,yes,villager,village,werewolf,0,0,7,0,10,no,1,0,no
+47,S5,4,wolf1 villager3,no,villager,village,werewolf,0,0,16,0,10,no,1,1,no
+48,S5,4,wolf1 villager3,no,villager,village,werewolf,0,1,18,1,20,no,1,0,no
+49,S5,4,wolf1 villager3,yes,villager,village,werewolf,0,1,8,0,8,no,1,0,no
+50,S5,4,wolf1 villager3,yes,villager,village,werewolf,0,1,7,1,7,no,1,0,no
+51,S5,4,wolf1 villager3,yes,werewolf,werewolf,werewolf,1,0,10,,10,no,2,1,no
+52,S5,4,wolf1 medium1 villager2,no,villager,village,werewolf,0,1,13,1,11,no,1,0,no
+53,S5,4,wolf1 villager3,yes,werewolf,werewolf,werewolf,1,0,12,,13,no,2,1,no
+54,S5,4,wolf1 medium1 villager2,no,villager,village,werewolf,0,1,17,1,14,no,1,0,no

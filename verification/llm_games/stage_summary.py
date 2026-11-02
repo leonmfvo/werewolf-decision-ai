@@ -49,9 +49,9 @@ def share(rows, key):
 def main():
     games = load("games.csv")
     utts = load("utterances.csv")
-    assert len(games) == 55, len(games)
+    assert len(games) == 54, len(games)
     ai_utts = [u for u in utts if u["speaker"] == "AI"]
-    assert len(ai_utts) == sum(int(g["ai_posts"]) for g in games) == 921
+    assert len(ai_utts) == sum(int(g["ai_posts"]) for g in games) == 908
 
     print("== 全体 ==")
     wins = sum(int(g["ai_win"]) for g in games)
