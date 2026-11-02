@@ -16,6 +16,7 @@ date: 2026/10/31
 
 - 構成・開発の段階（S1〜S5）・資料の出どころ：[第 1 回](llm-player-design.qmd)
 - 失敗と成功の具体例：[第 2 回](llm-player-misreading.qmd)
+- ソースコード：[werewolf-llm-player](https://github.com/leonmfvo/werewolf-llm-player)（多層の設計は `think.py` / `think_free.py`、素の LLM モードは `think_free.py` の `raw`）
 
 本ノートの数値には、出どころが 2 種類あります。
 
@@ -106,7 +107,7 @@ S4 の後半にはさらに段階が増え、1 回の発言を作るのに次の
 
 ## 2.1 引き算への転換
 
-開発者は「一旦今までの指示を全部無くして素のLLMで…足し算ばかりでよくない」と判断しました。そこで、次の構成の「素の LLM」モードを作りました。
+開発者は「一旦今までの指示を全部無くして素のLLMで…足し算ばかりでよくない」と判断しました。そこで、次の構成の「素の LLM」モードを作りました（[コード](https://github.com/leonmfvo/werewolf-llm-player) では `python selfplay.py raw=1` で、手元の模擬の村で試せます）。
 
 - **システム側の指示**：2 文だけ（あなたはこの村のプレイヤーで、ログの続きとして次の 1 発言を書く）
 - **開発者が自由に書き換える短いプロンプト**

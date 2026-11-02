@@ -16,6 +16,7 @@ date: 2026/10/31
 
 - 構成・開発の段階（S1〜S5）・資料の出どころ：[第 1 回](llm-player-design.qmd)
 - 設計の比較：[第 3 回](llm-player-simplicity.qmd)
+- ソースコード：[werewolf-llm-player](https://github.com/leonmfvo/werewolf-llm-player)（§5 の読解テストは `read_test.py`、場面のベンチマークは `bench.py`。問題そのものは実際の対局から作ったため公開していません）
 
 引用する人間の発言は、プレイヤー名を A・B・C に置き換えています。記号は例ごとに振り直しています。AI の発言は原文のまま、他人の名前だけを置き換えています。
 :::
