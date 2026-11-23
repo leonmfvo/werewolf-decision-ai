@@ -155,3 +155,12 @@ td code {
 .wl-key-ai { background: #ddf4ff; border-color: #9cd0ff; }
 .wl-key-top { background: #fff1e5; border-color: #ffc9a0; }
 .wl-key-other { background: #fff; border-color: #d0d7de; }
+
+/* 横に広い表は、ページではなく表の中で横にスクロールさせる */
+.wide-table {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.wide-table table {
+  min-width: 520px;
+}
